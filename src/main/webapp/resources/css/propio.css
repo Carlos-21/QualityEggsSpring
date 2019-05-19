@@ -1,0 +1,18 @@
+
+body {
+  padding : 2px;
+  
+}
+
+#ReportesIngresos .nav-pills > li > a {
+  border-radius: 8px 8px 0 0;
+  background-color: #F0B846;
+  font-weight: bold;
+}
+
+#ReportesIngresos .tab-content {
+  color : black;
+  background-color: white;
+  padding : 0px 0px 0px 0px;
+  border-radius: 0 8px 8px;
+}

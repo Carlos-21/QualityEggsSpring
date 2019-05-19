@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div id="modalMantenimiento" class="row" th:fragment="modalMantenimiento" th:with="tipo=${tipo}">
+		<fieldset class="well">
+			<legend class="well-legend">Formulario de Mantenimiento</legend>
+			<form id="formMantenimiento" class="form-horizontal" role="form">
+				<th:block th:replace="~{template/fragments/seguridad/modalMantenimiento :: ${tipo}}?:~{}">
+				</th:block>
+				<div id="botonesForm" class="form-group">
+					<div class="col-lg-12 text-center">
+						<button id="registrarMantenimiento" type="button" class="btn btn-success">
+							<i class="fa fa-floppy-o"></i> Registrar
+						</button>
+						<button id="actualizarMantenimiento" type="button" class="btn btn-primary hidden">
+							<i class="fa fa-pencil-square"></i> Actualizar
+						</button>
+					</div>
+				</div>
+			</form>
+		</fieldset>
+	</div>
+
+	<th:block th:fragment="usuario">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Persona</label>
+			<div class="col-lg-10">
+				<select id="personas" class="form-control select2" name="sNumeroDocumento">
+					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
+					<option th:each="persona : ${personas}"
+						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"
+						th:text="|${persona.sNumeroDocumento} - ${persona.sApellidoPaterno} ${persona.sApellidoMaterno}, ${persona.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Usuario</label>
+			<div class="col-lg-10">
+				<input class="form-control elemento-desactivable" maxlength="20" name="sIdentificador">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Contraseña</label>
+			<div class="col-lg-10">
+				<input class="form-control elemento-desactivable" maxlength="20" name="sClave">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Perfiles</label>
+			<div class="col-lg-10">
+				<select id="perfiles" class="form-control select2" name="nidPerfil">
+					<option value="" disabled="disabled" selected="selected">Seleccione un Perfil</option>
+					<option th:each="perfil : ${perfiles}" th:value="${perfil.nIdPerfil}"
+						th:text="|${perfil.nIdPerfil} - ${perfil.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Activo</label>
+			<div class="col-lg-4">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" value="true" data-unchecked-value="false" name="bEstado" />
+					</label>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+	<th:block th:fragment="perfil">
+	
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Nombre</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" name="sNombre">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Descripción</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" name="sDescripcion">
+			</div>
+		</div>
+			
+	</th:block>
+	
+</body>
+</html>
