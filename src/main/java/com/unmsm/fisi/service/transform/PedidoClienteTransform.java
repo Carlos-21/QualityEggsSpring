@@ -49,13 +49,26 @@ public class PedidoClienteTransform implements Transform<PedidoCliente, RegPedid
 			oMPedidoCliente.setsNumeroDocumento(oEntity.getManClienteManPersonaVNumeroDocumento());
 			oMPedidoCliente.setsTipoDocumento(oEntity.getManClienteManPersonaVTipoDocumento());
 			oMPedidoCliente.setnCantidad(oEntity.getNcantidad());
+			oMPedidoCliente.setvEstado(oEntity.getVestado());
+			oMPedidoCliente.setdFecha(oEntity.getDfecha());
+			oMPedidoCliente.settHora(oEntity.getThora());
+			
+			return oMPedidoCliente;
 		}
 		return null;
 	}
 
 	@Override
 	public List<PedidoCliente> transformEM(List<RegPedidoCliente> lEntity) {
-		// TODO Auto-generated method stub
+		if(lEntity != null) {
+			List<PedidoCliente> lMPedidoCliente = new ArrayList<PedidoCliente>();
+			
+			for(RegPedidoCliente oPedidoCliente : lEntity) {
+				PedidoCliente oMPedidoCliente = transformEM(oPedidoCliente);
+				lMPedidoCliente.add(oMPedidoCliente);
+			}
+			return lMPedidoCliente;
+		}
 		return null;
 	}
 
