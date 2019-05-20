@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.unmsm.fisi.entity.ManCliente;
 import com.unmsm.fisi.entity.ManClienteId;
 
-@Repository
+@Repository("clienteRepositorio")
 public interface ClienteRepository extends JpaRepository<ManCliente, Serializable>{
 
 }

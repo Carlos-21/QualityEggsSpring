@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.unmsm.fisi.model.Perfil;
+import com.unmsm.fisi.model.Persona;
 import com.unmsm.fisi.model.Usuario;
 import com.unmsm.fisi.repository.UsuarioRepository;
+import com.unmsm.fisi.service.PersonaService;
 import com.unmsm.fisi.service.UsuarioService;
+import com.unmsm.fisi.service.impl.mantenimiento.PersonaServiceImpl;
 import com.unmsm.fisi.service.transform.UsuarioTransform;
 
 @Service("usuarioServicio")
@@ -21,14 +25,43 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Qualifier("usuarioConvertidor")
 	private UsuarioTransform usuarioTransform;
 	
+	@Autowired
+	@Qualifier("perfilServicio")
+	private PerfilServiceImpl perfilService;
+	
+	@Autowired
+	@Qualifier("personaServicio")
+	private PersonaServiceImpl personaService;
+	
 	@Override
 	public List<Usuario> listarUsuarios() {
-		return usuarioTransform.transformEM(usuarioRepository.findAll());
+		List<Usuario> lMUsuario = usuarioTransform.transformEM(usuarioRepository.findAll()); 
+		for(Usuario oUsuario : lMUsuario) {
+			Persona oPersona = personaService.buscarPersona(oUsuario.getsTipoDocumento(), oUsuario.getsNumeroDocumento());
+			Perfil oPerfil = perfilService.buscarPerfil(oUsuario.getNidPerfil());
+			
+			oUsuario.setsNombre(oPersona.getsNombre());
+			oUsuario.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+			oUsuario.setsApellidoPaterno(oPersona.getsApellidoPaterno());
+			
+			oUsuario.setsNombrePerfil(oPerfil.getsNombre());
+		}
+		return lMUsuario;
 	}
 
 	@Override
 	public Usuario buscarUsuario(String sIdentificador) {
-		return usuarioTransform.transformEM(usuarioRepository.findByVidUsuario(sIdentificador));
+		Usuario oUsuario = usuarioTransform.transformEM(usuarioRepository.findByVidUsuario(sIdentificador));
+		
+		Persona oPersona = personaService.buscarPersona(oUsuario.getsTipoDocumento(), oUsuario.getsNumeroDocumento());
+		Perfil oPerfil = perfilService.buscarPerfil(oUsuario.getNidPerfil());
+		
+		oUsuario.setsNombre(oPersona.getsNombre());
+		oUsuario.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+		oUsuario.setsApellidoPaterno(oPersona.getsApellidoPaterno());
+		
+		oUsuario.setsNombrePerfil(oPerfil.getsNombre());
+		return oUsuario;
 	}
 
 	@Override

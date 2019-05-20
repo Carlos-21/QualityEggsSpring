@@ -110,6 +110,7 @@ $(document).ready(function() {
 			return;
 		}
 		var producto = $formMantenimiento.serializeJSON();
+		console.log(producto);
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/producto",

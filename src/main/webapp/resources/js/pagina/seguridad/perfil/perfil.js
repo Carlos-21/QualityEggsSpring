@@ -44,13 +44,13 @@ $(document).ready(function() {
 			"defaultContent" : $variableUtil.botonActualizar
 		} ],
 		"columns" : [ {
-			"data" : "idPerfil",
+			"data" : "nIdPerfil",
 			"title" : "Identificador"
 		}, {
-			"data" : "nombrePerfil",
+			"data" : "sNombre",
 			"title" : "Nombre"
 		}, {
-			"data" : "descripcion",
+			"data" : "sDescripcion",
 			"title" : "Descripción"
 		}, {
 			"data" : null,
@@ -119,8 +119,8 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(response) {
-				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
+			success : function(perfil) {
+				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
 				var row = $local.tablaMantenimiento.row.add(perfil).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
@@ -138,7 +138,7 @@ $(document).ready(function() {
 		$funcionUtil.prepararFormularioActualizacion($formMantenimiento);
 		$local.$filaSeleccionada = $(this).parents("tr");
 		var perfil = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$local.idPerfilSeleccionado = perfil.idPerfil;
+		$local.idPerfilSeleccionado = perfil.nIdPerfil;
 		$funcionUtil.llenarFormulario(perfil, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
@@ -150,7 +150,7 @@ $(document).ready(function() {
 			return;
 		}
 		var perfil = $formMantenimiento.serializeJSON();
-		perfil.idPerfil = $local.idPerfilSeleccionado;
+		perfil.nIdPerfil = $local.idPerfilSeleccionado;
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "seguridad/perfil",
@@ -166,8 +166,8 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(response) {
-				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
+			success : function(perfil) {
+				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
 				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(perfil).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
@@ -187,7 +187,7 @@ $(document).ready(function() {
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
-			content : "¿Desea eliminar el perfil <b>'" + perfil.idPerfil + " - " + perfil.nombre + "'<b/>?",
+			content : "¿Desea eliminar el perfil <b>'" + perfil.nIdPerfil + " - " + perfil.sNombre + "'<b/>?",
 			theme : "bootstrap",
 			buttons : {
 				Aceptar : {
@@ -218,7 +218,7 @@ $(document).ready(function() {
 										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
 										break;
 									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("El perfil <b>" + perfi.idPerfil + " - " + perfil.nombre + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
+										var mensaje = $funcionUtil.obtenerMensajeError("El perfil <b>" + perfi.nIdPerfil + " - " + perfil.sNombre + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
 										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
 										break;
 									}

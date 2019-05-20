@@ -44,7 +44,7 @@ $(document).ready(function() {
 			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento, $local.filtrosSeleccionables);
 		},
 		"columnDefs" : [ {
-			"targets" : [ 0, 1, 2, 3, 4, 5 ],
+			"targets" : [ 0, 1, 2, 3, 4, 5, 6 ],
 			"className" : "all filtrable",
 		}, {
 			"targets" : 7,
@@ -52,30 +52,24 @@ $(document).ready(function() {
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
 		"columns" : [ {
-			"data" : 'idUsuario',
+			"data" : 'sIdentificador',
 			"title" : "Usuario"
 		}, {
-			"data" : function(row) {
-				return $funcionUtil.unirCodigoDescripcion(row.idTipoDocumento, row.descripcionTipoDocumento);
-			},
+			"data" : 'sTipoDocumento',
 			"title" : "Tipo de Doc."
 		}, {
-			"data" : 'numeroDocumento',
+			"data" : 'sNumeroDocumento',
 			"title" : "Num. de Doc."
 		}, {
 			"data" : function(row) {
-				return row.apellidoPaterno + " " + row.apellidoMaterno;
+				return row.sApellidoPaterno + " " + row.sApellidoMaterno;
 			},
 			"title" : "Apellidos"
 		}, {
-			"data" : function(row) {
-				return row.nombres;
-			},
+			"data" : 'sNombre',
 			"title" : "Nombres"
 		}, {
-			"data" : function(row) {
-				return $funcionUtil.unirCodigoDescripcion(row.idPerfil, row.nombrePerfil);
-			},
+			"data" : 'sNombrePerfil',
 			"title" : "Perfil"
 		}, {
 			"className" : "all seleccionable data-no-definida",
@@ -140,11 +134,12 @@ $(document).ready(function() {
 			return;
 		}
 		var usuario = $formMantenimiento.serializeJSON();
-		var tipoDocumento_NumeroDocumento = usuario.idPersona.split("/");
+		var tipoDocumento_NumeroDocumento = usuario.sNumeroDocumento.split("/");
 		if (tipoDocumento_NumeroDocumento.length == 2) {
-			usuario.idTipoDocumento = tipoDocumento_NumeroDocumento[0];
-			usuario.numeroDocumento = tipoDocumento_NumeroDocumento[1];
+			usuario.sTipoDocumento = tipoDocumento_NumeroDocumento[0];
+			usuario.sNumeroDocumento = tipoDocumento_NumeroDocumento[1];
 		}
+		console.log(usuario);
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "seguridad/usuario",
@@ -160,9 +155,8 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(usuarios) {
+			success : function(usuario) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var usuario = usuarios[0];
 				var row = $local.tablaMantenimiento.row.add(usuario).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
@@ -180,8 +174,8 @@ $(document).ready(function() {
 		$funcionUtil.prepararFormularioActualizacion($formMantenimiento);
 		$local.$filaSeleccionada = $(this).parents("tr");
 		var usuario = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$local.idUsuarioSeleccionado = usuario.idUsuario;
-		usuario.idPersona = usuario.idTipoDocumento + "/" + usuario.numeroDocumento;
+		$local.idUsuarioSeleccionado = usuario.sIdentificador;
+		usuario.sNumeroDocumento = usuario.sTipoDocumento + "/" + usuario.sNumeroDocumento;
 		$funcionUtil.llenarFormulario(usuario, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
@@ -193,8 +187,8 @@ $(document).ready(function() {
 			return;
 		}
 		var usuario = $formMantenimiento.serializeJSON();
-		usuario.idUsuario = $local.idUsuarioSeleccionado;
-		var tipoDocumento_NumeroDocumento = usuario.idPersona.split("/");
+		usuario.sIdentificador = $local.idUsuarioSeleccionado;
+		var tipoDocumento_NumeroDocumento = usuario.sNumeroDocumento.split("/");
 		if (tipoDocumento_NumeroDocumento.length == 2) {
 			usuario.idTipoDocumento = tipoDocumento_NumeroDocumento[0];
 			usuario.numeroDocumento = tipoDocumento_NumeroDocumento[1];
@@ -214,9 +208,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(usuarios) {
+			success : function(usuario) {
 				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(usuarios[0]).draw();
+				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(usuario).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -235,7 +229,7 @@ $(document).ready(function() {
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
-			content : "¿Desea eliminar el Usuario <b>'" + usuario.idUsuario + "'<b/>?",
+			content : "¿Desea eliminar el Usuario <b>'" + usuario.sIdentificador + "'<b/>?",
 			theme: "bootstrap",
 			buttons : {
 				Aceptar : {
@@ -266,7 +260,7 @@ $(document).ready(function() {
 										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
 										break;
 									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("El Usuario <b>" + usuario.idUsuario + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
+										var mensaje = $funcionUtil.obtenerMensajeError("El Usuario <b>" + usuario.sIdentificador + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
 										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
 										break;
 									}

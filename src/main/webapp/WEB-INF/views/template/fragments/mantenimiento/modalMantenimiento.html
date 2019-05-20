@@ -128,6 +128,33 @@
 		</div>
 	</th:block>
 
+	<th:block th:fragment="cliente">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Persona</label>
+			<div class="col-lg-10">
+				<select id="personas" class="form-control select2" name="sNumeroDocumento">
+					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
+					<option th:each="persona : ${personas}"
+						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"
+						th:text="|${persona.sNumeroDocumento} - ${persona.sApellidoPaterno} ${persona.sApellidoMaterno}, ${persona.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Empresa</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" maxlength="20" name="sEmpresa">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Rubro</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" maxlength="20" name="sRubro">
+			</div>
+		</div>
+		
+	</th:block>
+	
 	<th:block th:fragment="multiTabCab">
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Descripción</label>
@@ -137,5 +164,41 @@
 		</div>
 	</th:block>
 
+	<th:block th:fragment="proveedor">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Persona</label>
+			<div class="col-lg-10">
+				<select id="personas" class="form-control select2" name="sNumeroDocumento">
+					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
+					<option th:each="persona : ${personas}"
+						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"
+						th:text="|${persona.sNumeroDocumento} - ${persona.sApellidoPaterno} ${persona.sApellidoMaterno}, ${persona.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Empresa</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" maxlength="20" name="sEmpresa">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Rubro</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" maxlength="20" name="sRubro">
+			</div>
+		</div>
+		
+	</th:block>
+	
+	<th:block th:fragment="multiTabCab">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Descripción</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" name="descripcion">
+			</div>
+		</div>
+	</th:block>
+	
 </body>
 </html>

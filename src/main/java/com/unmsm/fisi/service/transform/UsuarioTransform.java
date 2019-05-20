@@ -70,6 +70,8 @@ public class UsuarioTransform implements Transform<Usuario, SegUsuario>{
 			oMUsuario.setNidPerfil(oEntity.getSegPerfilNIdPerfil());
 			oMUsuario.setdFecha(oEntity.getDfecha());
 			oMUsuario.setdHora(oEntity.getThora());
+			oMUsuario.setsNumeroDocumento(oEntity.getManPersonaVNumeroDocumento());
+			oMUsuario.setsTipoDocumento(oEntity.getManPersonaVTipoDocumento());
 			
 			return oMUsuario;
 		}

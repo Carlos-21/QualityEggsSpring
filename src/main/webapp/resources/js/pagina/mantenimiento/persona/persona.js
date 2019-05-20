@@ -132,9 +132,8 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(personas) {
+			success : function(persona) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var persona = personas[0];
 				var row = $local.tablaMantenimiento.row.add(persona).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
@@ -182,9 +181,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(personas) {
+			success : function(persona) {
 				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(personas[0]).draw();
+				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(persona).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");

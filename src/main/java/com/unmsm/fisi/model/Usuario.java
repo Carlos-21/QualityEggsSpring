@@ -6,9 +6,13 @@ public class Usuario {
 
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
+	private String sNombre;
+	private String sApellidoPaterno;
+	private String sApellidoMaterno;
 	private String sIdentificador;
 	private String sClave;
 	private Integer nidPerfil;
+	private String sNombrePerfil;
 	private Boolean bEstado;
 	private Date dFecha;
 	private Date dHora;
@@ -17,14 +21,19 @@ public class Usuario {
 
 	}
 
-	public Usuario(String sTipoDocumento, String sNumeroDocumento, String sIdentificador, String sClave,
-			Integer nidPerfil, Boolean bEstado, Date dFecha, Date dHora) {
+	public Usuario(String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
+			String sApellidoMaterno, String sIdentificador, String sClave, Integer nidPerfil, String sNombrePerfil,
+			Boolean bEstado, Date dFecha, Date dHora) {
 		super();
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
+		this.sNombre = sNombre;
+		this.sApellidoPaterno = sApellidoPaterno;
+		this.sApellidoMaterno = sApellidoMaterno;
 		this.sIdentificador = sIdentificador;
 		this.sClave = sClave;
 		this.nidPerfil = nidPerfil;
+		this.sNombrePerfil = sNombrePerfil;
 		this.bEstado = bEstado;
 		this.dFecha = dFecha;
 		this.dHora = dHora;
@@ -44,6 +53,30 @@ public class Usuario {
 
 	public void setsNumeroDocumento(String sNumeroDocumento) {
 		this.sNumeroDocumento = sNumeroDocumento;
+	}
+
+	public String getsNombre() {
+		return sNombre;
+	}
+
+	public void setsNombre(String sNombre) {
+		this.sNombre = sNombre;
+	}
+
+	public String getsApellidoPaterno() {
+		return sApellidoPaterno;
+	}
+
+	public void setsApellidoPaterno(String sApellidoPaterno) {
+		this.sApellidoPaterno = sApellidoPaterno;
+	}
+
+	public String getsApellidoMaterno() {
+		return sApellidoMaterno;
+	}
+
+	public void setsApellidoMaterno(String sApellidoMaterno) {
+		this.sApellidoMaterno = sApellidoMaterno;
 	}
 
 	public String getsIdentificador() {
@@ -68,6 +101,14 @@ public class Usuario {
 
 	public void setNidPerfil(Integer nidPerfil) {
 		this.nidPerfil = nidPerfil;
+	}
+
+	public String getsNombrePerfil() {
+		return sNombrePerfil;
+	}
+
+	public void setsNombrePerfil(String sNombrePerfil) {
+		this.sNombrePerfil = sNombrePerfil;
 	}
 
 	public Boolean getbEstado() {

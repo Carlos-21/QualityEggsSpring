@@ -8,13 +8,14 @@ $(document).ready(function() {
 		$registrarMantenimiento : $("#registrarMantenimiento"),
 		$filaSeleccionada : "",
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
-		codigoAlertaSeleccionado : "",
-		$tiposAlerta : $("#tiposAlerta")
+		$personas : $("#personas"),
+		idTipoDocumento : "",
+		numeroDocumento : "",
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 	
-	$funcionUtil.crearSelect2($local.$tiposAlerta, "Seleccione un tipo de alerta");
+	$funcionUtil.crearSelect2($local.$personas, "Seleccione una Persona");
 	
 	$.fn.dataTable.ext.errMode = 'none';
 
@@ -28,11 +29,11 @@ $(document).ready(function() {
 
 	$local.tablaMantenimiento = $local.$tablaMantenimiento.DataTable({
 		"ajax" : {
-			"url" : $variableUtil.root + "mantenimiento/alerta?accion=buscarTodos",
+			"url" : $variableUtil.root + "mantenimiento/proveedor?accion=buscarTodos",
 			"dataSrc" : ""
 		},
 		"language" : {
-			"emptyTable" : "No hay Alerta registradas."
+			"emptyTable" : "No hay Proveedores registrados."
 		},
 		"initComplete" : function() {
 			$local.$tablaMantenimiento.wrap("<div class='table-responsive'></div>");
@@ -47,18 +48,20 @@ $(document).ready(function() {
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
 		"columns" : [ {
-			"data" : "codigoAlerta",
-			"title" : "Codigo"
+			"data" : 'sTipoDocumento',
+			"title" : "Tipo de Doc."
 		}, {
-			"data" : "tipoAlerta",
-			"title" : "Tipo"
+			"data" : 'sNumeroDocumento',
+			"title" : "Num. de Doc."
 		}, {
-			"data" : "diasVerificacion",
-			"title" : "Días Verificación"
+			"data" : function(row) {
+				return row.sApellidoPaterno + "," + row.sApellidoMaterno + " " + row.sNombre;
+			},
+			"title" : "Encargado"
 		}, {
-			"data" : "descAlerta",
-			"title" : "Mensaje"
-		},{
+			"data" : 'sEmpresa',
+			"title" : "Empresa"
+		}, {
 			"data" : null,
 			"title" : 'Acción'
 		} ]
@@ -69,7 +72,7 @@ $(document).ready(function() {
 	});
 
 	$local.$modalMantenimiento.PopupWindow({
-		title : "Mantenimiento de Alertas",
+		title : "Mantenimiento de Proveedor",
 		autoOpen : false,
 		modal : false,
 		height : 400,
@@ -88,7 +91,8 @@ $(document).ready(function() {
 	});
 
 	$local.$modalMantenimiento.on("close.popupwindow", function() {
-		$local.codigoAlertaSeleccionado = "";
+		$local.idTipoDocumento = "";
+		$local.numeroDocumento = "";
 	});
 
 	$formMantenimiento.find("input").keypress(function(event) {
@@ -109,12 +113,16 @@ $(document).ready(function() {
 		if (!$formMantenimiento.valid()) {
 			return;
 		}
-		var alerta = $formMantenimiento.serializeJSON();
-		alerta.tipoAlerta = $local.$tiposAlerta.val();
+		var proveedor = $formMantenimiento.serializeJSON();
+		var tipoDocumento_NumeroDocumento = proveedor.sNumeroDocumento.split("/");
+		if (tipoDocumento_NumeroDocumento.length == 2) {
+			proveedor.sTipoDocumento = tipoDocumento_NumeroDocumento[0];
+			proveedor.sNumeroDocumento = tipoDocumento_NumeroDocumento[1];
+		}
 		$.ajax({
 			type : "POST",
-			url : $variableUtil.root + "mantenimiento/alerta",
-			data : JSON.stringify(alerta),
+			url : $variableUtil.root + "mantenimiento/proveedor",
+			data : JSON.stringify(proveedor),
 			beforeSend : function(xhr) {
 				$local.$registrarMantenimiento.attr("disabled", true).find("i").removeClass("fa-floppy-o").addClass("fa-spinner fa-pulse fa-fw");
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -126,10 +134,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(alertas) {
+			success : function(proveedor) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var alerta = alertas[0];
-				var row = $local.tablaMantenimiento.row.add(alerta).draw();
+				var row = $local.tablaMantenimiento.row.add(proveedor).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -145,10 +152,10 @@ $(document).ready(function() {
 	$local.$tablaMantenimiento.children("tbody").on("click", ".actualizar", function() {
 		$funcionUtil.prepararFormularioActualizacion($formMantenimiento);
 		$local.$filaSeleccionada = $(this).parents("tr");
-		var alerta = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$local.codigoAlertaSeleccionado = alerta.codigoAlerta;
-		$local.$tiposAlerta.val(alerta.tipoAlerta).trigger("change.select2");
-		$funcionUtil.llenarFormulario(alerta, $formMantenimiento);
+		var proveedor = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
+		$local.idTipoDocumento = proveedor.sTipoDocumento;
+		$local.numeroDocumento = proveedor.sNumeroDocumento;
+		$funcionUtil.llenarFormulario(proveedor, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
 		$local.$modalMantenimiento.PopupWindow("open");
@@ -158,13 +165,13 @@ $(document).ready(function() {
 		if (!$formMantenimiento.valid()) {
 			return;
 		}
-		var alerta = $formMantenimiento.serializeJSON();
-		alerta.tipoAlerta = $local.$tiposAlerta.val();
-		alerta.codigoAlerta = $local.codigoAlertaSeleccionado;
+		var proveedor = $formMantenimiento.serializeJSON();
+		proveedor.sTipoDocumento = $local.idTipoDocumento;
+		proveedor.sNumeroDocumento = $local.numeroDocumento;
 		$.ajax({
 			type : "PUT",
-			url : $variableUtil.root + "mantenimiento/alerta",
-			data : JSON.stringify(alerta),
+			url : $variableUtil.root + "mantenimiento/proveedor",
+			data : JSON.stringify(proveedor),
 			beforeSend : function(xhr) {
 				$local.$actualizarMantenimiento.attr("disabled", true).find("i").removeClass("fa-pencil-square").addClass("fa-spinner fa-pulse fa-fw");
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -176,9 +183,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(response) {
-				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(alerta).draw();
+			success : function(proveedor) {
+				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
+				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(proveedor).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -193,11 +200,11 @@ $(document).ready(function() {
 
 	$local.$tablaMantenimiento.children("tbody").on("click", ".eliminar", function() {
 		$local.$filaSeleccionada = $(this).parents("tr");
-		var alerta = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
+		var proveedor = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
-			content : "¿Desea eliminar la alerta <b>'" + alerta.codigoAlerta + " - " + alerta.tipoAlerta + "'<b/>?",
+			content : "¿Desea eliminar el proveedor <b>'" + proveedor.sTipoDocumento + " - " + proveedor.sNumeroDocumento + "'<b/>?",
 			theme : "bootstrap",
 			buttons : {
 				Aceptar : {
@@ -210,8 +217,8 @@ $(document).ready(function() {
 								self.buttons.close.hide();
 								$.ajax({
 									type : "DELETE",
-									url : $variableUtil.root + "mantenimiento/alerta",
-									data : JSON.stringify(alerta),
+									url : $variableUtil.root + "mantenimiento/proveedor",
+									data : JSON.stringify(proveedor),
 									autoclose : true,
 									beforeSend : function(xhr) {
 										xhr.setRequestHeader('Content-Type', 'application/json');
@@ -228,7 +235,7 @@ $(document).ready(function() {
 										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
 										break;
 									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("La alerta <b>" + alerta.codigoAlerta + " - " + alerta.tipoAlerta + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
+										var mensaje = $funcionUtil.obtenerMensajeError("El proveedor <b>" + proveedor.sTipoDocumento + " - " + proveedor.sNumeroDocumento + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
 										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
 										break;
 									}
