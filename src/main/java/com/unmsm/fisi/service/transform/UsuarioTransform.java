@@ -26,13 +26,14 @@ public class UsuarioTransform implements Transform<Usuario, SegUsuario>{
 			oEPersonaId.setVtipoDocumento(oModel.getsTipoDocumento());
 			oEPersona.setId(oEPersonaId);
 			
-			oEUsuario.setManPersona(oEPersona);
+			oEUsuario.setManPersonaVNumeroDocumento(oModel.getsNumeroDocumento());
+			oEUsuario.setManPersonaVTipoDocumento(oModel.getsTipoDocumento());
 			oEUsuario.setVclave(oModel.getsClave());
 			
 			SegPerfil oEPerfil = new SegPerfil();
 			oEPerfil.setNidPerfil(oModel.getNidPerfil());
 			
-			oEUsuario.setSegPerfil(oEPerfil);
+			oEUsuario.setSegPerfilNIdPerfil(oModel.getNidPerfil());;
 			oEUsuario.setBactivo(oModel.getbEstado());
 			oEUsuario.setDfecha(oModel.getdFecha());
 			oEUsuario.setThora(oModel.getdHora());
@@ -61,12 +62,12 @@ public class UsuarioTransform implements Transform<Usuario, SegUsuario>{
 	public Usuario transformEM(SegUsuario oEntity) {
 		if(oEntity != null) {
 			Usuario oMUsuario = new Usuario();
-			oMUsuario.setsTipoDocumento(oEntity.getManPersona().getId().getVtipoDocumento());
-			oMUsuario.setsNumeroDocumento(oEntity.getManPersona().getId().getVnumeroDocumento());
+			oMUsuario.setsTipoDocumento(oEntity.getManPersonaVTipoDocumento());
+			oMUsuario.setsNumeroDocumento(oEntity.getManPersonaVNumeroDocumento());
 			oMUsuario.setsIdentificador(oEntity.getVidUsuario());
 			oMUsuario.setsClave(oEntity.getVclave());
 			oMUsuario.setbEstado(oEntity.getBactivo());
-			oMUsuario.setNidPerfil(oEntity.getSegPerfil().getNidPerfil());
+			oMUsuario.setNidPerfil(oEntity.getSegPerfilNIdPerfil());
 			oMUsuario.setdFecha(oEntity.getDfecha());
 			oMUsuario.setdHora(oEntity.getThora());
 			

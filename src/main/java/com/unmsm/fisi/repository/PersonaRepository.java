@@ -10,6 +10,6 @@ import com.unmsm.fisi.entity.ManPersonaId;
 
 @Repository("personaRepositorio")
 public interface PersonaRepository extends JpaRepository<ManPersona, Serializable>{
-	public abstract ManPersona findById(ManPersonaId id);
+	//public abstract ManPersona findById(ManPersonaId id);
 
 }

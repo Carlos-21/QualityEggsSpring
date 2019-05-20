@@ -24,6 +24,8 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Override
 	public List<Persona> listarPersonas() {
+		System.out.println("Entro");
+		System.out.println("Cantidad : " + personaRepository.findAll().size());
 		return personaTrasnform.transformEM(personaRepository.findAll());
 	}
 

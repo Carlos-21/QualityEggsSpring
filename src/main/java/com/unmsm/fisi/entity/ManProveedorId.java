@@ -1,5 +1,5 @@
 package com.unmsm.fisi.entity;
-// Generated 18/05/2019 03:01:04 PM by Hibernate Tools 5.0.6.Final
+// Generated 19/05/2019 11:40:02 PM by Hibernate Tools 5.0.6.Final
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

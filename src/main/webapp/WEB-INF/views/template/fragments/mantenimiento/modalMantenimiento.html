@@ -23,6 +23,42 @@
 		</fieldset>
 	</div>
 	
+	<th:block th:fragment="producto">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Nombre</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" name="sNombre">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Descripción</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" name="sDescripcion">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Tipo</label>
+			<div class="col-lg-10">
+				<input class="form-control upperCase" name="sTipo">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Stock</label>
+				<div class="col-lg-4">
+					<input class="form-control upperCase" name="nStock">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Precio</label>
+				<div class="col-lg-4">
+					<input class="form-control upperCase" name="nPrecioUnitario">
+				</div>
+			</div>
+		</div>
+		
+	</th:block>
+	
 	<th:block th:fragment="persona">
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Tipo de Documento</label>
