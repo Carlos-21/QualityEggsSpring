@@ -23,7 +23,6 @@ public class Persona {
 	public Persona(String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
 			String sApellidoMaterno, String sSexo, String sDomicilio, String sTelefonoFijo, String sTelefonoCelular,
 			String sCorreo, Date dFecha, Date dHora) {
-		super();
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
 		this.sNombre = sNombre;

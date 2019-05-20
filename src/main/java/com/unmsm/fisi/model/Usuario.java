@@ -24,7 +24,6 @@ public class Usuario {
 	public Usuario(String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
 			String sApellidoMaterno, String sIdentificador, String sClave, Integer nidPerfil, String sNombrePerfil,
 			Boolean bEstado, Date dFecha, Date dHora) {
-		super();
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
 		this.sNombre = sNombre;

@@ -3,16 +3,13 @@ package com.unmsm.fisi.service.transform;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import com.unmsm.fisi.entity.ManCliente;
-import com.unmsm.fisi.entity.ManClienteId;
 import com.unmsm.fisi.entity.ManProveedor;
 import com.unmsm.fisi.entity.ManProveedorId;
-import com.unmsm.fisi.model.Cliente;
 import com.unmsm.fisi.model.Proveedor;
 
-@Service("proveedorConvertidor")
+@Component("proveedorConvertidor")
 public class ProveedorTransform implements Transform<Proveedor, ManProveedor>{
 
 	@Override

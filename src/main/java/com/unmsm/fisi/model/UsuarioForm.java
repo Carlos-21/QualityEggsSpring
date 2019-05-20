@@ -14,7 +14,6 @@ public class UsuarioForm {
 
 	public UsuarioForm(String sTipoDocumento, String sNumeroDocumento, String sIdentificador, String sClave,
 			Integer nidPerfil, Boolean bEstado) {
-		super();
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
 		this.sIdentificador = sIdentificador;

@@ -36,8 +36,8 @@ public class UsuarioRestController {
 	}
 	
 	@PostMapping
-    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario){
-		if(usuario==null) {
+    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario oUsuario){
+		if(oUsuario==null) {
 			System.out.println("nulo");
 			
 		}
@@ -51,7 +51,7 @@ public class UsuarioRestController {
 		oUsuario.setsNumeroDocumento(sNumeroDocumento);
 		oUsuario.setsTipoDocumento(sTipoDocumento);*/
 		
-		String sIdentificador = usuarioService.registrarUsuario(usuario);
+		String sIdentificador = usuarioService.registrarUsuario(oUsuario);
 		
 		return ResponseEntity.ok(usuarioService.buscarUsuario(sIdentificador));
 	}
