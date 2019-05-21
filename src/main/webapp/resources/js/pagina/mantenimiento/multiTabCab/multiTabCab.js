@@ -45,10 +45,10 @@ $(document).ready(function() {
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar + " " + $variableUtil.botonAniadirDetalle
 		} ],
 		"columns" : [ {
-			"data" : 'idTabla',
+			"data" : 'nIdTabla',
 			"title" : "Id Tabla"
 		}, {
-			"data" : 'descripcion',
+			"data" : 'sDescripcion',
 			"title" : "Descripción"
 		}, {
 			"data" : null,
@@ -124,7 +124,7 @@ $(document).ready(function() {
 			},
 			success : function(multiTabCabs) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row.add(multiTabCabs[0]).draw();
+				var row = $local.tablaMantenimiento.row.add(multiTabCabs).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -141,7 +141,7 @@ $(document).ready(function() {
 		$funcionUtil.prepararFormularioActualizacion($formMantenimiento);
 		$local.$filaSeleccionada = $(this).parents("tr");
 		var multiTabCab = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$local.id_tablaSeleccionado = multiTabCab.idTabla;
+		$local.id_tablaSeleccionado = multiTabCab.nIdTabla;
 		$funcionUtil.llenarFormulario(multiTabCab, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
@@ -153,7 +153,7 @@ $(document).ready(function() {
 			return;
 		}
 		var multiTabCab = $formMantenimiento.serializeJSON();
-		multiTabCab.idTabla = $local.id_tablaSeleccionado;
+		multiTabCab.nIdTabla = $local.id_tablaSeleccionado;
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "mantenimiento/multiTabCab",
@@ -171,7 +171,7 @@ $(document).ready(function() {
 			},
 			success : function(multiTabCabs) {
 				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(multiTabCabs[0]).draw();
+				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(mmultiTabCabs).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -190,7 +190,7 @@ $(document).ready(function() {
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
-			content : "¿Desea eliminar la tabla <b>'" + multiTabCab.idTabla + " - " + multiTabCab.descripcion + "'<b/>?",
+			content : "¿Desea eliminar la tabla <b>'" + multiTabCab.nIdTabla + " - " + multiTabCab.sNombreTabla + "'<b/>?",
 			theme: "bootstrap",
 			buttons : {
 				Aceptar : {
@@ -221,7 +221,7 @@ $(document).ready(function() {
 										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
 										break;
 									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("La tabla <b>" + multiTabCab.idTabla + " - " + multiTabCab.descripcion + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
+										var mensaje = $funcionUtil.obtenerMensajeError("La tabla <b>" + multiTabCab.nIdTabla + " - " + multiTabCab.sDescripcion + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
 										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
 										break;
 									}

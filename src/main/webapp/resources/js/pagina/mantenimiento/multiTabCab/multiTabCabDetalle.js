@@ -53,13 +53,13 @@ $(document).ready(function() {
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
 		"columns" : [ {
-			"data" : 'idItem',
+			"data" : 'sIdItem',
 			"title" : "Id."
 		}, {
-			"data" : 'descripcionItem',
+			"data" : 'sDescripcion',
 			"title" : "Descripción"
 		}, {
-			"data" : 'abreviatura',
+			"data" : 'sDescripcionCorta',
 			"title" : "Abreviatura"
 		}, {
 			"data" : null,
@@ -120,7 +120,7 @@ $(document).ready(function() {
 			return;
 		}
 		var multiTabDet = $formDetalleMantenimiento.serializeJSON();
-		multiTabDet.idTabla = $localDetalle.id_tablaSeleccionado;
+		multiTabDet.nIdTabla = $localDetalle.id_tablaSeleccionado;
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/multiTabDet",
@@ -139,9 +139,9 @@ $(document).ready(function() {
 			success : function(response) {
 				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
 				var row = $localDetalle.tablaDetalleMantenimiento.row.add({
-					"idItem" : multiTabDet.idItem,
-					"descripcionItem" : multiTabDet.descripcionItem,
-					"abreviatura" : multiTabDet.abreviatura
+					"sIdItem" : multiTabDet.sIdItem,
+					"sDescripcion" : multiTabDet.sDescripcion,
+					"sDescripcionCorta" : multiTabDet.sDescripcionCorta
 				}).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
@@ -159,7 +159,7 @@ $(document).ready(function() {
 		$funcionUtil.prepararFormularioActualizacion($formDetalleMantenimiento);
 		$localDetalle.$filaDetalleSeleccionada = $(this).parents("tr");
 		var multiTabDet = $localDetalle.tablaDetalleMantenimiento.row($localDetalle.$filaDetalleSeleccionada).data();
-		$localDetalle.id_itemSeleccionado = multiTabDet.idItem;
+		$localDetalle.id_itemSeleccionado = multiTabDet.sIdItem;
 		$funcionUtil.llenarFormulario(multiTabDet, $formDetalleMantenimiento);
 		$localDetalle.$actualizarDetalleMantenimiento.removeClass("hidden");
 		$localDetalle.$registrarDetalleMantenimiento.addClass("hidden");
@@ -172,8 +172,8 @@ $(document).ready(function() {
 		}
 		var multiTabDet = $formDetalleMantenimiento.serializeJSON();
 
-		multiTabDet.idTabla = $localDetalle.id_tablaSeleccionado;
-		multiTabDet.idItem = $localDetalle.id_itemSeleccionado;
+		multiTabDet.nIdTabla = $localDetalle.id_tablaSeleccionado;
+		multiTabDet.sIdItem = $localDetalle.id_itemSeleccionado;
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "mantenimiento/multiTabDet",
@@ -193,10 +193,10 @@ $(document).ready(function() {
 				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
 				$localDetalle.tablaDetalleMantenimiento.row($localDetalle.$filaDetalleSeleccionada).remove().draw(false);
 				var row = $localDetalle.tablaDetalleMantenimiento.row.add({
-					"idTabla": multiTabDet.idTabla,
-					"idItem" : multiTabDet.idItem,
-					"descripcionItem" : multiTabDet.descripcionItem,
-					"abreviatura" : multiTabDet.abreviatura
+					"nIdTabla": multiTabDet.nIdTabla,
+					"sIdItem" : multiTabDet.sIdItem,
+					"sDescripcion" : multiTabDet.sDescripcion,
+					"sDescripcionCorta" : multiTabDet.sDescripcionCorta
 				}).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
@@ -216,7 +216,7 @@ $(document).ready(function() {
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
-			content : "¿Desea eliminar la tabla <b>'" + multiTabDet.idItem + " - " + multiTabDet.descripcionItem + "'<b/>?",
+			content : "¿Desea eliminar la tabla <b>'" + multiTabDet.sIdItem + " - " + multiTabDet.sDescripcion + "'<b/>?",
 			theme: "bootstrap",
 			buttons : {
 				Aceptar : {
@@ -247,7 +247,7 @@ $(document).ready(function() {
 										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
 										break;
 									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("La tabla <b>" + multiTabDet.idTabla + " - " + multiTabDet.descripcion + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
+										var mensaje = $funcionUtil.obtenerMensajeError("La tabla <b>" + multiTabDet.sIdItem + " - " + multiTabDet.sDescripcion + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
 										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
 										break;
 									}
