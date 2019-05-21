@@ -53,14 +53,17 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public Usuario buscarUsuario(String sIdentificador) {
 		Usuario oUsuario = usuarioTransform.transformEM(usuarioRepository.findByVidUsuario(sIdentificador));
 		
-		Persona oPersona = personaService.buscarPersona(oUsuario.getsTipoDocumento(), oUsuario.getsNumeroDocumento());
-		Perfil oPerfil = perfilService.buscarPerfil(oUsuario.getNidPerfil());
+		if(oUsuario != null) {
+			Persona oPersona = personaService.buscarPersona(oUsuario.getsTipoDocumento(), oUsuario.getsNumeroDocumento());
+			Perfil oPerfil = perfilService.buscarPerfil(oUsuario.getNidPerfil());
+			
+			oUsuario.setsNombre(oPersona.getsNombre());
+			oUsuario.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+			oUsuario.setsApellidoPaterno(oPersona.getsApellidoPaterno());
+			
+			oUsuario.setsNombrePerfil(oPerfil.getsNombre());
+		}
 		
-		oUsuario.setsNombre(oPersona.getsNombre());
-		oUsuario.setsApellidoMaterno(oPersona.getsApellidoMaterno());
-		oUsuario.setsApellidoPaterno(oPersona.getsApellidoPaterno());
-		
-		oUsuario.setsNombrePerfil(oPerfil.getsNombre());
 		return oUsuario;
 	}
 

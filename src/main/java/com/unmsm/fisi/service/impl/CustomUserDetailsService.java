@@ -29,7 +29,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		Usuario oUsuario = usuarioServicio.buscarUsuario(login);
-		System.out.println("Dato : " + oUsuario.getsIdentificador());
 		CustomUser user = null;
 		if (oUsuario != null) {
 			user = new CustomUser(oUsuario.getsIdentificador(), oUsuario.getsClave(), oUsuario.getbEstado(), true, true,
