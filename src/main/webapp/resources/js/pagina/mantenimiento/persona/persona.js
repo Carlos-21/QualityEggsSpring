@@ -117,6 +117,8 @@ $(document).ready(function() {
 			return;
 		}
 		var medico = $formMantenimiento.serializeJSON();
+		
+		console.log(JSON.stringify(medico));
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/persona",

@@ -36,7 +36,7 @@ public @Controller class SeguridadController {
         return "seguras/seguridad/mantenimiento";
     }
 	
-
+    @Audit(tipo = Tipo.Usu)
     @GetMapping(value = "/{mantenimiento:usuario}")
     public String irPaginaMantenimientoUsuario(@PathVariable String mantenimiento, Model model)
     {

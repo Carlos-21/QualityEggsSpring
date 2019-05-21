@@ -27,7 +27,7 @@
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Persona</label>
 			<div class="col-lg-10">
-				<select id="personas" class="form-control select2" name="sNumeroDocumento">
+				<select id="personas" class="form-control select2" name="idPersona">
 					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
 					<option th:each="persona : ${personas}"
 						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"

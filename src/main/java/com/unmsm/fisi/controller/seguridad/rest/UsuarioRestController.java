@@ -2,9 +2,12 @@ package com.unmsm.fisi.controller.seguridad.rest;
 
 import java.util.List;
 
+import javax.validation.groups.Default;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +17,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unmsm.fisi.aspecto.anotacion.Audit;
+import com.unmsm.fisi.aspecto.enumeracion.Accion;
+import com.unmsm.fisi.aspecto.enumeracion.Comentario;
+import com.unmsm.fisi.aspecto.enumeracion.Dato;
+import com.unmsm.fisi.aspecto.enumeracion.Tipo;
 import com.unmsm.fisi.model.Usuario;
 import com.unmsm.fisi.service.impl.seguridad.UsuarioServiceImpl;
 import com.unmsm.fisi.utilitario.ConstantesGenerales;
+import com.unmsm.fisi.validacion.grupo.accion.IRegistro;
 
+@Audit(tipo = Tipo.Usu, datos = Dato.Usuario)
 @RestController
 @RequestMapping("/seguridad/usuario")
 public class UsuarioRestController {
@@ -35,8 +45,9 @@ public class UsuarioRestController {
 		return usuarioService.buscarUsuario(sIdentificador);
 	}
 	
+	@Audit(accion = Accion.Registro, comentario = Comentario.Registro)
 	@PostMapping
-    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario oUsuario){
+    public ResponseEntity<?> registrarUsuario( @Validated({ IRegistro.class, Default.class }) @RequestBody Usuario oUsuario){
 		if(oUsuario==null) {
 			System.out.println("nulo");
 			

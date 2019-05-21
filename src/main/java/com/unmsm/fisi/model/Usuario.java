@@ -3,7 +3,8 @@ package com.unmsm.fisi.model;
 import java.util.Date;
 
 public class Usuario {
-
+	
+	private String idPersona;
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
 	private String sNombre;
@@ -21,9 +22,11 @@ public class Usuario {
 
 	}
 
-	public Usuario(String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
-			String sApellidoMaterno, String sIdentificador, String sClave, Integer nidPerfil, String sNombrePerfil,
-			Boolean bEstado, Date dFecha, Date dHora) {
+	public Usuario(String idPersona, String sTipoDocumento, String sNumeroDocumento, String sNombre,
+			String sApellidoPaterno, String sApellidoMaterno, String sIdentificador, String sClave, Integer nidPerfil,
+			String sNombrePerfil, Boolean bEstado, Date dFecha, Date dHora) {
+		super();
+		this.idPersona = idPersona;
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
 		this.sNombre = sNombre;
@@ -36,6 +39,14 @@ public class Usuario {
 		this.bEstado = bEstado;
 		this.dFecha = dFecha;
 		this.dHora = dHora;
+	}
+
+	public String getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
 	}
 
 	public String getsTipoDocumento() {

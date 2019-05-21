@@ -44,11 +44,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.unmsm.fisi.controller",
-        "com.unmsm.fisi.configuration.security"})
+        "com.unmsm.fisi.configuration.security", "com.unmsm.fisi.aspecto"})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MvcConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware

@@ -134,12 +134,13 @@ $(document).ready(function() {
 			return;
 		}
 		var usuario = $formMantenimiento.serializeJSON();
-		var tipoDocumento_NumeroDocumento = usuario.sNumeroDocumento.split("/");
+		var tipoDocumento_NumeroDocumento = usuario.idPersona.split("/");
 		if (tipoDocumento_NumeroDocumento.length == 2) {
 			usuario.sTipoDocumento = tipoDocumento_NumeroDocumento[0];
 			usuario.sNumeroDocumento = tipoDocumento_NumeroDocumento[1];
 		}
 		console.log(usuario);
+		console.log(JSON.stringify(usuario));
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "seguridad/usuario",
