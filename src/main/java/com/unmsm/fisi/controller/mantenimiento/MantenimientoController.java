@@ -14,6 +14,8 @@ import com.unmsm.fisi.aspecto.enumeracion.Comentario;
 import com.unmsm.fisi.aspecto.enumeracion.Tipo;
 import com.unmsm.fisi.controller.excepcion.anotacion.Vista;
 import com.unmsm.fisi.service.impl.mantenimiento.PersonaServiceImpl;
+import com.unmsm.fisi.service.impl.mantenimiento.TabDetServiceImpl;
+import com.unmsm.fisi.utilitario.MultiTablaUtil;
 
 @Vista
 @Audit(accion = Accion.Visita, comentario = Comentario.Visita)
@@ -23,12 +25,17 @@ public @Controller class MantenimientoController
 	@Autowired
 	@Qualifier("personaServicio")
 	private PersonaServiceImpl personaServicio;
+	@Autowired
+	@Qualifier("tabDetServicio")
+	private TabDetServiceImpl tabDetServicio;
 	
     @Audit(tipo = Tipo.Persona)
     @GetMapping("/{mantenimiento:persona}")
     public String irPaginaMantenimientoPersona(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
+        model.addAttribute("tiposDocumento",
+        		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_DOCUMENTO_IDENTIDAD));
         return "seguras/mantenimiento/mantenimiento";
     }
 

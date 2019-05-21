@@ -137,7 +137,7 @@ $(document).ready(function() {
 				}
 			},
 			success : function(response) {
-				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
+				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
 				var row = $localDetalle.tablaDetalleMantenimiento.row.add({
 					"sIdItem" : multiTabDet.sIdItem,
 					"sDescripcion" : multiTabDet.sDescripcion,
@@ -190,7 +190,7 @@ $(document).ready(function() {
 				}
 			},
 			success : function(response) {
-				$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
+				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
 				$localDetalle.tablaDetalleMantenimiento.row($localDetalle.$filaDetalleSeleccionada).remove().draw(false);
 				var row = $localDetalle.tablaDetalleMantenimiento.row.add({
 					"nIdTabla": multiTabDet.nIdTabla,
@@ -213,6 +213,7 @@ $(document).ready(function() {
 	$localDetalle.$tablaDetalleMantenimiento.children("tbody").on("click", ".eliminar", function() {
 		$localDetalle.$filaDetalleSeleccionada = $(this).parents("tr");
 		var multiTabDet = $localDetalle.tablaDetalleMantenimiento.row($localDetalle.$filaDetalleSeleccionada).data();
+		console.log(multiTabDet);
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
@@ -286,7 +287,7 @@ $(document).ready(function() {
 	    		$localDetalle.tablaDetalleMantenimiento.rows.add(multiTablaDetalles).draw();
 	    	}
 	    });
-	    $tablaFuncion.trasladarHaciaSelect($localDetalle.$filtroParaDetalleTablaMantenimiento, $localDetalle.tablaMantenimiento.rows().data(), "idTabla", "descripcion");
+	    $tablaFuncion.trasladarHaciaSelect($localDetalle.$filtroParaDetalleTablaMantenimiento, $localDetalle.tablaMantenimiento.rows().data(), "nIdTabla", "sDescripcion");
 	    $localDetalle.$filtroParaDetalleTablaMantenimiento.val($localDetalle.id_tablaSeleccionado).trigger('change.select2');
 	    $localDetalle.$modalDetalleMantenimiento.removeClass("hidden");
 	    $localDetalle.$modalDetalleMantenimiento.PopupWindow("open");

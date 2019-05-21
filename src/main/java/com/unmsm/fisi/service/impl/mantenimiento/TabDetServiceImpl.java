@@ -69,7 +69,7 @@ public class TabDetServiceImpl implements TabDetService{
 		oMultiTabDetId.setNidTabla(nIdTabla);
 		oMultiTabDetId.setVidItem(sIdItem);
 		
-		oTablaDetRepository.delete(oMultiTabDetId);;
+		oTablaDetRepository.delete(oMultiTabDetId);
 	}
 
 }

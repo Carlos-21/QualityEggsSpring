@@ -10,10 +10,13 @@ $(document).ready(function() {
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
 		idTipoDocumento : "",
 		numeroDocumento : "",
+		$tiposDocumento : $("#tiposDocumento"),
 		filtrosSeleccionables : {}
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
+	
+	$funcionUtil.crearSelect2($local.$tiposDocumento, "Seleccione un Tipo de Documento");
 
 	$.fn.dataTable.ext.errMode = 'none';
 

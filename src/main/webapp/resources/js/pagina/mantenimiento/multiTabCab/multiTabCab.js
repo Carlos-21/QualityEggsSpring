@@ -171,7 +171,7 @@ $(document).ready(function() {
 			},
 			success : function(multiTabCabs) {
 				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(mmultiTabCabs).draw();
+				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(multiTabCabs).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -247,6 +247,6 @@ $(document).ready(function() {
 	$local.$tablaMantenimiento.children("tbody").on("click", ".aniadir-detalle", function() {
 		$local.$filaSeleccionada = $(this).parents("tr");
 		var multiTabCab = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$(document).trigger("abrirDetalleMantenimiento",  [multiTabCab.idTabla, $local.tablaMantenimiento]);
+		$(document).trigger("abrirDetalleMantenimiento",  [multiTabCab.nIdTabla, $local.tablaMantenimiento]);
 	});
 });

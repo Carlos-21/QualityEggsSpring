@@ -40,7 +40,7 @@ public class ProductoServiceImpl implements ProductoService{
 	@Override
 	public Integer actualizarProducto(Producto oProducto) {
 		productoRepository.save(productoTransform.transformME(oProducto));
-		return listarProductos().get(listarProductos().size()-1).getnIdentificador();
+		return oProducto.getnIdentificador();
 	}
 
 	@Override

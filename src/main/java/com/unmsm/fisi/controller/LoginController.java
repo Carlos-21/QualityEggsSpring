@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.unmsm.fisi.aspecto.anotacion.Audit;
+import com.unmsm.fisi.aspecto.enumeracion.Accion;
+import com.unmsm.fisi.aspecto.enumeracion.Comentario;
+import com.unmsm.fisi.aspecto.enumeracion.Tipo;
+
 @Controller
 public class LoginController {
 
@@ -29,6 +34,18 @@ public class LoginController {
     {
         redirectAttribute.addFlashAttribute("mensajeExcepcion", mensajeExcepcion);
         return "redirect:/login";
+    }
+	
+	@Audit(tipo = Tipo.Logout, comentario = Comentario.Logout, accion = Accion.Acceso)
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null)
+        {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
     }
 	
 }

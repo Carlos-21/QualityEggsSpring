@@ -40,7 +40,7 @@ public class PerfilServiceImpl implements PerfilService {
 	@Override
 	public Integer actualizarPerfil(Perfil oPerfil) {
 		perfilRepository.save(perfilTransform.transformME(oPerfil));
-		return listarPerfiles().get(listarPerfiles().size()-1).getnIdPerfil();
+		return oPerfil.getnIdPerfil();
 	}
 
 	@Override
