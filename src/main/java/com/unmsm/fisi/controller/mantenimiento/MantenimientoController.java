@@ -64,6 +64,15 @@ public @Controller class MantenimientoController
         		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_DOCUMENTO_IDENTIDAD));
         return "seguras/mantenimiento/mantenimiento";
     }
+    
+    @GetMapping("/{mantenimiento:trabajador}")
+    public String irPaginaMantenimientoTrabajador(@PathVariable String mantenimiento, ModelMap model)
+    {
+        model.addAttribute("mantenimiento", mantenimiento);
+        model.addAttribute("tiposDocumento",
+        		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_DOCUMENTO_IDENTIDAD));
+        return "seguras/mantenimiento/mantenimiento";
+    }
 
     @GetMapping("/{mantenimiento:producto}")
     public String irPaginaMantenimientoProducto(@PathVariable String mantenimiento, ModelMap model)

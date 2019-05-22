@@ -333,6 +333,98 @@
 
 	</th:block>
 
+	<th:block th:fragment="trabajador">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Tipo de Documento</label>
+			<div class="col-lg-10">
+				<select id="tiposDocumento" class="form-control select2 "
+					name="sTipoDocumento">
+					<option value="" disabled="disabled" selected="selected">Seleccione
+						un Tipo de Documento</option>
+					<option th:each="tipoDocumento : ${tiposDocumento}"
+						th:value="${tipoDocumento.sDescripcionCorta}"
+						th:text="|${tipoDocumento.sIdItem} - ${tipoDocumento.sDescripcionCorta}|"></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Número de Documento</label>
+			<div class="col-lg-10">
+				<input class="form-control numbersOnly"
+					name="sNumeroDocumento">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Apellido Paterno</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sApellidoPaterno">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Apellido Materno</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sApellidoMaterno">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Nombres</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sNombre">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Género</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sSexo">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Domicilio</label>
+			<div class="col-lg-10">
+				<input class="form-control " name="sDomicilio">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Teléfono</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="sTelefonoFijo">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Celular</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="sTelefonoCelular">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Correo</label>
+			<div class="col-lg-10">
+				<input class="form-control" name="sCorreo">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Área</label>
+			<div class="col-lg-10">
+				<input class="form-control lettersOnly" maxlength="20" name="sArea">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Puesto</label>
+			<div class="col-lg-10">
+				<input class="form-control lettersOnly" maxlength="20" name="sPuesto">
+			</div>
+		</div>
+
+	</th:block>
+	
 	<th:block th:fragment="multiTabCab">
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Nombre</label>
