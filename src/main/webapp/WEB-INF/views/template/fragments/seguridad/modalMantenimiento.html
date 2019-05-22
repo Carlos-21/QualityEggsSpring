@@ -25,13 +25,13 @@
 
 	<th:block th:fragment="usuario">
 		<div class="form-group">
-			<label class="col-lg-2 control-label">Persona</label>
+			<label class="col-lg-2 control-label">Trabajador</label>
 			<div class="col-lg-10">
-				<select id="personas" class="form-control select2" name="idPersona">
-					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
-					<option th:each="persona : ${personas}"
-						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"
-						th:text="|${persona.sNumeroDocumento} - ${persona.sApellidoPaterno} ${persona.sApellidoMaterno}, ${persona.sNombre}|"></option>
+				<select id="trabajadores" class="form-control select2" name="idPersona">
+					<option value="" disabled="disabled" selected="selected">Seleccione un Trabajador</option>
+					<option th:each="trabajador : ${trabajadores}"
+						th:value="|${trabajador.sTipoDocumento}/${trabajador.sNumeroDocumento}|"
+						th:text="|${trabajador.sNumeroDocumento} - ${trabajador.sApellidoPaterno} ${trabajador.sApellidoMaterno}, ${trabajador.sNombre}|"></option>
 				</select>
 			</div>
 		</div>

@@ -9,17 +9,18 @@ $(document).ready(function() {
 		$filaSeleccionada : "",
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
 		$perfiles : $("#perfiles"),
-		$personas : $("#personas"),
+		$trabajadores : $("#trabajadores"),
+		idTipoDocumento : "",
+		numeroDocumento : "",
 		idUsuarioSeleccionado : "",
-		arregloSiNo : [ "1", "0" ],
-		filtrosSeleccionables : {}
+		$tiposDocumento : $("#tiposDocumento")
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
-
+	
 	$funcionUtil.crearSelect2($local.$perfiles, "Seleccione un Perfil");
-	$funcionUtil.crearSelect2($local.$personas, "Seleccione una Persona");
-
+	$funcionUtil.crearSelect2($local.$trabajadores, "Seleccione un Trabajador");
+	
 	$.fn.dataTable.ext.errMode = 'none';
 
 	$local.$tablaMantenimiento.on('xhr.dt', function(e, settings, json, xhr) {
@@ -40,12 +41,20 @@ $(document).ready(function() {
 		},
 		"initComplete" : function() {
 			$local.$tablaMantenimiento.wrap("<div class='table-responsive'></div>");
-			$local.filtrosSeleccionables["6"] = $local.arregloSiNo;
-			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento, $local.filtrosSeleccionables);
+			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento);
 		},
 		"columnDefs" : [ {
 			"targets" : [ 0, 1, 2, 3, 4, 5, 6 ],
 			"className" : "all filtrable",
+		}, {
+			"targets" : 6,
+			"className" : "all dt-center",
+			"render" : function(data, type, row, meta) {
+				if (row.bEstado == 1)
+					return "<label class='label label-info label-size-12'>Activo</label>";
+				else
+					return "<label class='label label-danger label-size-12'>No activo</label>";
+			}
 		}, {
 			"targets" : 7,
 			"className" : "all dt-center",
@@ -72,10 +81,7 @@ $(document).ready(function() {
 			"data" : 'sNombrePerfil',
 			"title" : "Perfil"
 		}, {
-			"className" : "all seleccionable data-no-definida",
-			"data" : function(row) {
-				return $funcionUtil.insertarEtiquetaSiNo(row.activo);
-			},
+			"data" : null,
 			"title" : "Activo"
 		}, {
 			"data" : null,
@@ -87,17 +93,12 @@ $(document).ready(function() {
 		$local.tablaMantenimiento.column($(this).parent().index() + ':visible').search(this.value).draw();
 	});
 
-	$local.$tablaMantenimiento.find("thead").on('change', 'select', function() {
-		var val = $.fn.dataTable.util.escapeRegex($(this).val());
-		$local.tablaMantenimiento.column($(this).parent().index() + ':visible').search(val ? '^' + val + '$' : '', true, false).draw();
-	});
-
 	$local.$modalMantenimiento.PopupWindow({
 		title : "Mantenimiento de Usuario",
 		autoOpen : false,
 		modal : false,
 		height : 430,
-		width : 626,
+		width : 600
 	});
 
 	$local.$aniadirMantenimento.on("click", function() {
@@ -112,7 +113,8 @@ $(document).ready(function() {
 	});
 
 	$local.$modalMantenimiento.on("close.popupwindow", function() {
-		$local.idUsuarioSeleccionado = 0;
+		$local.idTipoDocumento = "";
+		$local.numeroDocumento = "";
 	});
 
 	$formMantenimiento.find("input").keypress(function(event) {
@@ -134,13 +136,9 @@ $(document).ready(function() {
 			return;
 		}
 		var usuario = $formMantenimiento.serializeJSON();
-		var tipoDocumento_NumeroDocumento = usuario.idPersona.split("/");
-		if (tipoDocumento_NumeroDocumento.length == 2) {
-			usuario.sTipoDocumento = tipoDocumento_NumeroDocumento[0];
-			usuario.sNumeroDocumento = tipoDocumento_NumeroDocumento[1];
-		}
 		console.log(usuario);
 		console.log(JSON.stringify(usuario));
+		console.log($variableUtil.root + "seguridad/usuario");
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "seguridad/usuario",
@@ -156,9 +154,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(cliente) {
+			success : function(usuario) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row.add(cliente).draw();
+				var row = $local.tablaMantenimiento.row.add(usuario).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -175,8 +173,11 @@ $(document).ready(function() {
 		$funcionUtil.prepararFormularioActualizacion($formMantenimiento);
 		$local.$filaSeleccionada = $(this).parents("tr");
 		var usuario = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$local.idUsuarioSeleccionado = usuario.sIdentificador;
-		usuario.sNumeroDocumento = usuario.sTipoDocumento + "/" + usuario.sNumeroDocumento;
+		usuario.idPersona = usuario.sTipoDocumento + "/" + usuario.sNumeroDocumento;
+		$local.idTipoDocumento = usuario.sTipoDocumento;
+		$local.numeroDocumento = usuario.sNumeroDocumento;
+		console.log(usuario);
+		$local.$trabajadores.trigger("change", [ usuario.idPersona ]);
 		$funcionUtil.llenarFormulario(usuario, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
@@ -188,12 +189,8 @@ $(document).ready(function() {
 			return;
 		}
 		var usuario = $formMantenimiento.serializeJSON();
-		usuario.sIdentificador = $local.idUsuarioSeleccionado;
-		var tipoDocumento_NumeroDocumento = usuario.sNumeroDocumento.split("/");
-		if (tipoDocumento_NumeroDocumento.length == 2) {
-			usuario.idTipoDocumento = tipoDocumento_NumeroDocumento[0];
-			usuario.numeroDocumento = tipoDocumento_NumeroDocumento[1];
-		}
+		usuario.sTipoDocumento = $local.idTipoDocumento;
+		usuario.sNumeroDocumento = $local.numeroDocumento;
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "seguridad/usuario",
@@ -226,12 +223,12 @@ $(document).ready(function() {
 
 	$local.$tablaMantenimiento.children("tbody").on("click", ".eliminar", function() {
 		$local.$filaSeleccionada = $(this).parents("tr");
-		var usuario = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
+		var cliente = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
 		$.confirm({
 			icon : "fa fa-info-circle",
 			title : "Aviso",
-			content : "¿Desea eliminar el Usuario <b>'" + usuario.sIdentificador + "'<b/>?",
-			theme: "bootstrap",
+			content : "¿Desea eliminar el cliente <b>'" + cliente.sTipoDocumento + " - " + cliente.sNumeroDocumento + "'<b/>?",
+			theme : "bootstrap",
 			buttons : {
 				Aceptar : {
 					action : function() {
@@ -243,8 +240,8 @@ $(document).ready(function() {
 								self.buttons.close.hide();
 								$.ajax({
 									type : "DELETE",
-									url : $variableUtil.root + "seguridad/usuario",
-									data : JSON.stringify(usuario),
+									url : $variableUtil.root + "mantenimiento/cliente",
+									data : JSON.stringify(cliente),
 									autoclose : true,
 									beforeSend : function(xhr) {
 										xhr.setRequestHeader('Content-Type', 'application/json');
@@ -261,7 +258,7 @@ $(document).ready(function() {
 										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
 										break;
 									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("El Usuario <b>" + usuario.sIdentificador + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
+										var mensaje = $funcionUtil.obtenerMensajeError("El cliente <b>" + cliente.sTipoDocumento + " - " + cliente.sNumeroDocumento + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
 										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
 										break;
 									}

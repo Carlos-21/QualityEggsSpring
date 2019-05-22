@@ -14,7 +14,7 @@ public class Usuario {
 	private String sClave;
 	private Integer nidPerfil;
 	private String sNombrePerfil;
-	private Boolean bEstado;
+	private boolean bEstado;
 	private Date dFecha;
 	private Date dHora;
 
@@ -24,7 +24,7 @@ public class Usuario {
 
 	public Usuario(String idPersona, String sTipoDocumento, String sNumeroDocumento, String sNombre,
 			String sApellidoPaterno, String sApellidoMaterno, String sIdentificador, String sClave, Integer nidPerfil,
-			String sNombrePerfil, Boolean bEstado, Date dFecha, Date dHora) {
+			String sNombrePerfil, boolean bEstado, Date dFecha, Date dHora) {
 		super();
 		this.idPersona = idPersona;
 		this.sTipoDocumento = sTipoDocumento;
@@ -121,11 +121,11 @@ public class Usuario {
 		this.sNombrePerfil = sNombrePerfil;
 	}
 
-	public Boolean getbEstado() {
+	public boolean getbEstado() {
 		return bEstado;
 	}
 
-	public void setbEstado(Boolean bEstado) {
+	public void setbEstado(boolean bEstado) {
 		this.bEstado = bEstado;
 	}
 

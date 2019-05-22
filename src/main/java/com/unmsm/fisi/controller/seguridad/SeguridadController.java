@@ -15,6 +15,7 @@ import com.unmsm.fisi.aspecto.enumeracion.Comentario;
 import com.unmsm.fisi.aspecto.enumeracion.Tipo;
 import com.unmsm.fisi.controller.excepcion.anotacion.Vista;
 import com.unmsm.fisi.service.impl.mantenimiento.PersonaServiceImpl;
+import com.unmsm.fisi.service.impl.mantenimiento.TrabajadorServiceImpl;
 import com.unmsm.fisi.service.impl.seguridad.PerfilServiceImpl;
 
 @Vista
@@ -27,6 +28,9 @@ public @Controller class SeguridadController {
 	@Autowired
 	@Qualifier("personaServicio")
 	private PersonaServiceImpl personaServicio;
+	@Autowired
+	@Qualifier("trabajadorServicio")
+	private TrabajadorServiceImpl trabajadorService;
 	
 	
     @GetMapping("/{mantenimiento:perfil}")
@@ -36,13 +40,12 @@ public @Controller class SeguridadController {
         return "seguras/seguridad/mantenimiento";
     }
 	
-    @Audit(tipo = Tipo.Usu)
     @GetMapping(value = "/{mantenimiento:usuario}")
     public String irPaginaMantenimientoUsuario(@PathVariable String mantenimiento, Model model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
         model.addAttribute("perfiles", perfilService.listarPerfiles());
-        model.addAttribute("personas", personaServicio.listarPersonas());
+        model.addAttribute("trabajadores", trabajadorService.listarTrabajadores());
         return "seguras/seguridad/mantenimiento";
     }
 	
