@@ -8,14 +8,14 @@ $(document).ready(function() {
 		$registrarMantenimiento : $("#registrarMantenimiento"),
 		$filaSeleccionada : "",
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
-		$personas : $("#personas"),
 		idTipoDocumento : "",
 		numeroDocumento : "",
+		$tiposDocumento : $("#tiposDocumento")
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 	
-	$funcionUtil.crearSelect2($local.$personas, "Seleccione una Persona");
+	$funcionUtil.crearSelect2($local.$tiposDocumento, "Seleccione un Tipo de Documento");
 	
 	$.fn.dataTable.ext.errMode = 'none';
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 		title : "Mantenimiento de Cliente",
 		autoOpen : false,
 		modal : false,
-		height : 400,
+		height : 642,
 		width : 600
 	});
 
@@ -114,11 +114,6 @@ $(document).ready(function() {
 			return;
 		}
 		var cliente = $formMantenimiento.serializeJSON();
-		var tipoDocumento_NumeroDocumento = cliente.sNumeroDocumento.split("/");
-		if (tipoDocumento_NumeroDocumento.length == 2) {
-			cliente.sTipoDocumento = tipoDocumento_NumeroDocumento[0];
-			cliente.sNumeroDocumento = tipoDocumento_NumeroDocumento[1];
-		}
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/cliente",
@@ -166,8 +161,8 @@ $(document).ready(function() {
 			return;
 		}
 		var cliente = $formMantenimiento.serializeJSON();
-		cliente.sTipoDocumento = $local.idTipoDocumento;
-		cliente.sNumeroDocumento = $local.numeroDocumento;
+		cliente.sTipoDocumentoAntiguo = $local.idTipoDocumento;
+		cliente.sNumeroDocumentoAntiguo = $local.numeroDocumento;
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "mantenimiento/cliente",

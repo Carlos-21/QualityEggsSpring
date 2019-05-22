@@ -51,7 +51,8 @@ public @Controller class MantenimientoController
     public String irPaginaMantenimientoProveedor(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("personas", personaServicio.listarPersonas());
+        model.addAttribute("tiposDocumento",
+        		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_DOCUMENTO_IDENTIDAD));
         return "seguras/mantenimiento/mantenimiento";
     }
         
@@ -59,7 +60,8 @@ public @Controller class MantenimientoController
     public String irPaginaMantenimientoCliente(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("personas", personaServicio.listarPersonas());
+        model.addAttribute("tiposDocumento",
+        		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_DOCUMENTO_IDENTIDAD));
         return "seguras/mantenimiento/mantenimiento";
     }
 
@@ -67,6 +69,8 @@ public @Controller class MantenimientoController
     public String irPaginaMantenimientoProducto(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
+        model.addAttribute("tiposProducto",
+        		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_PRODUCTO));
         return "seguras/mantenimiento/mantenimiento";
     }
     

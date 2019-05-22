@@ -8,14 +8,14 @@ $(document).ready(function() {
 		$registrarMantenimiento : $("#registrarMantenimiento"),
 		$filaSeleccionada : "",
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
-		$personas : $("#personas"),
 		idTipoDocumento : "",
 		numeroDocumento : "",
+		$tiposDocumento : $("#tiposDocumento")
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 	
-	$funcionUtil.crearSelect2($local.$personas, "Seleccione una Persona");
+	$funcionUtil.crearSelect2($local.$tiposDocumento, "Seleccione un Tipo de Documento");
 	
 	$.fn.dataTable.ext.errMode = 'none';
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 		title : "Mantenimiento de Proveedor",
 		autoOpen : false,
 		modal : false,
-		height : 400,
+		height : 642,
 		width : 600
 	});
 
@@ -114,11 +114,6 @@ $(document).ready(function() {
 			return;
 		}
 		var proveedor = $formMantenimiento.serializeJSON();
-		var tipoDocumento_NumeroDocumento = proveedor.sNumeroDocumento.split("/");
-		if (tipoDocumento_NumeroDocumento.length == 2) {
-			proveedor.sTipoDocumento = tipoDocumento_NumeroDocumento[0];
-			proveedor.sNumeroDocumento = tipoDocumento_NumeroDocumento[1];
-		}
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/proveedor",
@@ -166,8 +161,8 @@ $(document).ready(function() {
 			return;
 		}
 		var proveedor = $formMantenimiento.serializeJSON();
-		proveedor.sTipoDocumento = $local.idTipoDocumento;
-		proveedor.sNumeroDocumento = $local.numeroDocumento;
+		proveedor.sTipoDocumentoAntiguo = $local.idTipoDocumento;
+		proveedor.sNumeroDocumentoAntiguo = $local.numeroDocumento;
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "mantenimiento/proveedor",

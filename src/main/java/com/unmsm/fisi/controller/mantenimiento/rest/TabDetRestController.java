@@ -53,6 +53,10 @@ public class TabDetRestController {
 	
 	@DeleteMapping
     public String eliminarMultiTabDet(@RequestBody TabDet oTabDet, Errors error){
+		if(oTabDet ==null) {
+			System.out.println("nulo");
+		}
+		
 		oTabDetService.eliminarMultiTabDet(oTabDet.getnIdTabla(), oTabDet.getsIdItem());
 		return ConstantesGenerales.ELIMINACION_EXITOSA;
 	}

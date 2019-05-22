@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
-	<div id="modalMantenimiento" class="row" th:fragment="modalMantenimiento" th:with="tipo=${tipo}">
+	<div id="modalMantenimiento" class="row"
+		th:fragment="modalMantenimiento" th:with="tipo=${tipo}">
 		<fieldset class="well">
-			<legend class="well-legend">Formulario de Mantenimiento</legend>
+			<legend class="well-legend">Formulario</legend>
 			<form id="formMantenimiento" class="form-horizontal" role="form">
-				<th:block th:replace="~{template/fragments/mantenimiento/modalMantenimiento :: ${tipo}}?:~{}">
+				<th:block
+					th:replace="~{template/fragments/mantenimiento/modalMantenimiento :: ${tipo}}?:~{}">
 				</th:block>
 				<div id="botonesForm" class="form-group">
 					<div class="col-lg-12 text-center">
-						<button id="registrarMantenimiento" type="button" class="btn btn-success">
+						<button id="registrarMantenimiento" type="button"
+							class="btn btn-success">
 							<i class="fa fa-floppy-o"></i> Registrar
 						</button>
-						<button id="actualizarMantenimiento" type="button" class="btn btn-primary hidden">
+						<button id="actualizarMantenimiento" type="button"
+							class="btn btn-primary hidden">
 							<i class="fa fa-pencil-square"></i> Actualizar
 						</button>
 					</div>
@@ -22,62 +27,71 @@
 			</form>
 		</fieldset>
 	</div>
-	
+
 	<th:block th:fragment="producto">
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Nombre</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" name="sNombre">
+				<input class="form-control lettersOnly" name="sNombre">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Descripción</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" name="sDescripcion">
+				<input class="form-control lettersOnly" name="sDescripcion">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Tipo</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" name="sTipo">
+				<select id="tiposProducto" class="form-control select2 "
+					name="sTipo">
+					<option value="" disabled="disabled" selected="selected">Seleccione
+						un Tipo de Producto</option>
+					<option th:each="tipoProducto : ${tiposProducto}"
+						th:value="${tipoProducto.sDescripcionCorta}"
+						th:text="|${tipoProducto.sIdItem} - ${tipoProducto.sDescripcionCorta}|"></option>
+				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="group">
 				<label class="col-lg-2 control-label">Stock</label>
 				<div class="col-lg-4">
-					<input class="form-control upperCase" name="nStock">
+					<input class="form-control numbersOnly" name="nStock">
 				</div>
 			</div>
 			<div class="group">
 				<label class="col-lg-2 control-label">Precio</label>
 				<div class="col-lg-4">
-					<input class="form-control upperCase" name="nPrecioUnitario">
+					<input class="form-control numbersOnlyAndDot" name="nPrecioUnitario">
 				</div>
 			</div>
 		</div>
-		
+
 	</th:block>
-	
+
 	<th:block th:fragment="persona">
-		
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Tipo de Documento</label>
 			<div class="col-lg-10">
 				<select id="tiposDocumento" class="form-control select2 "
 					name="sTipoDocumento">
-					<option value="" disabled="disabled" selected="selected">Seleccione un Tipo de
-						Documento</option>
-					<option th:each="tipoDocumento : ${tiposDocumento}" th:value="${tipoDocumento.sDescripcionCorta}"
+					<option value="" disabled="disabled" selected="selected">Seleccione
+						un Tipo de Documento</option>
+					<option th:each="tipoDocumento : ${tiposDocumento}"
+						th:value="${tipoDocumento.sDescripcionCorta}"
 						th:text="|${tipoDocumento.sIdItem} - ${tipoDocumento.sDescripcionCorta}|"></option>
 				</select>
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Número de Documento</label>
 			<div class="col-lg-10">
-				<input class="form-control elemento-desactivable" name="sNumeroDocumento">
+				<input class="form-control elemento-desactivable"
+					name="sNumeroDocumento">
 			</div>
 		</div>
 		<div class="form-group">
@@ -138,58 +152,187 @@
 
 	<th:block th:fragment="cliente">
 		<div class="form-group">
-			<label class="col-lg-2 control-label">Persona</label>
+			<label class="col-lg-2 control-label">Tipo de Documento</label>
 			<div class="col-lg-10">
-				<select id="personas" class="form-control select2" name="sNumeroDocumento">
-					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
-					<option th:each="persona : ${personas}"
-						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"
-						th:text="|${persona.sNumeroDocumento} - ${persona.sApellidoPaterno} ${persona.sApellidoMaterno}, ${persona.sNombre}|"></option>
+				<select id="tiposDocumento" class="form-control select2 "
+					name="sTipoDocumento">
+					<option value="" disabled="disabled" selected="selected">Seleccione
+						un Tipo de Documento</option>
+					<option th:each="tipoDocumento : ${tiposDocumento}"
+						th:value="${tipoDocumento.sDescripcionCorta}"
+						th:text="|${tipoDocumento.sIdItem} - ${tipoDocumento.sDescripcionCorta}|"></option>
 				</select>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Número de Documento</label>
+			<div class="col-lg-10">
+				<input class="form-control numbersOnly"
+					name="sNumeroDocumento">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Apellido Paterno</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sApellidoPaterno">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Apellido Materno</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sApellidoMaterno">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Nombres</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sNombre">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Género</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sSexo">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Domicilio</label>
+			<div class="col-lg-10">
+				<input class="form-control " name="sDomicilio">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Teléfono</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="sTelefonoFijo">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Celular</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="sTelefonoCelular">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Correo</label>
+			<div class="col-lg-10">
+				<input class="form-control" name="sCorreo">
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Empresa</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" maxlength="20" name="sEmpresa">
+				<input class="form-control lettersOnly" maxlength="20" name="sEmpresa">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Rubro</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" maxlength="20" name="sRubro">
+				<input class="form-control lettersOnly" maxlength="20" name="sRubro">
 			</div>
 		</div>
-		
+
 	</th:block>
 
 	<th:block th:fragment="proveedor">
 		<div class="form-group">
-			<label class="col-lg-2 control-label">Persona</label>
+			<label class="col-lg-2 control-label">Tipo de Documento</label>
 			<div class="col-lg-10">
-				<select id="personas" class="form-control select2" name="sNumeroDocumento">
-					<option value="" disabled="disabled" selected="selected">Seleccione una Persona</option>
-					<option th:each="persona : ${personas}"
-						th:value="|${persona.sTipoDocumento}/${persona.sNumeroDocumento}|"
-						th:text="|${persona.sNumeroDocumento} - ${persona.sApellidoPaterno} ${persona.sApellidoMaterno}, ${persona.sNombre}|"></option>
+				<select id="tiposDocumento" class="form-control select2 "
+					name="sTipoDocumento">
+					<option value="" disabled="disabled" selected="selected">Seleccione
+						un Tipo de Documento</option>
+					<option th:each="tipoDocumento : ${tiposDocumento}"
+						th:value="${tipoDocumento.sDescripcionCorta}"
+						th:text="|${tipoDocumento.sIdItem} - ${tipoDocumento.sDescripcionCorta}|"></option>
 				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Número de Documento</label>
+			<div class="col-lg-10">
+				<input class="form-control numbersOnly"
+					name="sNumeroDocumento">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Apellido Paterno</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sApellidoPaterno">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Apellido Materno</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sApellidoMaterno">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Nombres</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sNombre">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Género</label>
+				<div class="col-lg-4">
+					<input class="form-control lettersOnly" name="sSexo">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Domicilio</label>
+			<div class="col-lg-10">
+				<input class="form-control" name="sDomicilio">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Teléfono</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="sTelefonoFijo">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Celular</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="sTelefonoCelular">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Correo</label>
+			<div class="col-lg-10">
+				<input class="form-control" name="sCorreo">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Empresa</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" maxlength="20" name="sEmpresa">
+				<input class="form-control lettersOnly" maxlength="20" name="sEmpresa">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Rubro</label>
 			<div class="col-lg-10">
-				<input class="form-control upperCase" maxlength="20" name="sRubro">
+				<input class="form-control lettersOnly" maxlength="20" name="sRubro">
 			</div>
 		</div>
-		
+
 	</th:block>
-	
+
 	<th:block th:fragment="multiTabCab">
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Nombre</label>
@@ -204,6 +347,6 @@
 			</div>
 		</div>
 	</th:block>
-	
+
 </body>
 </html>

@@ -37,6 +37,13 @@ public class ClienteServiceImpl implements ClienteService {
 			oCliente.setsNombre(oPersona.getsNombre());
 			oCliente.setsApellidoPaterno(oPersona.getsApellidoPaterno());
 			oCliente.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+			oCliente.setsSexo(oPersona.getsSexo());
+			oCliente.setsDomicilio(oPersona.getsDomicilio());
+			oCliente.setsTelefonoFijo(oPersona.getsTelefonoFijo());
+			oCliente.setsTelefonoCelular(oPersona.getsTelefonoCelular());
+			oCliente.setsCorreo(oPersona.getsCorreo());
+			oCliente.setdFecha(oPersona.getdFecha());
+			oCliente.setdHora(oPersona.getdHora());
 
 		}
 
@@ -55,12 +62,23 @@ public class ClienteServiceImpl implements ClienteService {
 		oCliente.setsNombre(oPersona.getsNombre());
 		oCliente.setsApellidoPaterno(oPersona.getsApellidoPaterno());
 		oCliente.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+		oCliente.setsSexo(oPersona.getsSexo());
+		oCliente.setsDomicilio(oPersona.getsDomicilio());
+		oCliente.setsTelefonoFijo(oPersona.getsTelefonoFijo());
+		oCliente.setsTelefonoCelular(oPersona.getsTelefonoCelular());
+		oCliente.setsCorreo(oPersona.getsCorreo());
+		oCliente.setdFecha(oPersona.getdFecha());
+		oCliente.setdHora(oPersona.getdHora());
 
 		return oCliente;
 	}
 
 	@Override
 	public ClienteId registrarCliente(Cliente oCliente) {
+		Persona oPersona = oCliente;
+
+		personaService.registrarPersona(oPersona);
+		
 		clienteRepository.save(clienteTransform.transformME(oCliente));
 
 		ClienteId oMClienteId = new ClienteId();
@@ -72,12 +90,17 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public ClienteId actualizarCliente(Cliente oCliente) {
+		Persona oPersona = oCliente;
+
+		personaService.actualizarPersona(oPersona);
+		
 		clienteRepository.save(clienteTransform.transformME(oCliente));
 
 		ClienteId oMClienteId = new ClienteId();
 		oMClienteId.setsNumeroDocumento(oCliente.getsNumeroDocumento());
 		oMClienteId.setsTipoDocumento(oCliente.getsTipoDocumento());
-
+		
+		eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
 		return oMClienteId;
 	}
 
@@ -86,8 +109,10 @@ public class ClienteServiceImpl implements ClienteService {
 		ManClienteId oEClienteId = new ManClienteId();
 		oEClienteId.setManPersonaVNumeroDocumento(sNumeroDocumento);
 		oEClienteId.setManPersonaVTipoDocumento(sTipoDocumento);
-		
+
 		clienteRepository.delete(oEClienteId);
+		
+		personaService.eliminarPersona(sTipoDocumento, sNumeroDocumento);
 	}
 
 }

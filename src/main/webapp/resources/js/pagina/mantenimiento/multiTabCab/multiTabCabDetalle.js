@@ -213,6 +213,7 @@ $(document).ready(function() {
 	$localDetalle.$tablaDetalleMantenimiento.children("tbody").on("click", ".eliminar", function() {
 		$localDetalle.$filaDetalleSeleccionada = $(this).parents("tr");
 		var multiTabDet = $localDetalle.tablaDetalleMantenimiento.row($localDetalle.$filaDetalleSeleccionada).data();
+		multiTabDet.nIdTabla = $localDetalle.id_tablaSeleccionado;
 		console.log(multiTabDet);
 		$.confirm({
 			icon : "fa fa-info-circle",

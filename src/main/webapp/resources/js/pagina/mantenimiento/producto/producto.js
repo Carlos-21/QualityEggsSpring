@@ -8,11 +8,14 @@ $(document).ready(function() {
 		$registrarMantenimiento : $("#registrarMantenimiento"),
 		$filaSeleccionada : "",
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
-		idProducto : ""
+		idProducto : "",
+		$tiposProducto : $("#tiposProducto")
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 
+	$funcionUtil.crearSelect2($local.$tiposProducto, "Seleccione un Tipo de Producto");
+	
 	$.fn.dataTable.ext.errMode = 'none';
 
 	$local.$tablaMantenimiento.on('xhr.dt', function(e, settings, json, xhr) {

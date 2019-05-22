@@ -37,6 +37,13 @@ public class ProveedorServiceImpl implements ProveedorService{
 			oProveedor.setsNombre(oPersona.getsNombre());
 			oProveedor.setsApellidoPaterno(oPersona.getsApellidoPaterno());
 			oProveedor.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+			oProveedor.setsSexo(oPersona.getsSexo());
+			oProveedor.setsDomicilio(oPersona.getsDomicilio());
+			oProveedor.setsTelefonoFijo(oPersona.getsTelefonoFijo());
+			oProveedor.setsTelefonoCelular(oPersona.getsTelefonoCelular());
+			oProveedor.setsCorreo(oPersona.getsCorreo());
+			oProveedor.setdFecha(oPersona.getdFecha());
+			oProveedor.setdHora(oPersona.getdHora());
 
 		}
 
@@ -55,14 +62,25 @@ public class ProveedorServiceImpl implements ProveedorService{
 		oProveedor.setsNombre(oPersona.getsNombre());
 		oProveedor.setsApellidoPaterno(oPersona.getsApellidoPaterno());
 		oProveedor.setsApellidoMaterno(oPersona.getsApellidoMaterno());
+		oProveedor.setsSexo(oPersona.getsSexo());
+		oProveedor.setsDomicilio(oPersona.getsDomicilio());
+		oProveedor.setsTelefonoFijo(oPersona.getsTelefonoFijo());
+		oProveedor.setsTelefonoCelular(oPersona.getsTelefonoCelular());
+		oProveedor.setsCorreo(oPersona.getsCorreo());
+		oProveedor.setdFecha(oPersona.getdFecha());
+		oProveedor.setdHora(oPersona.getdHora());
 
 		return oProveedor;
 	}
 
 	@Override
 	public ProveedorId registrarProveedor(Proveedor oProveedor) {
+		Persona oPersona = oProveedor;
+		
+		personaService.registrarPersona(oPersona);
+		
 		proveedorRepository.save(proveedorTransform.transformME(oProveedor));
-
+		
 		ProveedorId oMProveedorId = new ProveedorId();
 		oMProveedorId.setsNumeroDocumento(oProveedor.getsNumeroDocumento());
 		oMProveedorId.setsTipoDocumento(oProveedor.getsTipoDocumento());
@@ -72,11 +90,17 @@ public class ProveedorServiceImpl implements ProveedorService{
 
 	@Override
 	public ProveedorId actualizarProveedor(Proveedor oProveedor) {
+		Persona oPersona = oProveedor;
+		
+		personaService.actualizarPersona(oPersona);
+		
 		proveedorRepository.save(proveedorTransform.transformME(oProveedor));
 
 		ProveedorId oMProveedorId = new ProveedorId();
 		oMProveedorId.setsNumeroDocumento(oProveedor.getsNumeroDocumento());
 		oMProveedorId.setsTipoDocumento(oProveedor.getsTipoDocumento());
+		
+		eliminarProveedor(oProveedor.getsTipoDocumentoAntiguo(), oProveedor.getsNumeroDocumentoAntiguo());
 
 		return oMProveedorId;
 	}
@@ -88,6 +112,8 @@ public class ProveedorServiceImpl implements ProveedorService{
 		oEProveedorId.setManPersonaVTipoDocumento(sTipoDocumento);
 		
 		proveedorRepository.delete(oEProveedorId);
+		
+		personaService.eliminarPersona(sTipoDocumento, sNumeroDocumento);
 	}
 
 }
