@@ -114,6 +114,7 @@ $(document).ready(function() {
 		}
 		var producto = $formMantenimiento.serializeJSON();
 		console.log(producto);
+		console.log(JSON.stringify(producto));
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/producto",

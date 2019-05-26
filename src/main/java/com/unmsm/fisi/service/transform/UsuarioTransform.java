@@ -16,7 +16,7 @@ public class UsuarioTransform implements Transform<Usuario, SegUsuario>{
 
 	@Override
 	public SegUsuario transformME(Usuario oModel) {
-		if(oModel == null) {
+		if(oModel != null) {
 			SegUsuario oEUsuario = new SegUsuario();
 			oEUsuario.setVidUsuario(oModel.getsIdentificador());
 			
@@ -34,7 +34,7 @@ public class UsuarioTransform implements Transform<Usuario, SegUsuario>{
 			oEPerfil.setNidPerfil(oModel.getNidPerfil());
 			
 			oEUsuario.setSegPerfilNIdPerfil(oModel.getNidPerfil());;
-			oEUsuario.setBactivo(oModel.getbEstado());
+			oEUsuario.setBactivo(oModel.isbEstado());
 			oEUsuario.setDfecha(oModel.getdFecha());
 			oEUsuario.setThora(oModel.getdHora());
 			

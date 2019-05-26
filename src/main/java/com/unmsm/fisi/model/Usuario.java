@@ -5,16 +5,16 @@ import java.util.Date;
 public class Usuario {
 	
 	private String idPersona;
+	private String sIdentificador;
+	private String sClave;
+	private Integer nidPerfil;
+	private boolean bEstado;
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
 	private String sNombre;
 	private String sApellidoPaterno;
 	private String sApellidoMaterno;
-	private String sIdentificador;
-	private String sClave;
-	private Integer nidPerfil;
-	private String sNombrePerfil;
-	private boolean bEstado;
+	private String sNombrePerfil;	
 	private Date dFecha;
 	private Date dHora;
 
@@ -22,21 +22,21 @@ public class Usuario {
 
 	}
 
-	public Usuario(String idPersona, String sTipoDocumento, String sNumeroDocumento, String sNombre,
-			String sApellidoPaterno, String sApellidoMaterno, String sIdentificador, String sClave, Integer nidPerfil,
-			String sNombrePerfil, boolean bEstado, Date dFecha, Date dHora) {
+	public Usuario(String idPersona, String sIdentificador, String sClave, Integer nidPerfil, boolean bEstado,
+			String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
+			String sApellidoMaterno, String sNombrePerfil, Date dFecha, Date dHora) {
 		super();
 		this.idPersona = idPersona;
+		this.sIdentificador = sIdentificador;
+		this.sClave = sClave;
+		this.nidPerfil = nidPerfil;
+		this.bEstado = bEstado;
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
 		this.sNombre = sNombre;
 		this.sApellidoPaterno = sApellidoPaterno;
 		this.sApellidoMaterno = sApellidoMaterno;
-		this.sIdentificador = sIdentificador;
-		this.sClave = sClave;
-		this.nidPerfil = nidPerfil;
 		this.sNombrePerfil = sNombrePerfil;
-		this.bEstado = bEstado;
 		this.dFecha = dFecha;
 		this.dHora = dHora;
 	}
@@ -47,6 +47,38 @@ public class Usuario {
 
 	public void setIdPersona(String idPersona) {
 		this.idPersona = idPersona;
+	}
+
+	public String getsIdentificador() {
+		return sIdentificador;
+	}
+
+	public void setsIdentificador(String sIdentificador) {
+		this.sIdentificador = sIdentificador;
+	}
+
+	public String getsClave() {
+		return sClave;
+	}
+
+	public void setsClave(String sClave) {
+		this.sClave = sClave;
+	}
+
+	public Integer getNidPerfil() {
+		return nidPerfil;
+	}
+
+	public void setNidPerfil(Integer nidPerfil) {
+		this.nidPerfil = nidPerfil;
+	}
+
+	public boolean isbEstado() {
+		return bEstado;
+	}
+
+	public void setbEstado(boolean bEstado) {
+		this.bEstado = bEstado;
 	}
 
 	public String getsTipoDocumento() {
@@ -89,44 +121,12 @@ public class Usuario {
 		this.sApellidoMaterno = sApellidoMaterno;
 	}
 
-	public String getsIdentificador() {
-		return sIdentificador;
-	}
-
-	public void setsIdentificador(String sIdentificador) {
-		this.sIdentificador = sIdentificador;
-	}
-
-	public String getsClave() {
-		return sClave;
-	}
-
-	public void setsClave(String sClave) {
-		this.sClave = sClave;
-	}
-
-	public Integer getNidPerfil() {
-		return nidPerfil;
-	}
-
-	public void setNidPerfil(Integer nidPerfil) {
-		this.nidPerfil = nidPerfil;
-	}
-
 	public String getsNombrePerfil() {
 		return sNombrePerfil;
 	}
 
 	public void setsNombrePerfil(String sNombrePerfil) {
 		this.sNombrePerfil = sNombrePerfil;
-	}
-
-	public boolean getbEstado() {
-		return bEstado;
-	}
-
-	public void setbEstado(boolean bEstado) {
-		this.bEstado = bEstado;
 	}
 
 	public Date getdFecha() {
@@ -144,5 +144,7 @@ public class Usuario {
 	public void setdHora(Date dHora) {
 		this.dHora = dHora;
 	}
+
+	
 
 }

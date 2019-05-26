@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.unmsm.fisi.model.Perfil;
@@ -32,6 +33,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Autowired
 	@Qualifier("personaServicio")
 	private PersonaServiceImpl personaService;
+	
+	@Autowired
+	private PasswordEncoder passwordService;
 	
 	@Override
 	public List<Usuario> listarUsuarios() {
@@ -69,8 +73,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public String registrarUsuario(Usuario oUsuario) {
+		oUsuario.setsClave(passwordService.encode(oUsuario.getsClave()));
 		usuarioRepository.save(usuarioTransform.transformME(oUsuario));
-		return listarUsuarios().get(listarUsuarios().size()-1).getsIdentificador();
+		return oUsuario.getsIdentificador();
 	}
 
 	@Override

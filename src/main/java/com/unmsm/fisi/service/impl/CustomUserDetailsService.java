@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		Usuario oUsuario = usuarioServicio.buscarUsuario(login);
 		CustomUser user = null;
 		if (oUsuario != null) {
-			user = new CustomUser(oUsuario.getsIdentificador(), oUsuario.getsClave(), oUsuario.getbEstado(), true, true,
+			user = new CustomUser(oUsuario.getsIdentificador(), oUsuario.getsClave(), oUsuario.isbEstado(), true, true,
 					true, buscarPorIdUsuario(oUsuario.getNidPerfil()));
 		}
 		return user;
