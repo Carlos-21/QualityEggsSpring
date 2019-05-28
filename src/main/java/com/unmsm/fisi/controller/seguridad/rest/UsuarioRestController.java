@@ -48,61 +48,12 @@ public class UsuarioRestController {
 	
 	@PostMapping
     public ResponseEntity<?> registrarUsuario( @RequestBody Usuario oUsuario){
-		
-		
-		if(oUsuario==null) {
-			System.out.println("Nulo Objeto");
-			
-		}
-		else {
-			System.out.println("No nulo objeto");
-		}
-		if(oUsuario.getIdPersona() == null) {
-			System.out.println("Nulo idPersona");
-		}
-		else {
-			System.out.println("No nulo idPersona");
-		}
-		if(oUsuario.getsIdentificador() == null) {
-			System.out.println("Nulo identificador");
-		}
-		else {
-			System.out.println("No nulo identificador");
-		}
-		
-		if(oUsuario.getsClave() == null) {
-			System.out.println("Nulo clave");
-		}
-		else {
-			System.out.println("No nulo clave");
-		}
-		if(oUsuario.getNidPerfil() == null) {
-			System.out.println("Nulo perfil");
-		}
-		else {
-			System.out.println("No nulo perfil");
-		}
 		int nPos = oUsuario.getIdPersona().indexOf('/');
 		String sTipoDocumento = oUsuario.getIdPersona().substring(0, nPos);
 		String sNumeroDocumento = oUsuario.getIdPersona().substring(nPos+1,  oUsuario.getIdPersona().length()); 
 		
 		oUsuario.setsNumeroDocumento(sNumeroDocumento);
 		oUsuario.setsTipoDocumento(sTipoDocumento);
-		
-		
-		if(oUsuario.getsNumeroDocumento() == null) {
-			System.out.println("Nulo numero documento");
-		}
-		else {
-			System.out.println("No nulo " + oUsuario.getsNumeroDocumento());
-		}
-		
-		if(oUsuario.getsTipoDocumento() == null) {
-			System.out.println("Nulo tipo documento");
-		}
-		else {
-			System.out.println("No nulo " + oUsuario.getsTipoDocumento());
-		}
 		
 		String sIdentificador = usuarioService.registrarUsuario(oUsuario);
 		

@@ -8,18 +8,14 @@ $(document).ready(function() {
 		$registrarMantenimiento : $("#registrarMantenimiento"),
 		$filaSeleccionada : "",
 		$actualizarMantenimiento : $("#actualizarMantenimiento"),
-		$perfiles : $("#perfiles"),
-		$trabajadores : $("#trabajadores"),
 		idTipoDocumento : "",
 		numeroDocumento : "",
-		idUsuarioSeleccionado : "",
-		$tiposDocumento : $("#tiposDocumento")
+		$clientes : $("#clientes")
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 	
-	$funcionUtil.crearSelect2($local.$perfiles, "Seleccione un Perfil");
-	$funcionUtil.crearSelect2($local.$trabajadores, "Seleccione un Trabajador");
+	$funcionUtil.crearSelect2($local.$clientes, "Seleccione un Cliente");
 	
 	$.fn.dataTable.ext.errMode = 'none';
 
@@ -33,56 +29,48 @@ $(document).ready(function() {
 
 	$local.tablaMantenimiento = $local.$tablaMantenimiento.DataTable({
 		"ajax" : {
-			"url" : $variableUtil.root + "seguridad/usuario?accion=buscarTodos",
+			"url" : $variableUtil.root + "pedido/pedidoCliente?accion=buscarTodos",
 			"dataSrc" : ""
 		},
 		"language" : {
-			"emptyTable" : "No hay Usuarios registrados."
+			"emptyTable" : "No hay pedidos de clientes registrados."
 		},
 		"initComplete" : function() {
 			$local.$tablaMantenimiento.wrap("<div class='table-responsive'></div>");
 			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento);
 		},
 		"columnDefs" : [ {
-			"targets" : [ 0, 1, 2, 3, 4, 5, 6 ],
+			"targets" : [ 0, 1, 2, 3, 4 ],
 			"className" : "all filtrable",
 		}, {
-			"targets" : 6,
-			"className" : "all dt-center",
-			"render" : function(data, type, row, meta) {
-				if (row.bEstado == 1)
-					return "<label class='label label-info label-size-12'>Activo</label>";
-				else
-					return "<label class='label label-danger label-size-12'>No activo</label>";
-			}
-		}, {
-			"targets" : 7,
+			"targets" : 5,
 			"className" : "all dt-center",
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
 		"columns" : [ {
-			"data" : 'sIdentificador',
-			"title" : "Usuario"
+			"data" : function(row) {
+				return row.sApellidoPaterno + "," + row.sApellidoMaterno + " " + row.sNombre;
+			},
+			"title" : "Cliente"
 		}, {
-			"data" : 'sTipoDocumento',
-			"title" : "Tipo de Doc."
+			"data" : 'sEmpresa',
+			"title" : "Empresa"
 		}, {
-			"data" : 'sNumeroDocumento',
-			"title" : "Num. de Doc."
+			"data" : 'sRubro',
+			"title" : "Rubro"
+		}, {
+			"data" : 'nCantidad',
+			"title" : "Cantidad"
 		}, {
 			"data" : function(row) {
-				return row.sApellidoPaterno + " " + row.sApellidoMaterno;
+				if(row.vEstado == 1){
+					return "<label class='label label-danger label-size-12'>Urgente</label>";
+				}
+				else{
+					return "<label class='label label-info label-size-12'>Normal</label>";
+				}
 			},
-			"title" : "Apellidos"
-		}, {
-			"data" : 'sNombre',
-			"title" : "Nombres"
-		}, {
-			"data" : 'sNombrePerfil',
-			"title" : "Perfil"
-		}, {
-			"data" : null,
-			"title" : "Activo"
+			"title" : "Estado"
 		}, {
 			"data" : null,
 			"title" : 'Acción'
@@ -94,10 +82,10 @@ $(document).ready(function() {
 	});
 
 	$local.$modalMantenimiento.PopupWindow({
-		title : "Mantenimiento de Usuario",
+		title : "Mantenimiento de Pedido de cliente",
 		autoOpen : false,
 		modal : false,
-		height : 430,
+		height : 642,
 		width : 600
 	});
 
@@ -135,14 +123,11 @@ $(document).ready(function() {
 		if (!$formMantenimiento.valid()) {
 			return;
 		}
-		var usuario = $formMantenimiento.serializeJSON();
-		console.log(usuario);
-		console.log(JSON.stringify(usuario));
-		console.log($variableUtil.root + "seguridad/usuario");
+		var pedidoCliente = $formMantenimiento.serializeJSON();
 		$.ajax({
 			type : "POST",
-			url : $variableUtil.root + "seguridad/usuario",
-			data : JSON.stringify(usuario),
+			url : $variableUtil.root + "pedido/pedidoCliente",
+			data : JSON.stringify(pedidoCliente),
 			beforeSend : function(xhr) {
 				$local.$registrarMantenimiento.attr("disabled", true).find("i").removeClass("fa-floppy-o").addClass("fa-spinner fa-pulse fa-fw");
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -154,9 +139,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(usuario) {
+			success : function(pedido) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row.add(usuario).draw();
+				var row = $local.tablaMantenimiento.row.add(pedido).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -172,12 +157,10 @@ $(document).ready(function() {
 	$local.$tablaMantenimiento.children("tbody").on("click", ".actualizar", function() {
 		$funcionUtil.prepararFormularioActualizacion($formMantenimiento);
 		$local.$filaSeleccionada = $(this).parents("tr");
-		var usuario = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$local.idTipoDocumento = usuario.sTipoDocumento;
-		$local.numeroDocumento = usuario.sNumeroDocumento;
-		console.log(usuario);
-		$local.$trabajadores.trigger("change", [ usuario.idPersona ]);
-		$funcionUtil.llenarFormulario(usuario, $formMantenimiento);
+		var pedido = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
+		$local.idTipoDocumento = pedido.sTipoDocumento;
+		$local.numeroDocumento = pedido.sNumeroDocumento;
+		$funcionUtil.llenarFormulario(pedido, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
 		$local.$modalMantenimiento.PopupWindow("open");
@@ -187,13 +170,13 @@ $(document).ready(function() {
 		if (!$formMantenimiento.valid()) {
 			return;
 		}
-		var usuario = $formMantenimiento.serializeJSON();
-		usuario.sTipoDocumento = $local.idTipoDocumento;
-		usuario.sNumeroDocumento = $local.numeroDocumento;
+		var cliente = $formMantenimiento.serializeJSON();
+		cliente.sTipoDocumentoAntiguo = $local.idTipoDocumento;
+		cliente.sNumeroDocumentoAntiguo = $local.numeroDocumento;
 		$.ajax({
 			type : "PUT",
-			url : $variableUtil.root + "seguridad/usuario",
-			data : JSON.stringify(usuario),
+			url : $variableUtil.root + "mantenimiento/cliente",
+			data : JSON.stringify(cliente),
 			beforeSend : function(xhr) {
 				$local.$actualizarMantenimiento.attr("disabled", true).find("i").removeClass("fa-pencil-square").addClass("fa-spinner fa-pulse fa-fw");
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -205,9 +188,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(usuario) {
+			success : function(cliente) {
 				$funcionUtil.notificarException($variableUtil.actualizacionExitosa, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(usuario).draw();
+				var row = $local.tablaMantenimiento.row($local.$filaSeleccionada).data(cliente).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");

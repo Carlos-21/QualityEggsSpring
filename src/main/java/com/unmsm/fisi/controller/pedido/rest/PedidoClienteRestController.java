@@ -22,7 +22,7 @@ import com.unmsm.fisi.utilitario.ConstantesGenerales;
 @RequestMapping("/pedido/pedidoCliente")
 public class PedidoClienteRestController {
 	@Autowired
-	@Qualifier("productoServicio")
+	@Qualifier("pedidoClienteServicio")
 	private PedidoClienteServiceImpl pedidoClienteService;
 	
 	@GetMapping(params = "accion=buscarTodos")
@@ -37,6 +37,13 @@ public class PedidoClienteRestController {
 	
 	@PostMapping
     public ResponseEntity<?> registrarPedidoCliente(@RequestBody PedidoCliente oPedidoCliente){
+		int nPos = oPedidoCliente.getIdPersona().indexOf('/');
+		String sTipoDocumento = oPedidoCliente.getIdPersona().substring(0, nPos);
+		String sNumeroDocumento = oPedidoCliente.getIdPersona().substring(nPos+1,  oPedidoCliente.getIdPersona().length()); 
+		
+		oPedidoCliente.setsNumeroDocumento(sNumeroDocumento);
+		oPedidoCliente.setsTipoDocumento(sTipoDocumento);
+		
 		Integer nidPedido = pedidoClienteService.registrarPedidoCliente(oPedidoCliente);
 		
 		return ResponseEntity.ok(pedidoClienteService.buscarPedidoCliente(nidPedido));
@@ -44,6 +51,13 @@ public class PedidoClienteRestController {
 	
 	@PutMapping
     public ResponseEntity<?> actualizarPedidoCliente(@RequestBody PedidoCliente oPedidoCliente){
+		int nPos = oPedidoCliente.getIdPersona().indexOf('/');
+		String sTipoDocumento = oPedidoCliente.getIdPersona().substring(0, nPos);
+		String sNumeroDocumento = oPedidoCliente.getIdPersona().substring(nPos+1,  oPedidoCliente.getIdPersona().length()); 
+		
+		oPedidoCliente.setsNumeroDocumento(sNumeroDocumento);
+		oPedidoCliente.setsTipoDocumento(sTipoDocumento);
+		
 		Integer nidPedido = pedidoClienteService.actualizarPedidoCliente(oPedidoCliente);
 		
 		return ResponseEntity.ok(pedidoClienteService.buscarPedidoCliente(nidPedido));

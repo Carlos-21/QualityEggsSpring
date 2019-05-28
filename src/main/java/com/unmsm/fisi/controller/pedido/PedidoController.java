@@ -22,12 +22,12 @@ public @Controller class PedidoController {
 	@Qualifier("clienteServicio")
 	private ClienteServiceImpl clienteServicio;
 	
-	@GetMapping("/{mantenimiento:pedido}")
+	@GetMapping("/{mantenimiento:pedidoCliente}")
     public String irPaginaMantenimientoPedidoCliente(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
         model.addAttribute("clientes", clienteServicio.listarClientes());
-        return "seguras/mantenimiento/mantenimiento";
+        return "seguras/pedido/mantenimiento";
     }
 	
 }
