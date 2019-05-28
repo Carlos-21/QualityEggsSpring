@@ -61,6 +61,20 @@
 			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
 				<a title='Seguridad' data-tooltip='tooltip'>
 					<span class="fa fa-unlock-alt"></span> 
+					<span class="xn-text">Pedido</span>
+				</a>
+				<ul>
+					<li>
+						<a th:href="@{/pedido/pedidoCliente}">
+							<span class="fa fa-users"></span>
+							<span> Pedido cliente</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
+				<a title='Seguridad' data-tooltip='tooltip'>
+					<span class="fa fa-unlock-alt"></span> 
 					<span class="xn-text">Seguridad</span>
 				</a>
 				<ul>
