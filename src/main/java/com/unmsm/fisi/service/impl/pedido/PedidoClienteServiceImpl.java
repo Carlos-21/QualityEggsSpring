@@ -32,20 +32,19 @@ public class PedidoClienteServiceImpl implements PedidoClienteService{
 
 	@Override
 	public Integer registrarPedidoCliente(PedidoCliente oPedidoCliente) {
-		// TODO Auto-generated method stub
-		return null;
+		pedidoClienteRepository.save(pedidoClienteTransform.transformME(oPedidoCliente));
+		return listarPedidosClientes().get(listarPedidosClientes().size()-1).getNidPedido();
 	}
 
 	@Override
 	public Integer actualizarPedidoCliente(PedidoCliente oPedidoCliente) {
-		// TODO Auto-generated method stub
-		return null;
+		pedidoClienteRepository.save(pedidoClienteTransform.transformME(oPedidoCliente));
+		return listarPedidosClientes().get(listarPedidosClientes().size()-1).getNidPedido();
 	}
 
 	@Override
 	public void eliminarPedidoCliente(Integer nidPedido) {
-		// TODO Auto-generated method stub
-		
+		pedidoClienteRepository.delete(nidPedido);
 	}
 
 }
