@@ -15,7 +15,6 @@
 	</properties>
 
 	<dependencyManagement>
-	
 		<dependencies>
 			<dependency>
 				<groupId>io.spring.platform</groupId>
@@ -318,13 +317,6 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-					<webResources>
-						<resource>
-							<directory>${project.build.directory}/min</directory>
-						</resource>
-					</webResources>
-					<warSourceExcludes>**/*.css,**/*.js</warSourceExcludes>
-					<warSourceIncludes>**/*.min.css,**/*.min.js</warSourceIncludes>
 				</configuration>
 			</plugin>
 		</plugins>

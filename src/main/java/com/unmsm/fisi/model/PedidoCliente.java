@@ -3,11 +3,17 @@ package com.unmsm.fisi.model;
 import java.util.Date;
 
 public class PedidoCliente {
+	private String idPersona;
+	private Integer nCantidad;
+	private Boolean vEstado;
 	private Integer nidPedido;
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
-	private Integer nCantidad;
-	private Boolean vEstado;
+	private String sNombre;
+	private String sApellidoPaterno;
+	private String sApellidoMaterno;
+	private String sEmpresa;
+	private String sRubro;
 	private Date dFecha;
 	private Date tHora;
 	
@@ -15,16 +21,47 @@ public class PedidoCliente {
 		
 	}
 
-	public PedidoCliente(Integer nidPedido, String sTipoDocumento, String sNumeroDocumento, Integer nCantidad,
-			Boolean vEstado, Date dFecha, Date tHora) {
+	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Integer nidPedido, String sTipoDocumento,
+			String sNumeroDocumento, String sNombre, String sApellidoPaterno, String sApellidoMaterno, String sEmpresa,
+			String sRubro, Date dFecha, Date tHora) {
 		super();
+		this.idPersona = idPersona;
+		this.nCantidad = nCantidad;
+		this.vEstado = vEstado;
 		this.nidPedido = nidPedido;
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
-		this.nCantidad = nCantidad;
-		this.vEstado = vEstado;
+		this.sNombre = sNombre;
+		this.sApellidoPaterno = sApellidoPaterno;
+		this.sApellidoMaterno = sApellidoMaterno;
+		this.sEmpresa = sEmpresa;
+		this.sRubro = sRubro;
 		this.dFecha = dFecha;
 		this.tHora = tHora;
+	}
+
+	public String getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(String idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	public Integer getnCantidad() {
+		return nCantidad;
+	}
+
+	public void setnCantidad(Integer nCantidad) {
+		this.nCantidad = nCantidad;
+	}
+
+	public Boolean getvEstado() {
+		return vEstado;
+	}
+
+	public void setvEstado(Boolean vEstado) {
+		this.vEstado = vEstado;
 	}
 
 	public Integer getNidPedido() {
@@ -51,20 +88,44 @@ public class PedidoCliente {
 		this.sNumeroDocumento = sNumeroDocumento;
 	}
 
-	public Integer getnCantidad() {
-		return nCantidad;
+	public String getsNombre() {
+		return sNombre;
 	}
 
-	public void setnCantidad(Integer nCantidad) {
-		this.nCantidad = nCantidad;
+	public void setsNombre(String sNombre) {
+		this.sNombre = sNombre;
 	}
 
-	public Boolean getvEstado() {
-		return vEstado;
+	public String getsApellidoPaterno() {
+		return sApellidoPaterno;
 	}
 
-	public void setvEstado(Boolean vEstado) {
-		this.vEstado = vEstado;
+	public void setsApellidoPaterno(String sApellidoPaterno) {
+		this.sApellidoPaterno = sApellidoPaterno;
+	}
+
+	public String getsApellidoMaterno() {
+		return sApellidoMaterno;
+	}
+
+	public void setsApellidoMaterno(String sApellidoMaterno) {
+		this.sApellidoMaterno = sApellidoMaterno;
+	}
+
+	public String getsEmpresa() {
+		return sEmpresa;
+	}
+
+	public void setsEmpresa(String sEmpresa) {
+		this.sEmpresa = sEmpresa;
+	}
+
+	public String getsRubro() {
+		return sRubro;
+	}
+
+	public void setsRubro(String sRubro) {
+		this.sRubro = sRubro;
 	}
 
 	public Date getdFecha() {
@@ -82,5 +143,5 @@ public class PedidoCliente {
 	public void settHora(Date tHora) {
 		this.tHora = tHora;
 	}
-	
+
 }
