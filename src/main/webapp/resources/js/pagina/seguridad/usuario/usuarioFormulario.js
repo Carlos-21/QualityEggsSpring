@@ -28,7 +28,7 @@ $(document).ready(function() {
 				notOnlySpace : true,
 				rangelength : [ 3, 100 ]
 			},
-			fechaPago : {
+			fechaMatricula : {
 				required : true
 			},
 			idConceptoPago : {
@@ -59,8 +59,8 @@ $(document).ready(function() {
 			},
 			numeroDocumento : {
 				required : "Ingrese el N&uacute;mero de Documento.",
-				notOnlySpace : "El N&uacute;mero de Documento no debe contener solo espacios en blanco.",
-				rangelength : "El N&uacute;mero de Documento debe contener entre 8 y 12 car&aacute;cteres."
+				notOnlySpace : "El N&uacute;umero de Documento no debe contener solo espacios en blanco.",
+				rangelength : "El N&uacute;umero de Documento debe contener entre 8 y 12 car&aacute;cteres."
 			},
 			nombreAlumno : {
 				required : "Ingrese Nombres del alumno.",
@@ -77,8 +77,8 @@ $(document).ready(function() {
 				notOnlySpace : "El correo no puede contener solo espacios en blanco.",
 				rangelength : "El correo debe contener entre 3 y 100 car&aacute;cteres."
 			},
-			fechaPago : {
-				required : "Ingrese la fecha de pago."
+			fechaMatricula : {
+				required : "Ingrese la fecha de matricula."
 			},
 			idConceptoPago : {
 				required : "Ingrese un concepto de pago.",
@@ -97,7 +97,7 @@ $(document).ready(function() {
 				notOnlySpace : "El tipo de pago no puede contener solo espacios en blanco."
 			},
 			uploadfile : {
-				required : "Adjuntar voucher de pago."
+				required : "Ingrese voucher de pago."
 			}
 		}
 	});
