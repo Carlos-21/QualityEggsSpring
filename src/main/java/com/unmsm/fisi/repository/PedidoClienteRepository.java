@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.unmsm.fisi.entity.RegPedidoCliente;
 
 @Repository("pedidoClienteRepositorio")
-public interface PedidoClienteRespository extends JpaRepository<RegPedidoCliente, Serializable>{
+public interface PedidoClienteRepository extends JpaRepository<RegPedidoCliente, Serializable>{
 
 }

@@ -44,6 +44,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			Persona oPersona = personaService.buscarPersona(oUsuario.getsTipoDocumento(), oUsuario.getsNumeroDocumento());
 			Perfil oPerfil = perfilService.buscarPerfil(oUsuario.getNidPerfil());
 			
+			oUsuario.setIdPersona(oPersona.getsTipoDocumento()+"/"+oPersona.getsNumeroDocumento());
 			oUsuario.setsNombre(oPersona.getsNombre());
 			oUsuario.setsApellidoMaterno(oPersona.getsApellidoMaterno());
 			oUsuario.setsApellidoPaterno(oPersona.getsApellidoPaterno());
@@ -61,6 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			Persona oPersona = personaService.buscarPersona(oUsuario.getsTipoDocumento(), oUsuario.getsNumeroDocumento());
 			Perfil oPerfil = perfilService.buscarPerfil(oUsuario.getNidPerfil());
 			
+			oUsuario.setIdPersona(oPersona.getsTipoDocumento()+"/"+oPersona.getsNumeroDocumento());
 			oUsuario.setsNombre(oPersona.getsNombre());
 			oUsuario.setsApellidoMaterno(oPersona.getsApellidoMaterno());
 			oUsuario.setsApellidoPaterno(oPersona.getsApellidoPaterno());
