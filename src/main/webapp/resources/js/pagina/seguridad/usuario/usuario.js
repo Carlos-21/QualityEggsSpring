@@ -12,8 +12,7 @@ $(document).ready(function() {
 		$trabajadores : $("#trabajadores"),
 		idTipoDocumento : "",
 		numeroDocumento : "",
-		idUsuarioSeleccionado : "",
-		$tiposDocumento : $("#tiposDocumento")
+		idUsuarioSeleccionado : ""
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
@@ -136,9 +135,6 @@ $(document).ready(function() {
 			return;
 		}
 		var usuario = $formMantenimiento.serializeJSON();
-		console.log(usuario);
-		console.log(JSON.stringify(usuario));
-		console.log($variableUtil.root + "seguridad/usuario");
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "seguridad/usuario",
@@ -175,8 +171,6 @@ $(document).ready(function() {
 		var usuario = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
 		$local.idTipoDocumento = usuario.sTipoDocumento;
 		$local.numeroDocumento = usuario.sNumeroDocumento;
-		console.log(usuario);
-		$local.$trabajadores.trigger("change", [ usuario.idPersona ]);
 		$funcionUtil.llenarFormulario(usuario, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");

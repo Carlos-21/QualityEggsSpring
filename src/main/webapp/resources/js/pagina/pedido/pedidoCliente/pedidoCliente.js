@@ -85,7 +85,7 @@ $(document).ready(function() {
 		title : "Mantenimiento de Pedido de cliente",
 		autoOpen : false,
 		modal : false,
-		height : 642,
+		height : 300,
 		width : 600
 	});
 
@@ -160,6 +160,7 @@ $(document).ready(function() {
 		var pedido = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
 		$local.idTipoDocumento = pedido.sTipoDocumento;
 		$local.numeroDocumento = pedido.sNumeroDocumento;
+		console.log(pedido);
 		$funcionUtil.llenarFormulario(pedido, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");

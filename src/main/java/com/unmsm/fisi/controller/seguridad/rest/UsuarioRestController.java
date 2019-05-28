@@ -62,12 +62,12 @@ public class UsuarioRestController {
 	
 	@PutMapping
     public ResponseEntity<?> actualizarUsuario(@RequestBody Usuario oUsuario){
-		/*int nPos = oUsuario.getsNumeroDocumento().indexOf('/');
-		String sTipoDocumento = oUsuario.getsNumeroDocumento().substring(0, nPos);
-		String sNumeroDocumento = oUsuario.getsNumeroDocumento().substring(nPos+1, oUsuario.getsNumeroDocumento().length()-1); 
+		int nPos = oUsuario.getIdPersona().indexOf('/');
+		String sTipoDocumento = oUsuario.getIdPersona().substring(0, nPos);
+		String sNumeroDocumento = oUsuario.getIdPersona().substring(nPos+1,  oUsuario.getIdPersona().length()); 
 		
 		oUsuario.setsNumeroDocumento(sNumeroDocumento);
-		oUsuario.setsTipoDocumento(sTipoDocumento);*/
+		oUsuario.setsTipoDocumento(sTipoDocumento);
 		
 		String sIdentificador = usuarioService.actualizarUsuario(oUsuario);
 		
@@ -80,5 +80,6 @@ public class UsuarioRestController {
 		
 		return ResponseEntity.ok(ConstantesGenerales.ELIMINACION_EXITOSA);
 	}
+
 	
 }
