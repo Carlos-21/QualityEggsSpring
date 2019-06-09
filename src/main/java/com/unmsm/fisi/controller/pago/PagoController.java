@@ -1,4 +1,4 @@
-package com.unmsm.fisi.controller.pedido;
+package com.unmsm.fisi.controller.pago;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,33 +13,21 @@ import com.unmsm.fisi.aspecto.enumeracion.Accion;
 import com.unmsm.fisi.aspecto.enumeracion.Comentario;
 import com.unmsm.fisi.controller.excepcion.anotacion.Vista;
 import com.unmsm.fisi.service.impl.mantenimiento.ClienteServiceImpl;
-import com.unmsm.fisi.service.impl.mantenimiento.ProveedorServiceImpl;
 
 @Vista
 @Audit(accion = Accion.Visita, comentario = Comentario.Visita)
-@RequestMapping("/pedido")
-public @Controller class PedidoController {
+@RequestMapping("/pago")
+public @Controller class PagoController {
 	@Autowired
 	@Qualifier("clienteServicio")
 	private ClienteServiceImpl clienteServicio;
-	@Autowired
-	@Qualifier("proveedorServicio")
-	private ProveedorServiceImpl proveedorServicio;
 	
-	@GetMapping("/{mantenimiento:pedidoCliente}")
-    public String irPaginaMantenimientoPedidoCliente(@PathVariable String mantenimiento, ModelMap model)
+	@GetMapping("/{mantenimiento:pagoPedido}")
+    public String irPaginaMantenimientoPagoPedido(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
         model.addAttribute("clientes", clienteServicio.listarClientes());
-        return "seguras/pedido/mantenimiento";
-    }
-	
-	@GetMapping("/{mantenimiento:pedidoTrabajador}")
-    public String irPaginaMantenimientoPedidoTrabajador(@PathVariable String mantenimiento, ModelMap model)
-    {
-        model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("proveedor", proveedorServicio.listarProveedores());
-        return "seguras/pedido/mantenimiento";
+        return "seguras/pago/mantenimiento";
     }
 	
 }
