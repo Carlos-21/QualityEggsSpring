@@ -19,7 +19,7 @@ import com.unmsm.fisi.service.impl.seguridad.UsuarioServiceImpl;
 import com.unmsm.fisi.service.transform.TrabajadorTransform;
 
 @Service("trabajadorServicio")
-public class TrabajadorServiceImpl implements TrabajadorService{
+public class TrabajadorServiceImpl implements TrabajadorService {
 	@Autowired
 	@Qualifier("trabajadorRepositorio")
 	private TrabajadorRepository trabajadorRepository;
@@ -35,11 +35,11 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 	@Autowired
 	@Qualifier("usuarioServicio")
 	private UsuarioServiceImpl usuarioService;
-	
+
 	@Override
 	public List<Trabajador> listarTrabajadores() {
 		List<Trabajador> lMTrabajador = trabajadorTransform.transformEM(trabajadorRepository.findAll());
-		
+
 		for (Trabajador oTrabajador : lMTrabajador) {
 			Persona oPersona = personaService.buscarPersona(oTrabajador.getsTipoDocumento(),
 					oTrabajador.getsNumeroDocumento());
@@ -65,9 +65,9 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 		ManTrabajadorId oETrabajadorId = new ManTrabajadorId();
 		oETrabajadorId.setManPersonaVNumeroDocumento(sNumeroDocumento);
 		oETrabajadorId.setManPersonaVTipoDocumento(sTipoDocumento);
-		
+
 		Trabajador oTrabajador = trabajadorTransform.transformEM(trabajadorRepository.findOne(oETrabajadorId));
-		
+
 		Persona oPersona = personaService.buscarPersona(oTrabajador.getsTipoDocumento(),
 				oTrabajador.getsNumeroDocumento());
 
@@ -81,7 +81,7 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 		oTrabajador.setsCorreo(oPersona.getsCorreo());
 		oTrabajador.setdFecha(oPersona.getdFecha());
 		oTrabajador.setdHora(oPersona.getdHora());
-		
+
 		return oTrabajador;
 	}
 
@@ -90,13 +90,13 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 		Persona oPersona = oTrabajador;
 
 		personaService.registrarPersona(oPersona);
-		
+
 		trabajadorRepository.save(trabajadorTransform.transformME(oTrabajador));
-		
+
 		TrabajadorId oMTrabajadorId = new TrabajadorId();
 		oMTrabajadorId.setsTipoDocumento(oTrabajador.getsTipoDocumento());
 		oMTrabajadorId.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
-		
+
 		return oMTrabajadorId;
 	}
 
@@ -105,33 +105,41 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 		Persona oPersona = oTrabajador;
 
 		personaService.registrarPersona(oPersona);
-		
+
 		trabajadorRepository.save(trabajadorTransform.transformME(oTrabajador));
-		
+
 		TrabajadorId oMTrabajadorId = new TrabajadorId();
 		oMTrabajadorId.setsTipoDocumento(oTrabajador.getsTipoDocumento());
 		oMTrabajadorId.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
-		
+
 		List<PedidoTrabajador> listaPedidoTrabajador = pedidoTrabajadorService.listarPedidoTrabajador();
-		listaPedidoTrabajador.removeIf(s -> s.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0 && s.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0);
-		for(PedidoTrabajador oPedidoTrabajador : listaPedidoTrabajador) {
-			oPedidoTrabajador.setsTipoDocumento(oTrabajador.getsTipoDocumento());
-			oPedidoTrabajador.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
-			
-			pedidoTrabajadorService.actualizarPedidoTrabajador(oPedidoTrabajador);
+		if (listaPedidoTrabajador != null) {
+			if (!listaPedidoTrabajador.isEmpty()) {
+				listaPedidoTrabajador
+						.removeIf(s -> s.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0
+								&& s.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0);
+				for (PedidoTrabajador oPedidoTrabajador : listaPedidoTrabajador) {
+					oPedidoTrabajador.setsTipoDocumento(oTrabajador.getsTipoDocumento());
+					oPedidoTrabajador.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
+
+					pedidoTrabajadorService.actualizarPedidoTrabajador(oPedidoTrabajador);
+				}
+
+				List<Usuario> listaUsuario = usuarioService.listarUsuarios();
+				listaUsuario.removeIf(s -> s.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0
+						&& s.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0);
+				for (Usuario oUsuario : listaUsuario) {
+					oUsuario.setsTipoDocumento(oTrabajador.getsTipoDocumento());
+					oUsuario.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
+
+					usuarioService.actualizarUsuario(oUsuario);
+				}
+
+			}
 		}
-		
-		List<Usuario> listaUsuario = usuarioService.listarUsuarios();
-		listaUsuario.removeIf(s -> s.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0 && s.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0);
-		for(Usuario oUsuario : listaUsuario) {
-			oUsuario.setsTipoDocumento(oTrabajador.getsTipoDocumento());
-			oUsuario.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
-			
-			usuarioService.actualizarUsuario(oUsuario);
-		}
-		
+
 		eliminarTrabajador(oTrabajador.getsTipoDocumentoAntiguo(), oTrabajador.getsNumeroDocumentoAntiguo());
-		
+
 		return oMTrabajadorId;
 	}
 
@@ -140,9 +148,9 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 		ManTrabajadorId oETrabajadorId = new ManTrabajadorId();
 		oETrabajadorId.setManPersonaVTipoDocumento(sTipoDocumento);
 		oETrabajadorId.setManPersonaVNumeroDocumento(sNumeroDocumento);
-		
+
 		trabajadorRepository.delete(oETrabajadorId);
-		
+
 		personaService.eliminarPersona(sTipoDocumento, sNumeroDocumento);
 	}
 

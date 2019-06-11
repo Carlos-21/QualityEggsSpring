@@ -83,7 +83,7 @@ public class ClienteServiceImpl implements ClienteService {
 		Persona oPersona = oCliente;
 
 		personaService.registrarPersona(oPersona);
-		
+
 		clienteRepository.save(clienteTransform.transformME(oCliente));
 
 		ClienteId oMClienteId = new ClienteId();
@@ -98,22 +98,28 @@ public class ClienteServiceImpl implements ClienteService {
 		Persona oPersona = oCliente;
 
 		personaService.actualizarPersona(oPersona);
-		
+
 		clienteRepository.save(clienteTransform.transformME(oCliente));
 
 		ClienteId oMClienteId = new ClienteId();
 		oMClienteId.setsNumeroDocumento(oCliente.getsNumeroDocumento());
 		oMClienteId.setsTipoDocumento(oCliente.getsTipoDocumento());
-		
+
 		List<PedidoCliente> listPedidoCliente = pedidoClienteService.listarPedidosClientes();
-		listPedidoCliente.removeIf(s -> s.getsTipoDocumento().compareTo(oCliente.getsTipoDocumentoAntiguo()) != 0 && s.getsNumeroDocumento().compareTo(oCliente.getsNumeroDocumentoAntiguo()) != 0);
-		for(PedidoCliente oPedidoCliente : listPedidoCliente) {
-			oPedidoCliente.setsTipoDocumento(oCliente.getsTipoDocumento());
-			oPedidoCliente.setsNumeroDocumento(oCliente.getsNumeroDocumento());
-			
-			pedidoClienteService.actualizarPedidoCliente(oPedidoCliente);
+		if (listPedidoCliente != null) {
+			if (!listPedidoCliente.isEmpty()) {
+				listPedidoCliente
+						.removeIf(s -> s.getsTipoDocumento().compareTo(oCliente.getsTipoDocumentoAntiguo()) != 0
+								&& s.getsNumeroDocumento().compareTo(oCliente.getsNumeroDocumentoAntiguo()) != 0);
+				for (PedidoCliente oPedidoCliente : listPedidoCliente) {
+					oPedidoCliente.setsTipoDocumento(oCliente.getsTipoDocumento());
+					oPedidoCliente.setsNumeroDocumento(oCliente.getsNumeroDocumento());
+
+					pedidoClienteService.actualizarPedidoCliente(oPedidoCliente);
+				}
+			}
 		}
-		
+
 		eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
 		return oMClienteId;
 	}
@@ -125,7 +131,7 @@ public class ClienteServiceImpl implements ClienteService {
 		oEClienteId.setManPersonaVTipoDocumento(sTipoDocumento);
 
 		clienteRepository.delete(oEClienteId);
-		
+
 		personaService.eliminarPersona(sTipoDocumento, sNumeroDocumento);
 	}
 
