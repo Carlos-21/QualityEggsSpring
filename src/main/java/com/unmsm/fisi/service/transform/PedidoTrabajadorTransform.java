@@ -19,6 +19,8 @@ public class PedidoTrabajadorTransform implements Transform<PedidoTrabajador, Re
 			oEPedidoTrabajador.setManTrabajadorManPersonaVNumeroDocumento(oModel.getsNumeroDocumento());
 			oEPedidoTrabajador.setNcantidad(oModel.getnCantidad());
 			oEPedidoTrabajador.setVestado(oModel.getvEstado());
+			oEPedidoTrabajador.setDfecha(oModel.getdFecha());
+			oEPedidoTrabajador.setThora(oModel.gettHora());
 			
 			return oEPedidoTrabajador;
 		}
@@ -47,6 +49,8 @@ public class PedidoTrabajadorTransform implements Transform<PedidoTrabajador, Re
 			oMPedidoTrabajador.setsNumeroDocumento(oEntity.getManTrabajadorManPersonaVNumeroDocumento());
 			oMPedidoTrabajador.setnCantidad(oEntity.getNcantidad());
 			oMPedidoTrabajador.setvEstado(oEntity.getVestado());
+			oMPedidoTrabajador.setdFecha(oEntity.getDfecha());
+			oMPedidoTrabajador.settHora(oEntity.getThora());
 			
 			return oMPedidoTrabajador;
 		}

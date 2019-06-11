@@ -11,14 +11,14 @@ $(document).ready(function() {
 		idTipoDocumento : "",
 		numeroDocumento : "",
 		idPedido : "",
-		$clientes : $("#clientes"),
+		$proveedores : $("#proveedores"),
 		$horaPedido: $("#horaPedido"),
 		$fechaPedido : $("#fechaPedido"),
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 	
-	$funcionUtil.crearSelect2($local.$clientes, "Seleccione un Cliente");
+	$funcionUtil.crearSelect2($local.$proveedores, "Seleccione un trabajador");
 	$funcionUtil.crearDateTimePickerSimple($local.$horaPedido, "HH:mm:ss");
 	$funcionUtil.crearDatePickerSimple3($local.$fechaPedido, "DD/MM/YYYY");
 	
@@ -34,21 +34,21 @@ $(document).ready(function() {
 
 	$local.tablaMantenimiento = $local.$tablaMantenimiento.DataTable({
 		"ajax" : {
-			"url" : $variableUtil.root + "pedido/pedidoCliente?accion=buscarTodos",
+			"url" : $variableUtil.root + "pedido/pedidoTrabajador?accion=buscarTodos",
 			"dataSrc" : ""
 		},
 		"language" : {
-			"emptyTable" : "No hay pedidos de clientes registrados."
+			"emptyTable" : "No hay pedidos de trabajadores registrados."
 		},
 		"initComplete" : function() {
 			$local.$tablaMantenimiento.wrap("<div class='table-responsive'></div>");
 			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento);
 		},
 		"columnDefs" : [ {
-			"targets" : [ 0, 1, 2, 3, 4 ],
+			"targets" : [ 0, 1, 2 ],
 			"className" : "all filtrable",
 		}, {
-			"targets" : 5,
+			"targets" : 3,
 			"className" : "all dt-center",
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
@@ -56,13 +56,7 @@ $(document).ready(function() {
 			"data" : function(row) {
 				return row.sApellidoPaterno + "," + row.sApellidoMaterno + " " + row.sNombre;
 			},
-			"title" : "Cliente"
-		}, {
-			"data" : 'sEmpresa',
-			"title" : "Empresa"
-		}, {
-			"data" : 'sRubro',
-			"title" : "Rubro"
+			"title" : "Trabajador"
 		}, {
 			"data" : 'nCantidad',
 			"title" : "Cantidad"
@@ -129,12 +123,12 @@ $(document).ready(function() {
 		if (!$formMantenimiento.valid()) {
 			return;
 		}
-		var pedidoCliente = $formMantenimiento.serializeJSON();
-		pedidoCliente.dFecha = $local.$fechaPedido.data("daterangepicker").startDate.format("YYYY-MM-DD");
+		var pedidoTrabajador = $formMantenimiento.serializeJSON();
+		pedidoTrabajador.dFecha = $local.$fechaPedido.data("daterangepicker").startDate.format("YYYY-MM-DD");
 		$.ajax({
 			type : "POST",
-			url : $variableUtil.root + "pedido/pedidoCliente",
-			data : JSON.stringify(pedidoCliente),
+			url : $variableUtil.root + "pedido/pedidoTrabajador",
+			data : JSON.stringify(pedidoTrabajador),
 			beforeSend : function(xhr) {
 				$local.$registrarMantenimiento.attr("disabled", true).find("i").removeClass("fa-floppy-o").addClass("fa-spinner fa-pulse fa-fw");
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -146,9 +140,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(pedido) {
+			success : function(pedidoTrabajador) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row.add(pedido).draw();
+				var row = $local.tablaMantenimiento.row.add(pedidoTrabajador).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -167,7 +161,7 @@ $(document).ready(function() {
 		var pedido = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
 		$local.idTipoDocumento = pedido.sTipoDocumento;
 		$local.numeroDocumento = pedido.sNumeroDocumento;
-		$local.idPedido = pedido.nidPedido;
+		$local.idPedido = pedido.nIdPedido;
 		$funcionUtil.llenarFormulario(pedido, $formMantenimiento);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
@@ -182,10 +176,11 @@ $(document).ready(function() {
 		pedidoCliente.sTipoDocumentoAntiguo = $local.idTipoDocumento;
 		pedidoCliente.sNumeroDocumentoAntiguo = $local.numeroDocumento;
 		pedidoCliente.dFecha = $local.$fechaPedido.data("daterangepicker").startDate.format("YYYY-MM-DD");
-		pedidoCliente.nidPedido = $local.idPedido;
+		pedidoCliente.nIdPedido = $local.idPedido;
+		console.log(pedidoCliente);
 		$.ajax({
 			type : "PUT",
-			url : $variableUtil.root + "pedido/pedidoCliente",
+			url : $variableUtil.root + "pedido/pedidoTrabajador",
 			data : JSON.stringify(pedidoCliente),
 			beforeSend : function(xhr) {
 				$local.$actualizarMantenimiento.attr("disabled", true).find("i").removeClass("fa-pencil-square").addClass("fa-spinner fa-pulse fa-fw");

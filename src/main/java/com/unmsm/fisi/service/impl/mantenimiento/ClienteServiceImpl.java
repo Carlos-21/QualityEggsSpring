@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.unmsm.fisi.entity.ManClienteId;
 import com.unmsm.fisi.model.Cliente;
 import com.unmsm.fisi.model.ClienteId;
+import com.unmsm.fisi.model.PedidoCliente;
 import com.unmsm.fisi.model.Persona;
 import com.unmsm.fisi.repository.ClienteRepository;
 import com.unmsm.fisi.service.ClienteService;
+import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
 import com.unmsm.fisi.service.transform.ClienteTransform;
 
 @Service("clienteServicio")
@@ -25,6 +27,9 @@ public class ClienteServiceImpl implements ClienteService {
 	@Autowired
 	@Qualifier("personaServicio")
 	private PersonaServiceImpl personaService;
+	@Autowired
+	@Qualifier("pedidoClienteServicio")
+	private PedidoClienteServiceImpl pedidoClienteService;
 
 	@Override
 	public List<Cliente> listarClientes() {
@@ -99,6 +104,15 @@ public class ClienteServiceImpl implements ClienteService {
 		ClienteId oMClienteId = new ClienteId();
 		oMClienteId.setsNumeroDocumento(oCliente.getsNumeroDocumento());
 		oMClienteId.setsTipoDocumento(oCliente.getsTipoDocumento());
+		
+		List<PedidoCliente> listPedidoCliente = pedidoClienteService.listarPedidosClientes();
+		listPedidoCliente.removeIf(s -> s.getsTipoDocumento().compareTo(oCliente.getsTipoDocumentoAntiguo()) != 0 && s.getsNumeroDocumento().compareTo(oCliente.getsNumeroDocumentoAntiguo()) != 0);
+		for(PedidoCliente oPedidoCliente : listPedidoCliente) {
+			oPedidoCliente.setsTipoDocumento(oCliente.getsTipoDocumento());
+			oPedidoCliente.setsNumeroDocumento(oCliente.getsNumeroDocumento());
+			
+			pedidoClienteService.actualizarPedidoCliente(oPedidoCliente);
+		}
 		
 		eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
 		return oMClienteId;

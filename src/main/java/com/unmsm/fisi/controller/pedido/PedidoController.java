@@ -14,6 +14,7 @@ import com.unmsm.fisi.aspecto.enumeracion.Comentario;
 import com.unmsm.fisi.controller.excepcion.anotacion.Vista;
 import com.unmsm.fisi.service.impl.mantenimiento.ClienteServiceImpl;
 import com.unmsm.fisi.service.impl.mantenimiento.ProveedorServiceImpl;
+import com.unmsm.fisi.service.impl.mantenimiento.TrabajadorServiceImpl;
 
 @Vista
 @Audit(accion = Accion.Visita, comentario = Comentario.Visita)
@@ -25,6 +26,9 @@ public @Controller class PedidoController {
 	@Autowired
 	@Qualifier("proveedorServicio")
 	private ProveedorServiceImpl proveedorServicio;
+	@Autowired
+	@Qualifier("trabajadorServicio")
+	private TrabajadorServiceImpl trabajadorServicio;
 	
 	@GetMapping("/{mantenimiento:pedidoCliente}")
     public String irPaginaMantenimientoPedidoCliente(@PathVariable String mantenimiento, ModelMap model)
@@ -38,7 +42,7 @@ public @Controller class PedidoController {
     public String irPaginaMantenimientoPedidoTrabajador(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("proveedor", proveedorServicio.listarProveedores());
+        model.addAttribute("proveedores", trabajadorServicio.listarTrabajadores());
         return "seguras/pedido/mantenimiento";
     }
 	

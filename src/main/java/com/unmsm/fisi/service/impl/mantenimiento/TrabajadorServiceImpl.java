@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.unmsm.fisi.entity.ManTrabajadorId;
+import com.unmsm.fisi.model.PedidoTrabajador;
 import com.unmsm.fisi.model.Persona;
 import com.unmsm.fisi.model.Trabajador;
 import com.unmsm.fisi.model.TrabajadorId;
+import com.unmsm.fisi.model.Usuario;
 import com.unmsm.fisi.repository.TrabajadorRepository;
 import com.unmsm.fisi.service.TrabajadorService;
+import com.unmsm.fisi.service.impl.pedido.PedidoTrabajadorServiceImpl;
+import com.unmsm.fisi.service.impl.seguridad.UsuarioServiceImpl;
 import com.unmsm.fisi.service.transform.TrabajadorTransform;
 
 @Service("trabajadorServicio")
@@ -25,6 +29,12 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 	@Autowired
 	@Qualifier("personaServicio")
 	private PersonaServiceImpl personaService;
+	@Autowired
+	@Qualifier("pedidoTrabajadorServicio")
+	private PedidoTrabajadorServiceImpl pedidoTrabajadorService;
+	@Autowired
+	@Qualifier("usuarioServicio")
+	private UsuarioServiceImpl usuarioService;
 	
 	@Override
 	public List<Trabajador> listarTrabajadores() {
@@ -101,6 +111,24 @@ public class TrabajadorServiceImpl implements TrabajadorService{
 		TrabajadorId oMTrabajadorId = new TrabajadorId();
 		oMTrabajadorId.setsTipoDocumento(oTrabajador.getsTipoDocumento());
 		oMTrabajadorId.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
+		
+		List<PedidoTrabajador> listaPedidoTrabajador = pedidoTrabajadorService.listarPedidoTrabajador();
+		listaPedidoTrabajador.removeIf(s -> s.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0 && s.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0);
+		for(PedidoTrabajador oPedidoTrabajador : listaPedidoTrabajador) {
+			oPedidoTrabajador.setsTipoDocumento(oTrabajador.getsTipoDocumento());
+			oPedidoTrabajador.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
+			
+			pedidoTrabajadorService.actualizarPedidoTrabajador(oPedidoTrabajador);
+		}
+		
+		List<Usuario> listaUsuario = usuarioService.listarUsuarios();
+		listaUsuario.removeIf(s -> s.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0 && s.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0);
+		for(Usuario oUsuario : listaUsuario) {
+			oUsuario.setsTipoDocumento(oTrabajador.getsTipoDocumento());
+			oUsuario.setsNumeroDocumento(oTrabajador.getsNumeroDocumento());
+			
+			usuarioService.actualizarUsuario(oUsuario);
+		}
 		
 		eliminarTrabajador(oTrabajador.getsTipoDocumentoAntiguo(), oTrabajador.getsNumeroDocumentoAntiguo());
 		

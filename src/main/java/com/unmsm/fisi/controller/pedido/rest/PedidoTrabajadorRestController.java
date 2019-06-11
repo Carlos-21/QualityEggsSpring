@@ -35,6 +35,13 @@ public class PedidoTrabajadorRestController {
 	
 	@PostMapping
     public ResponseEntity<?> registrarPedidoTrabajador(@RequestBody PedidoTrabajador oPedidoTrabajador){
+		int nPos = oPedidoTrabajador.getIdPersona().indexOf('/');
+		String sTipoDocumento = oPedidoTrabajador.getIdPersona().substring(0, nPos);
+		String sNumeroDocumento = oPedidoTrabajador.getIdPersona().substring(nPos+1,  oPedidoTrabajador.getIdPersona().length()); 
+		
+		oPedidoTrabajador.setsNumeroDocumento(sNumeroDocumento);
+		oPedidoTrabajador.setsTipoDocumento(sTipoDocumento);
+		
 		Integer nidPedido = pedidoTrabajadorService.registrarPedidoTrabajador(oPedidoTrabajador);
 		
 		return ResponseEntity.ok(pedidoTrabajadorService.buscarPedidoTrabajador(nidPedido));
@@ -42,6 +49,13 @@ public class PedidoTrabajadorRestController {
 	
 	@PutMapping
     public ResponseEntity<?> actualizarPedidoTrabajador(@RequestBody PedidoTrabajador oPedidoTrabajador){
+		int nPos = oPedidoTrabajador.getIdPersona().indexOf('/');
+		String sTipoDocumento = oPedidoTrabajador.getIdPersona().substring(0, nPos);
+		String sNumeroDocumento = oPedidoTrabajador.getIdPersona().substring(nPos+1,  oPedidoTrabajador.getIdPersona().length()); 
+		
+		oPedidoTrabajador.setsNumeroDocumento(sNumeroDocumento);
+		oPedidoTrabajador.setsTipoDocumento(sTipoDocumento);
+		
 		Integer nidPedido = pedidoTrabajadorService.actualizarPedidoTrabajador(oPedidoTrabajador);
 		
 		return ResponseEntity.ok(pedidoTrabajadorService.buscarPedidoTrabajador(nidPedido));

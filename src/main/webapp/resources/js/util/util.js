@@ -330,6 +330,21 @@ $(document).ready(function() {
 			}, function(start, end, label) {
 			});
 		},
+		crearDateTimePickerSimple : function(input, format) {
+			format = format || "HH:mm:ss";
+			input.daterangepicker({
+				"timePicker" : true,
+				"singleDatePicker" : true,
+				"showDropdowns" : true,
+				"locale" : {
+					direction : 'ltr',
+					format : format
+				}
+			}, function(start, end, label) {
+			}).on('show.daterangepicker', function (ev, picker) {
+	            picker.container.find(".calendar-table").hide();
+	        });;
+		},
 		animacionAjax : function($button) {
 			var $this = this;
 			$(document).ajaxStart(function() {

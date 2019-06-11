@@ -1,5 +1,6 @@
 package com.unmsm.fisi.model;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class PedidoTrabajador {
@@ -7,17 +8,21 @@ public class PedidoTrabajador {
 	private Integer nCantidad;
 	private Boolean vEstado;
 	private Date dFecha;
-	private Date tHora;
+	private Time tHora;
 	private Integer nIdPedido;
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
+	private String sNombre;
+	private String sApellidoPaterno;
+	private String sApellidoMaterno;
 	
 	public PedidoTrabajador() {
 		super();
 	}
 
-	public PedidoTrabajador(String idPersona, Integer nCantidad, Boolean vEstado, Date dFecha, Date tHora,
-			Integer nIdPedido, String sTipoDocumento, String sNumeroDocumento) {
+	public PedidoTrabajador(String idPersona, Integer nCantidad, Boolean vEstado, Date dFecha, Time tHora,
+			Integer nIdPedido, String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
+			String sApellidoMaterno) {
 		super();
 		this.idPersona = idPersona;
 		this.nCantidad = nCantidad;
@@ -27,6 +32,9 @@ public class PedidoTrabajador {
 		this.nIdPedido = nIdPedido;
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
+		this.sNombre = sNombre;
+		this.sApellidoPaterno = sApellidoPaterno;
+		this.sApellidoMaterno = sApellidoMaterno;
 	}
 
 	public String getIdPersona() {
@@ -61,11 +69,11 @@ public class PedidoTrabajador {
 		this.dFecha = dFecha;
 	}
 
-	public Date gettHora() {
+	public Time gettHora() {
 		return tHora;
 	}
 
-	public void settHora(Date tHora) {
+	public void settHora(Time tHora) {
 		this.tHora = tHora;
 	}
 
@@ -91,6 +99,30 @@ public class PedidoTrabajador {
 
 	public void setsNumeroDocumento(String sNumeroDocumento) {
 		this.sNumeroDocumento = sNumeroDocumento;
+	}
+
+	public String getsNombre() {
+		return sNombre;
+	}
+
+	public void setsNombre(String sNombre) {
+		this.sNombre = sNombre;
+	}
+
+	public String getsApellidoPaterno() {
+		return sApellidoPaterno;
+	}
+
+	public void setsApellidoPaterno(String sApellidoPaterno) {
+		this.sApellidoPaterno = sApellidoPaterno;
+	}
+
+	public String getsApellidoMaterno() {
+		return sApellidoMaterno;
+	}
+
+	public void setsApellidoMaterno(String sApellidoMaterno) {
+		this.sApellidoMaterno = sApellidoMaterno;
 	}
 	
 }

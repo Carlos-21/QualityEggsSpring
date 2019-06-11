@@ -1,11 +1,14 @@
 package com.unmsm.fisi.model;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class PedidoCliente {
 	private String idPersona;
 	private Integer nCantidad;
 	private Boolean vEstado;
+	private Date dFecha;
+	private Time tHora;
 	private Integer nidPedido;
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
@@ -14,8 +17,6 @@ public class PedidoCliente {
 	private String sApellidoMaterno;
 	private String sEmpresa;
 	private String sRubro;
-	private Date dFecha;
-	private Date tHora;
 	
 	public PedidoCliente() {
 		
@@ -23,7 +24,7 @@ public class PedidoCliente {
 
 	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Integer nidPedido, String sTipoDocumento,
 			String sNumeroDocumento, String sNombre, String sApellidoPaterno, String sApellidoMaterno, String sEmpresa,
-			String sRubro, Date dFecha, Date tHora) {
+			String sRubro, Date dFecha, Time tHora) {
 		super();
 		this.idPersona = idPersona;
 		this.nCantidad = nCantidad;
@@ -136,11 +137,11 @@ public class PedidoCliente {
 		this.dFecha = dFecha;
 	}
 
-	public Date gettHora() {
+	public Time gettHora() {
 		return tHora;
 	}
 
-	public void settHora(Date tHora) {
+	public void settHora(Time tHora) {
 		this.tHora = tHora;
 	}
 
