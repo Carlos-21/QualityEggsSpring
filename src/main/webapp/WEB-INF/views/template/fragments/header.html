@@ -71,6 +71,14 @@
 						</a>
 					</li>
 				</ul>
+				<ul>
+					<li>
+						<a th:href="@{/pedido/pedidoTrabajador}">
+							<span class="fa fa-users"></span>
+							<span> Pedido a proveedor</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
 				<a title='Seguridad' data-tooltip='tooltip'>
