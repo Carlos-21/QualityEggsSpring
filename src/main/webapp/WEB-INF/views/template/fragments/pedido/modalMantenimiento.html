@@ -87,9 +87,9 @@
 			<div class="col-lg-10">
 				<select id="trabajadores" class="form-control select2" name="idPersona">
 					<option value="" disabled="disabled" selected="selected">Seleccione un trabajador</option>
-					<option th:each="proveedor : ${proveedores}"
-						th:value="|${proveedor.sTipoDocumento}/${proveedor.sNumeroDocumento}|"
-						th:text="|${proveedor.sNumeroDocumento} - ${proveedor.sApellidoPaterno} ${proveedor.sApellidoMaterno}, ${proveedor.sNombre}|"></option>
+					<option th:each="trabajador : ${trabajadores}"
+						th:value="|${trabajador.sTipoDocumento}/${trabajador.sNumeroDocumento}|"
+						th:text="|${trabajador.sNumeroDocumento} - ${trabajador.sApellidoPaterno} ${trabajador.sApellidoMaterno}, ${trabajador.sNombre}|"></option>
 				</select>
 			</div>
 		</div>

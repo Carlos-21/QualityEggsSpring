@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.unmsm.fisi.model.PedidoTrabajador;
+import com.unmsm.fisi.model.Trabajador;
+import com.unmsm.fisi.service.impl.mantenimiento.TrabajadorServiceImpl;
 import com.unmsm.fisi.service.impl.pedido.PedidoTrabajadorServiceImpl;
 import com.unmsm.fisi.utilitario.HiloCorreo;
 
@@ -23,6 +25,9 @@ public class PedidoTrabajadorRestController {
 	@Autowired
 	@Qualifier("pedidoTrabajadorServicio")
 	private PedidoTrabajadorServiceImpl pedidoTrabajadorService;
+	@Autowired
+	@Qualifier("trabajadorServicio")
+	private TrabajadorServiceImpl trabajadorService;
 	
 	@GetMapping(params = "accion=buscarTodos")
 	public List<PedidoTrabajador> listarTodos(){
@@ -42,6 +47,12 @@ public class PedidoTrabajadorRestController {
 		
 		oPedidoTrabajador.setsNumeroDocumento(sNumeroDocumento);
 		oPedidoTrabajador.setsTipoDocumento(sTipoDocumento);
+		
+		Trabajador oTrabajador = trabajadorService.buscarTrabajador(sTipoDocumento, sNumeroDocumento);
+		
+		oPedidoTrabajador.setsApellidoPaterno(oTrabajador.getsApellidoPaterno());
+		oPedidoTrabajador.setsApellidoMaterno(oTrabajador.getsApellidoMaterno());
+		oPedidoTrabajador.setsNombre(oTrabajador.getsNombre());
 		
 		Integer nidPedido = pedidoTrabajadorService.registrarPedidoTrabajador(oPedidoTrabajador);
 		

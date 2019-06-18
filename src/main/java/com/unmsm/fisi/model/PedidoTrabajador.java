@@ -3,11 +3,14 @@ package com.unmsm.fisi.model;
 import java.sql.Time;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PedidoTrabajador {
 	private String idPersona;
 	private String sCorreo;
 	private Integer nCantidad;
 	private Boolean vEstado;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
 	private Date dFecha;
 	private Time tHora;
 	private Integer nIdPedido;

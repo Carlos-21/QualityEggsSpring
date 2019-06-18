@@ -26,11 +26,12 @@ public class EnviarCorreoUtil {
 	}
 
 	public int mensajePedidoProveedor(PedidoTrabajador oPedidoTrabajador) {
-		estructuraMensaje = "Empresa : Agropecuria SAC" 
+		estructuraMensaje = "Empresa : Agropecuaria Janic SAC" 
 				+ "\nTipo de documento: " + oPedidoTrabajador.getsTipoDocumento() 
 				+ "\nNúmero de documento: " + oPedidoTrabajador.getsNumeroDocumento()
 				+ "\nTrabajador: " + oPedidoTrabajador.getsApellidoPaterno() + " "
 				+ oPedidoTrabajador.getsApellidoMaterno() + ", " + oPedidoTrabajador.getsNombre() 
+				+ "\nEstado: " + ((oPedidoTrabajador.getvEstado()) ? "Urgente" : "Normal")
 				+ "\nPor parte de la empresa mencionada, necesitamos " + oPedidoTrabajador.getnCantidad() + " jabas de huevo";
 
 		try {

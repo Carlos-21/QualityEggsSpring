@@ -47,10 +47,10 @@ $(document).ready(function() {
 			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento);
 		},
 		"columnDefs" : [ {
-			"targets" : [ 0, 1, 2 ],
+			"targets" : [ 0, 1, 2, 3, 4],
 			"className" : "all filtrable",
 		}, {
-			"targets" : 3,
+			"targets" : 5,
 			"className" : "all dt-center",
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
@@ -72,6 +72,12 @@ $(document).ready(function() {
 				}
 			},
 			"title" : "Estado"
+		}, {
+			"data" : 'dFecha',
+			"title" : "Fecha"
+		}, {
+			"data" : 'tHora',
+			"title" : "Hora"
 		}, {
 			"data" : null,
 			"title" : 'Acción'
