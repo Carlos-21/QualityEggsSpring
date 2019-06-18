@@ -35,6 +35,9 @@ public class PagoPedidoRestController {
 	
 	@PostMapping
     public ResponseEntity<?> registrarPagoPedido(@RequestBody PagoPedido oPagoPedido){
+		
+		System.out.println("Fecha Controller: " + oPagoPedido.getdFecha().toString());
+		
 		Integer nidPago = pagoPedidoService.registrarPagoPedido(oPagoPedido);
 		
 		return ResponseEntity.ok(pagoPedidoService.buscarPagoPedido(nidPago));

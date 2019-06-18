@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class PedidoTrabajador {
 	private String idPersona;
+	private String sCorreo;
 	private Integer nCantidad;
 	private Boolean vEstado;
 	private Date dFecha;
@@ -20,11 +21,12 @@ public class PedidoTrabajador {
 		super();
 	}
 
-	public PedidoTrabajador(String idPersona, Integer nCantidad, Boolean vEstado, Date dFecha, Time tHora,
-			Integer nIdPedido, String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
-			String sApellidoMaterno) {
+	public PedidoTrabajador(String idPersona, String sCorreo, Integer nCantidad, Boolean vEstado, Date dFecha,
+			Time tHora, Integer nIdPedido, String sTipoDocumento, String sNumeroDocumento, String sNombre,
+			String sApellidoPaterno, String sApellidoMaterno) {
 		super();
 		this.idPersona = idPersona;
+		this.sCorreo = sCorreo;
 		this.nCantidad = nCantidad;
 		this.vEstado = vEstado;
 		this.dFecha = dFecha;
@@ -43,6 +45,14 @@ public class PedidoTrabajador {
 
 	public void setIdPersona(String idPersona) {
 		this.idPersona = idPersona;
+	}
+
+	public String getsCorreo() {
+		return sCorreo;
+	}
+
+	public void setsCorreo(String sCorreo) {
+		this.sCorreo = sCorreo;
 	}
 
 	public Integer getnCantidad() {

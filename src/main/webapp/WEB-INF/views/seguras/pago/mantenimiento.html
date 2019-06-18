@@ -21,7 +21,7 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title" th:text="|Mantenimiento de #{__${mantenimiento}__}|"></h3>
+							<h3 class="panel-title" th:text="|Gestión de #{__${mantenimiento}__}|"></h3>
 							<ul class="panel-controls">
 								<li><button id="aniadirMantenimiento" class="btn btn-primary">
 										<i class="fa fa-plus"></i> <span th:text="|Añadir #{__|boton-${mantenimiento}|__}|"></span>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<th:block
-			th:replace="~{template/fragments/pedido/modalMantenimiento :: modalMantenimiento(tipo=${mantenimiento})}?:~{}">
+			th:replace="~{template/fragments/pago/modalMantenimiento :: modalMantenimiento(tipo=${mantenimiento})}?:~{}">
 		</th:block>
 	</th:block>
 

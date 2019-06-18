@@ -1,6 +1,7 @@
 package com.unmsm.fisi.entity;
 // Generated 19/05/2019 11:40:02 PM by Hibernate Tools 5.0.6.Final
 
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class RegPago implements java.io.Serializable {
 	private int regPedidoClienteNIdPedido;
 	private Double npagoTotal;
 	private Date dfecha;
-	private Date thora;
+	private Time thora;
 
 	public RegPago() {
 	}
@@ -31,7 +32,7 @@ public class RegPago implements java.io.Serializable {
 		this.regPedidoClienteNIdPedido = regPedidoClienteNIdPedido;
 	}
 
-	public RegPago(int regPedidoClienteNIdPedido, Double npagoTotal, Date dfecha, Date thora) {
+	public RegPago(int regPedidoClienteNIdPedido, Double npagoTotal, Date dfecha, Time thora) {
 		this.regPedidoClienteNIdPedido = regPedidoClienteNIdPedido;
 		this.npagoTotal = npagoTotal;
 		this.dfecha = dfecha;
@@ -78,13 +79,12 @@ public class RegPago implements java.io.Serializable {
 		this.dfecha = dfecha;
 	}
 
-	@Temporal(TemporalType.TIME)
 	@Column(name = "tHora", length = 8)
-	public Date getThora() {
+	public Time getThora() {
 		return this.thora;
 	}
 
-	public void setThora(Date thora) {
+	public void setThora(Time thora) {
 		this.thora = thora;
 	}
 

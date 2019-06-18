@@ -42,7 +42,8 @@ public @Controller class PedidoController {
     public String irPaginaMantenimientoPedidoTrabajador(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("proveedores", trabajadorServicio.listarTrabajadores());
+        model.addAttribute("trabajadores", trabajadorServicio.listarTrabajadores());
+        model.addAttribute("proveedores", proveedorServicio.listarProveedores());
         return "seguras/pedido/mantenimiento";
     }
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unmsm.fisi.model.PedidoTrabajador;
 import com.unmsm.fisi.service.impl.pedido.PedidoTrabajadorServiceImpl;
+import com.unmsm.fisi.utilitario.HiloCorreo;
 
 @RestController
 @RequestMapping("/pedido/pedidoTrabajador")
@@ -43,6 +44,9 @@ public class PedidoTrabajadorRestController {
 		oPedidoTrabajador.setsTipoDocumento(sTipoDocumento);
 		
 		Integer nidPedido = pedidoTrabajadorService.registrarPedidoTrabajador(oPedidoTrabajador);
+		
+		HiloCorreo oHiloCorreo = new HiloCorreo(oPedidoTrabajador);
+		oHiloCorreo.start();
 		
 		return ResponseEntity.ok(pedidoTrabajadorService.buscarPedidoTrabajador(nidPedido));
 	}

@@ -17,18 +17,21 @@ public class PedidoCliente {
 	private String sApellidoMaterno;
 	private String sEmpresa;
 	private String sRubro;
+	private double nMonto;
 	
 	public PedidoCliente() {
 		
 	}
 
-	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Integer nidPedido, String sTipoDocumento,
-			String sNumeroDocumento, String sNombre, String sApellidoPaterno, String sApellidoMaterno, String sEmpresa,
-			String sRubro, Date dFecha, Time tHora) {
+	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Date dFecha, Time tHora,
+			Integer nidPedido, String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
+			String sApellidoMaterno, String sEmpresa, String sRubro, double nMonto) {
 		super();
 		this.idPersona = idPersona;
 		this.nCantidad = nCantidad;
 		this.vEstado = vEstado;
+		this.dFecha = dFecha;
+		this.tHora = tHora;
 		this.nidPedido = nidPedido;
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
@@ -37,8 +40,7 @@ public class PedidoCliente {
 		this.sApellidoMaterno = sApellidoMaterno;
 		this.sEmpresa = sEmpresa;
 		this.sRubro = sRubro;
-		this.dFecha = dFecha;
-		this.tHora = tHora;
+		this.nMonto = nMonto;
 	}
 
 	public String getIdPersona() {
@@ -63,6 +65,22 @@ public class PedidoCliente {
 
 	public void setvEstado(Boolean vEstado) {
 		this.vEstado = vEstado;
+	}
+
+	public Date getdFecha() {
+		return dFecha;
+	}
+
+	public void setdFecha(Date dFecha) {
+		this.dFecha = dFecha;
+	}
+
+	public Time gettHora() {
+		return tHora;
+	}
+
+	public void settHora(Time tHora) {
+		this.tHora = tHora;
 	}
 
 	public Integer getNidPedido() {
@@ -129,20 +147,12 @@ public class PedidoCliente {
 		this.sRubro = sRubro;
 	}
 
-	public Date getdFecha() {
-		return dFecha;
+	public double getnMonto() {
+		return nMonto;
 	}
 
-	public void setdFecha(Date dFecha) {
-		this.dFecha = dFecha;
-	}
-
-	public Time gettHora() {
-		return tHora;
-	}
-
-	public void settHora(Time tHora) {
-		this.tHora = tHora;
+	public void setnMonto(double nMonto) {
+		this.nMonto = nMonto;
 	}
 
 }

@@ -154,8 +154,8 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
         bean.setBasenames("classpath:/message/validacion", "classpath:/message/mantenimiento",
                 "classpath:/message/reporte", "classpath:/message/exception",
                 "classpath:/message/consulta", "classpath:/message/seguridad",
-                "classpath:/message/pedido","classpath:/message/egresos",
-                "classpath:/message/presupuesto");
+                "classpath:/message/pedido", "classpath:/message/pago",
+                "classpath:/message/egresos", "classpath:/message/presupuesto");
         bean.setDefaultEncoding("UTF-8");
         bean.setUseCodeAsDefaultMessage(false);
         return bean;

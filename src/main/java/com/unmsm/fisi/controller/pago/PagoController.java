@@ -13,6 +13,7 @@ import com.unmsm.fisi.aspecto.enumeracion.Accion;
 import com.unmsm.fisi.aspecto.enumeracion.Comentario;
 import com.unmsm.fisi.controller.excepcion.anotacion.Vista;
 import com.unmsm.fisi.service.impl.mantenimiento.ClienteServiceImpl;
+import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
 
 @Vista
 @Audit(accion = Accion.Visita, comentario = Comentario.Visita)
@@ -21,12 +22,15 @@ public @Controller class PagoController {
 	@Autowired
 	@Qualifier("clienteServicio")
 	private ClienteServiceImpl clienteServicio;
+	@Autowired
+	@Qualifier("pedidoClienteServicio")
+	private PedidoClienteServiceImpl pedidoClienteServicio;
 	
 	@GetMapping("/{mantenimiento:pagoPedido}")
     public String irPaginaMantenimientoPagoPedido(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("clientes", clienteServicio.listarClientes());
+        model.addAttribute("clientes", pedidoClienteServicio.listarPedidosClientes());
         return "seguras/pago/mantenimiento";
     }
 	

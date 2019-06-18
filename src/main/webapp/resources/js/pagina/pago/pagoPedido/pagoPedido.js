@@ -11,18 +11,18 @@ $(document).ready(function() {
 		idTipoDocumento : "",
 		numeroDocumento : "",
 		idPedido : "",
-		$trabajadores : $("#trabajadores"),
-		$proveedores : $("#proveedores"),
-		$horaPedido: $("#horaPedido"),
-		$fechaPedido : $("#fechaPedido"),
+		$clientes : $("#clientes"),
+		$pedidoCli : $("#pedidoCli"),
+		$montoPago : $("#montoPago"),
+		$horaPago: $("#horaPago"),
+		$fechaPago : $("#fechaPago"),
 	};
 
 	$formMantenimiento = $("#formMantenimiento");
 	
-	$funcionUtil.crearSelect2($local.$trabajadores, "Seleccione un trabajador");
-	$funcionUtil.crearSelect2($local.$proveedores, "Seleccione un proveedor");
-	$funcionUtil.crearDateTimePickerSimple($local.$horaPedido, "HH:mm:ss");
-	$funcionUtil.crearDatePickerSimple3($local.$fechaPedido, "DD/MM/YYYY");
+	$funcionUtil.crearSelect2($local.$clientes, "Seleccione un Cliente");
+	$funcionUtil.crearDateTimePickerSimple($local.$horaPago, "HH:mm:ss");
+	$funcionUtil.crearDatePickerSimple3($local.$fechaPago, "DD/MM/YYYY");
 	
 	$.fn.dataTable.ext.errMode = 'none';
 
@@ -36,42 +36,45 @@ $(document).ready(function() {
 
 	$local.tablaMantenimiento = $local.$tablaMantenimiento.DataTable({
 		"ajax" : {
-			"url" : $variableUtil.root + "pedido/pedidoTrabajador?accion=buscarTodos",
+			"url" : $variableUtil.root + "pago/pedidoPedido?accion=buscarTodos",
 			"dataSrc" : ""
 		},
 		"language" : {
-			"emptyTable" : "No hay pedidos de trabajadores registrados."
+			"emptyTable" : "No hay pagos de pedidos de clientes registrados."
 		},
 		"initComplete" : function() {
 			$local.$tablaMantenimiento.wrap("<div class='table-responsive'></div>");
 			$tablaFuncion.aniadirFiltroDeBusquedaEnEncabezado(this, $local.$tablaMantenimiento);
 		},
 		"columnDefs" : [ {
-			"targets" : [ 0, 1, 2 ],
+			"targets" : [ 0, 1, 2, 3, 4, 5, 6],
 			"className" : "all filtrable",
 		}, {
-			"targets" : 3,
+			"targets" : 7,
 			"className" : "all dt-center",
 			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
 		} ],
 		"columns" : [ {
-			"data" : function(row) {
-				return row.sApellidoPaterno + "," + row.sApellidoMaterno + " " + row.sNombre;
-			},
-			"title" : "Trabajador"
+			"data" : 'nIdPago',
+			"title" : "Id. Pago"
 		}, {
-			"data" : 'nCantidad',
-			"title" : "Cantidad"
+			"data" : 'sNumeroDocumento',
+			"title" : "RUC"
+		},{
+			"data" : 'sEmpresa',
+			"title" : "Empresa"
+		},{
+			"data" : 'sRubro',
+			"title" : "Rubro"
+		},{
+			"data" : 'sMonto',
+			"title" : "Monto"
 		}, {
-			"data" : function(row) {
-				if(row.vEstado == 1){
-					return "<label class='label label-danger label-size-12'>Urgente</label>";
-				}
-				else{
-					return "<label class='label label-info label-size-12'>Normal</label>";
-				}
-			},
-			"title" : "Estado"
+			"data" : 'dFecha',
+			"title" : "Fecha"
+		}, {
+			"data" : 'tHora',
+			"title" : "Hora"
 		}, {
 			"data" : null,
 			"title" : 'Acción'
@@ -83,7 +86,7 @@ $(document).ready(function() {
 	});
 
 	$local.$modalMantenimiento.PopupWindow({
-		title : "Mantenimiento de Pedido de cliente",
+		title : "Gestión de Pago de pedido de cliente",
 		autoOpen : false,
 		modal : false,
 		height : 380,
@@ -91,7 +94,7 @@ $(document).ready(function() {
 	});
 
 	$local.$aniadirMantenimento.on("click", function() {
-		$funcionUtil.prepararFormularioRegistro($formMantenimiento);
+		$funcionUtil.prepararFormularioRegistro2($formMantenimiento);
 		$local.$actualizarMantenimiento.addClass("hidden");
 		$local.$registrarMantenimiento.removeClass("hidden");
 		$local.$modalMantenimiento.PopupWindow("open");
@@ -121,16 +124,66 @@ $(document).ready(function() {
 		}
 	});
 
+	$local.$clientes.on("change", function(event, opcionSeleccionada) {
+		$local.$pedidoCli.val("");
+		
+		var nidPedido = $(this).val();
+		
+		if (nidPedido == null || nidPedido == undefined) {
+			return;
+		}
+		
+		$.ajax({
+			type : "GET",
+			url : $variableUtil.root + "/pedido/pedidoCliente/" + nidPedido,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("X-CSRF-TOKEN", $variableUtil.csrf);
+			},
+			statusCode : {
+				400 : function(response) {
+					$funcionUtil.limpiarMensajesDeError($formMantenimiento);
+					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
+				}
+			},
+			success : function(pedido) {
+				$local.$pedidoCli.val(pedido.nCantidad + " jabas de huevo");
+				$local.$montoPago.val(pedido.nMonto + " soles");
+				if (opcionSeleccionada != null && opcionSeleccionada != undefined) {
+					//$local.$especializaciones.val(opcionSeleccionada).trigger("change.select2");
+				}
+			},
+			complete : function() {
+				
+			}
+		});
+
+	});
+	
 	$local.$registrarMantenimiento.on("click", function() {
 		if (!$formMantenimiento.valid()) {
 			return;
 		}
-		var pedidoTrabajador = $formMantenimiento.serializeJSON();
-		pedidoTrabajador.dFecha = $local.$fechaPedido.data("daterangepicker").startDate.format("YYYY-MM-DD");
+		var pagoPedido = $formMantenimiento.serializeJSON();
+		
+		console.log($local.$fechaPago.data("daterangepicker").startDate.format("YYYY-MM-DD"));
+		
+		pagoPedido.dFecha = $local.$fechaPago.data("daterangepicker").startDate.format("YYYY-MM-DD");
+		
+		console.log(pagoPedido);
+		
+		console.log("JSON :");
+		console.log(JSON.stringify(pagoPedido));
+		
+		var monto = $local.$montoPago.val().split(" ");
+		
+		if(monto.length == 2){
+			pagoPedido.nMonto = monto[0];
+		}
+		
 		$.ajax({
 			type : "POST",
-			url : $variableUtil.root + "pedido/pedidoTrabajador",
-			data : JSON.stringify(pedidoTrabajador),
+			url : $variableUtil.root + "/pago/pedidoPedido",
+			data : JSON.stringify(pagoPedido),
 			beforeSend : function(xhr) {
 				$local.$registrarMantenimiento.attr("disabled", true).find("i").removeClass("fa-floppy-o").addClass("fa-spinner fa-pulse fa-fw");
 				xhr.setRequestHeader('Content-Type', 'application/json');
@@ -142,9 +195,9 @@ $(document).ready(function() {
 					$funcionUtil.mostrarMensajeDeError(response.responseJSON, $formMantenimiento);
 				}
 			},
-			success : function(pedidoTrabajador) {
+			success : function(pagoPedido) {
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
-				var row = $local.tablaMantenimiento.row.add(pedidoTrabajador).draw();
+				var row = $local.tablaMantenimiento.row.add(pagoPedido).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
 				$local.$modalMantenimiento.PopupWindow("close");
@@ -163,8 +216,9 @@ $(document).ready(function() {
 		var pedido = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
 		$local.idTipoDocumento = pedido.sTipoDocumento;
 		$local.numeroDocumento = pedido.sNumeroDocumento;
-		$local.idPedido = pedido.nIdPedido;
+		$local.idPedido = pedido.nidPedido;
 		$funcionUtil.llenarFormulario(pedido, $formMantenimiento);
+		$local.$clientes.trigger("change", [ pedido.nIdPedido ]);
 		$local.$actualizarMantenimiento.removeClass("hidden");
 		$local.$registrarMantenimiento.addClass("hidden");
 		$local.$modalMantenimiento.PopupWindow("open");
@@ -178,11 +232,10 @@ $(document).ready(function() {
 		pedidoCliente.sTipoDocumentoAntiguo = $local.idTipoDocumento;
 		pedidoCliente.sNumeroDocumentoAntiguo = $local.numeroDocumento;
 		pedidoCliente.dFecha = $local.$fechaPedido.data("daterangepicker").startDate.format("YYYY-MM-DD");
-		pedidoCliente.nIdPedido = $local.idPedido;
-		console.log(pedidoCliente);
+		pedidoCliente.nidPedido = $local.idPedido;
 		$.ajax({
 			type : "PUT",
-			url : $variableUtil.root + "pedido/pedidoTrabajador",
+			url : $variableUtil.root + "pedido/pedidoCliente",
 			data : JSON.stringify(pedidoCliente),
 			beforeSend : function(xhr) {
 				$local.$actualizarMantenimiento.attr("disabled", true).find("i").removeClass("fa-pencil-square").addClass("fa-spinner fa-pulse fa-fw");

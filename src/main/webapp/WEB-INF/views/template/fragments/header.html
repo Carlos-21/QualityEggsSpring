@@ -82,6 +82,20 @@
 			</li>
 			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
 				<a title='Seguridad' data-tooltip='tooltip'>
+					<span class="fa fa-file-text"></span> 
+					<span class="xn-text">Pago</span>
+				</a>
+				<ul>
+					<li>
+						<a th:href="@{/pago/pagoPedido}">
+							<span class="fa fa-usd"></span>
+							<span> Pago de pedido de cliente</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
+				<a title='Seguridad' data-tooltip='tooltip'>
 					<span class="fa fa-unlock-alt"></span> 
 					<span class="xn-text">Seguridad</span>
 				</a>

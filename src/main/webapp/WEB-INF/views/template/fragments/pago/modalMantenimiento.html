@@ -10,7 +10,7 @@
 			<legend class="well-legend">Formulario</legend>
 			<form id="formMantenimiento" class="form-horizontal" role="form">
 				<th:block
-					th:replace="~{template/fragments/pedido/modalMantenimiento :: ${tipo}}?:~{}">
+					th:replace="~{template/fragments/pago/modalMantenimiento :: ${tipo}}?:~{}">
 				</th:block>
 				<div id="botonesForm" class="form-group">
 					<div class="col-lg-12 text-center">
@@ -32,10 +32,11 @@
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Cliente</label>
 			<div class="col-lg-10">
-				<select id="clientes" class="form-control select2" name="idPersona">
-					<option value="" disabled="disabled" selected="selected">Seleccione un Cliente</option>
+				<select id="clientes" class="form-control select2" name="nIdPedido">
+					<option value="" selected="selected">Seleccione
+						un Cliente</option>
 					<option th:each="cliente : ${clientes}"
-						th:value="|${cliente.sTipoDocumento}/${cliente.sNumeroDocumento}|"
+						th:value="|${cliente.nidPedido}|"
 						th:text="|${cliente.sNumeroDocumento} - ${cliente.sApellidoPaterno} ${cliente.sApellidoMaterno}, ${cliente.sNombre}|"></option>
 				</select>
 			</div>
@@ -43,18 +44,36 @@
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Pedido</label>
 			<div class="col-lg-10">
-				<input class="form-control elemento-desactivable"
-					name="sNumeroDocumento">
+				<input id="pedidoCli" class="form-control elemento-desactivable">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-lg-2 control-label">Monto total</label>
 			<div class="col-lg-10">
-				<input class="form-control elemento-desactivable"
-					name="nMonto">
+				<input id="montoPago" class="form-control elemento-desactivable" name="nMonto">
 			</div>
 		</div>
-
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Fecha</label>
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="fechaPago" type="text" class="form-control"
+							name="dFecha" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Hora</label>
+			<div class="col-lg-10">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+					<input id="horaPago" type="text" class="form-control" name="tHora" />
+				</div>
+			</div>
+		</div>
 	</th:block>
 
 </body>
