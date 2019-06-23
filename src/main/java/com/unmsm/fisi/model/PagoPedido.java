@@ -14,6 +14,8 @@ public class PagoPedido {
 	private Date dFecha;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "EST")
 	private Time tHora;
+	private String sTipoPago;
+	private byte[] bVoucher;
 	private String sNumeroDocumento;
 	private String sEmpresa;
 	private String sRubro;
@@ -23,7 +25,7 @@ public class PagoPedido {
 	}
 
 	public PagoPedido(Integer nIdPago, int nIdPedido, double nMonto, String sMonto, Date dFecha, Time tHora,
-			String sNumeroDocumento, String sEmpresa, String sRubro) {
+			String sTipoPago, byte[] bVoucher, String sNumeroDocumento, String sEmpresa, String sRubro) {
 		super();
 		this.nIdPago = nIdPago;
 		this.nIdPedido = nIdPedido;
@@ -31,6 +33,8 @@ public class PagoPedido {
 		this.sMonto = sMonto;
 		this.dFecha = dFecha;
 		this.tHora = tHora;
+		this.sTipoPago = sTipoPago;
+		this.bVoucher = bVoucher;
 		this.sNumeroDocumento = sNumeroDocumento;
 		this.sEmpresa = sEmpresa;
 		this.sRubro = sRubro;
@@ -106,6 +110,22 @@ public class PagoPedido {
 
 	public void setsRubro(String sRubro) {
 		this.sRubro = sRubro;
+	}
+
+	public String getsTipoPago() {
+		return sTipoPago;
+	}
+
+	public void setsTipoPago(String sTipoPago) {
+		this.sTipoPago = sTipoPago;
+	}
+
+	public byte[] getbVoucher() {
+		return bVoucher;
+	}
+
+	public void setbVoucher(byte[] bVoucher) {
+		this.bVoucher = bVoucher;
 	}
 
 }

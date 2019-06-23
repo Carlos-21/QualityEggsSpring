@@ -15,10 +15,17 @@ public class PagoPedidoTransform implements Transform<PagoPedido, RegPago>{
 	public RegPago transformME(PagoPedido oModel) {
 		if(oModel != null) {
 			RegPago oEPagoPedido = new RegPago();
+			
+			if(oModel.getnIdPago() != null) {
+				oEPagoPedido.setNidPago(oModel.getnIdPago());
+			}
+			
 			oEPagoPedido.setRegPedidoClienteNIdPedido(oModel.getnIdPedido());
 			oEPagoPedido.setNpagoTotal(oModel.getnMonto());
 			oEPagoPedido.setDfecha(oModel.getdFecha());
 			oEPagoPedido.setThora(oModel.gettHora());
+			oEPagoPedido.setnTipoPago(oModel.getsTipoPago());
+			oEPagoPedido.setbVoucher(oModel.getbVoucher());
 			
 			System.out.println("Fecha M: " + oModel.getdFecha().toString());
 			System.out.println("Fecha E: " + oEPagoPedido.getDfecha().toString());
@@ -52,6 +59,9 @@ public class PagoPedidoTransform implements Transform<PagoPedido, RegPago>{
 			oMPagoPedido.setdFecha(oEntity.getDfecha());
 			oMPagoPedido.settHora(oEntity.getThora());
 			oMPagoPedido.setsMonto(String.valueOf(oEntity.getNpagoTotal()) + " soles");
+			oMPagoPedido.setsTipoPago(oEntity.getnTipoPago());
+			oMPagoPedido.setbVoucher(oEntity.getbVoucher());
+			
 			return oMPagoPedido;
 		}
 		return null;

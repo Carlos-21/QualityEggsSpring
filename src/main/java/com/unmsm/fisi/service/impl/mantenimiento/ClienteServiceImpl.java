@@ -120,7 +120,21 @@ public class ClienteServiceImpl implements ClienteService {
 			}
 		}
 
-		eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
+		if (oCliente.getsTipoDocumento().compareTo(oCliente.getsTipoDocumentoAntiguo()) != 0
+				&& oCliente.getsNumeroDocumento().compareTo(oCliente.getsNumeroDocumentoAntiguo()) != 0) {
+			eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
+		}
+
+		if (oCliente.getsTipoDocumento().compareTo(oCliente.getsTipoDocumentoAntiguo()) == 0
+				&& oCliente.getsNumeroDocumento().compareTo(oCliente.getsNumeroDocumentoAntiguo()) != 0) {
+			eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
+		}
+
+		if (oCliente.getsTipoDocumento().compareTo(oCliente.getsTipoDocumentoAntiguo()) != 0
+				&& oCliente.getsNumeroDocumento().compareTo(oCliente.getsNumeroDocumentoAntiguo()) == 0) {
+			eliminarCliente(oCliente.getsTipoDocumentoAntiguo(), oCliente.getsNumeroDocumentoAntiguo());
+		}
+
 		return oMClienteId;
 	}
 

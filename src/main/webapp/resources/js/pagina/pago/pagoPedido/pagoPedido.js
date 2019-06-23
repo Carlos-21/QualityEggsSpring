@@ -12,6 +12,7 @@ $(document).ready(function() {
 		numeroDocumento : "",
 		idPedido : "",
 		$clientes : $("#clientes"),
+		$tiposPago : $("#tiposPago"),
 		$pedidoCli : $("#pedidoCli"),
 		$montoPago : $("#montoPago"),
 		$horaPago: $("#horaPago"),
@@ -21,6 +22,7 @@ $(document).ready(function() {
 	$formMantenimiento = $("#formMantenimiento");
 	
 	$funcionUtil.crearSelect2($local.$clientes, "Seleccione un Cliente");
+	$funcionUtil.crearSelect2($local.$tiposPago, "Seleccione un Tipo de Pago");
 	$funcionUtil.crearDateTimePickerSimple($local.$horaPago, "HH:mm:ss");
 	$funcionUtil.crearDatePickerSimple3($local.$fechaPago, "DD/MM/YYYY");
 	
@@ -52,7 +54,7 @@ $(document).ready(function() {
 		}, {
 			"targets" : 7,
 			"className" : "all dt-center",
-			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonEliminar
+			"defaultContent" : $variableUtil.botonActualizar + " " + $variableUtil.botonDescargar
 		} ],
 		"columns" : [ {
 			"data" : 'nIdPago',
@@ -182,7 +184,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type : "POST",
-			url : $variableUtil.root + "/pago/pedidoPedido",
+			url : $variableUtil.root + "pago/pedidoPedido",
 			data : JSON.stringify(pagoPedido),
 			beforeSend : function(xhr) {
 				$local.$registrarMantenimiento.attr("disabled", true).find("i").removeClass("fa-floppy-o").addClass("fa-spinner fa-pulse fa-fw");
@@ -196,10 +198,32 @@ $(document).ready(function() {
 				}
 			},
 			success : function(pagoPedido) {
+				var form = $("#formMantenimiento")[0];
+				var data = new FormData(form);
+				
 				$funcionUtil.notificarException($variableUtil.registroExitoso, "fa-check", "Aviso", "success");
 				var row = $local.tablaMantenimiento.row.add(pagoPedido).draw();
 				row.show().draw(false);
 				$(row.node()).animateHighlight();
+				
+				$.ajax({
+					type : "POST",
+					enctype : 'multipart/form-data',
+					url : $variableUtil.root + "pago/pedidoPedido/bVoucher/"+"?accion=cargar",
+					data : data,
+					processData : false,
+					contentType : false,
+					cache : false,
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", $variableUtil.csrf);
+					},
+					success : function(response) {
+						
+					},
+					complete : function(response) {
+					}
+				});
+				
 				$local.$modalMantenimiento.PopupWindow("close");
 			},
 			error : function(response) {
@@ -263,63 +287,63 @@ $(document).ready(function() {
 		});
 	});
 
-	$local.$tablaMantenimiento.children("tbody").on("click", ".eliminar", function() {
+	$local.$tablaMantenimiento.children("tbody").on("click", ".descargar", function() {
 		$local.$filaSeleccionada = $(this).parents("tr");
-		var cliente = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
-		$.confirm({
-			icon : "fa fa-info-circle",
-			title : "Aviso",
-			content : "¿Desea eliminar el cliente <b>'" + cliente.sTipoDocumento + " - " + cliente.sNumeroDocumento + "'<b/>?",
-			theme : "bootstrap",
-			buttons : {
-				Aceptar : {
-					action : function() {
-						var confirmar = $.confirm({
-							icon : 'fa fa-spinner fa-pulse fa-fw',
-							title : "Eliminando...",
-							content : function() {
-								var self = this;
-								self.buttons.close.hide();
-								$.ajax({
-									type : "DELETE",
-									url : $variableUtil.root + "mantenimiento/cliente",
-									data : JSON.stringify(cliente),
-									autoclose : true,
-									beforeSend : function(xhr) {
-										xhr.setRequestHeader('Content-Type', 'application/json');
-										xhr.setRequestHeader("X-CSRF-TOKEN", $variableUtil.csrf);
-									}
-								}).done(function(response) {
-									$funcionUtil.notificarException(response, "fa-check", "Aviso", "success");
-									$local.tablaMantenimiento.row($local.$filaSeleccionada).remove().draw(false);
-									confirmar.close();
-								}).fail(function(xhr) {
-									confirmar.close();
-									switch (xhr.status) {
-									case 400:
-										$funcionUtil.notificarException($funcionUtil.obtenerMensajeErrorEnCadena(xhr.responseJSON), "fa-warning", "Aviso", "warning");
-										break;
-									case 409:
-										var mensaje = $funcionUtil.obtenerMensajeError("El cliente <b>" + cliente.sTipoDocumento + " - " + cliente.sNumeroDocumento + "</b>", xhr.responseJSON, $variableUtil.accionEliminado);
-										$funcionUtil.notificarException(mensaje, "fa-warning", "Aviso", "warning");
-										break;
-									}
-								});
-							},
-							buttons : {
-								close : {
-									text : 'Aceptar'
-								}
-							}
-						});
-					},
-					keys : [ 'enter' ],
-					btnClass : "btn-primary"
-				},
-				Cancelar : {
-					keys : [ 'esc' ]
-				},
+		
+		var pago = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
+		$.ajax({
+			type : "GET",
+			url : $variableUtil.root + "pago/pedidoPedido/voucher/" + pago.nIdPago,
+			beforeSend : function(xhr) {
+				$local.$registrarMantenimiento.attr("disabled", true).find("i").removeClass("fa-floppy-o").addClass("fa-spinner fa-pulse fa-fw");
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.setRequestHeader("X-CSRF-TOKEN", $variableUtil.csrf);
+			},
+			success : function(matricula) {
+				var contentType = "application/pdf";
+				var file = b64toBlob (pago.bVoucher,contentType);
+				download(file, "voucher");
 			}
 		});
+		
 	});
+	
+	function b64toBlob(b64Data, contentType, sliceSize) {
+		  contentType = contentType || '';
+		  sliceSize = sliceSize || 512;
+
+		  var byteCharacters = atob(b64Data);
+		  var byteArrays = [];
+
+		  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+		    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+		    var byteNumbers = new Array(slice.length);
+		    for (var i = 0; i < slice.length; i++) {
+		      byteNumbers[i] = slice.charCodeAt(i);
+		    }
+
+		    var byteArray = new Uint8Array(byteNumbers);
+
+		    byteArrays.push(byteArray);
+		  }
+
+		  var blob = new Blob(byteArrays, {type: contentType});
+		  return blob;
+	};
+	
+	function blobToFile(blob, filename){
+		var file = new File([blob], filename, {type: "application/pdf", lastModified: Date.now()});
+		return file;
+	}
+	
+	function download(text, filename){
+		  var blob = new Blob([text], {type: "application/pdf"});
+		  var url = window.URL.createObjectURL(blob);
+		  var a = document.createElement("a");
+		  a.href = url;
+		  a.download = filename;
+		  a.click();
+	};
+	
 });
