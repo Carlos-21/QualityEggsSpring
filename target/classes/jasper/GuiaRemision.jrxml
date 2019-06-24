@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="095dd2db-a57b-4013-8953-f15ad041f83e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<frame>
+				<reportElement x="-20" y="0" width="590" height="91" uuid="278c03c5-34dc-43cc-8388-17f68b77e179"/>
+				<staticText>
+					<reportElement x="0" y="0" width="270" height="40" uuid="f0dc346d-84b3-4029-9205-f84a15bf6392"/>
+					<textElement>
+						<font fontName="Bodoni MT" size="26" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ Agropecuaria Janic SAC]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="340" y="0" width="250" height="90" uuid="7b2f7168-24aa-4409-9c8d-4f644341ad2e"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="340" y="29" width="250" height="21" uuid="9eb47550-f05b-4915-abe9-4c359f578129"/>
+					<textElement textAlignment="Center">
+						<font fontName="Bodoni MT" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Guia de Remision-Remitente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="339" y="-1" width="81" height="31" uuid="e6e03fa5-db9b-46c7-a561-f4d73b5ec520"/>
+					<textElement textAlignment="Center">
+						<font fontName="Bodoni MT" size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[R.U.C.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="419" y="-1" width="171" height="31" uuid="64c1f8d3-6a47-404a-b4b0-dac77a695d7e"/>
+					<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="350" y="60" width="41" height="31" uuid="dc0ff672-a0d2-427a-973b-e2a4812bb369"/>
+					<textElement>
+						<font fontName="Bodoni MT" size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[N°]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="390" y="61" width="175" height="30" uuid="f1a92ded-8e1c-4384-816e-8d1e8d33c317"/>
+					<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="-1" y="90" width="200" height="200" uuid="610c0b07-0fad-452f-b9cb-8154ee8ae182"/>
+					<frame>
+						<reportElement x="0" y="-1" width="591" height="131" uuid="bd38e21e-d16c-4b61-85df-567bc49364ca"/>
+						<staticText>
+							<reportElement x="-1" y="10" width="171" height="31" uuid="dcde1f44-2571-4e83-846a-100f2b93f1a0"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="14" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Fecha de Inicio del Traslado:	]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="170" y="10" width="131" height="31" uuid="50b56b31-34e1-4b60-9752-e855a858bf18"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="-1" y="40" width="171" height="21" uuid="ed59e645-0555-4af6-a8bc-b756b527527a"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="14" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Destinatario:]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="170" y="41" width="121" height="21" uuid="a5aa4f56-04c9-40e0-9ce4-b9487c186a58"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="-1" y="60" width="81" height="21" uuid="8c5a64b1-07ee-4ed9-8cff-34dc03595522"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="12" isBold="true"/>
+							</textElement>
+							<text><![CDATA[R.U.C. ]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="89" y="60" width="202" height="21" uuid="ad79d17a-03b6-4f03-acc5-e756a48e715d"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="-1" y="90" width="111" height="21" uuid="8533c554-538e-4193-b088-e40bab6e4e6e"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="12" isBold="true"/>
+							</textElement>
+							<text><![CDATA[N° Doc Identidad]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="109" y="90" width="191" height="21" uuid="12a0598f-fa94-4b2a-9d9d-c45e0a5f1156"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="300" y="10" width="121" height="21" uuid="f5c8e087-bb13-4a01-b488-35235a57f01d"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="14" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Punto Partida]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="419" y="10" width="161" height="21" uuid="3d3ab5ef-d717-4e96-8a31-fbe4b842c118"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="299" y="49" width="121" height="21" uuid="0f5ed97a-b8ad-4583-8a3b-2787c91183de"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="14" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Punto Llegada]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="429" y="49" width="151" height="21" uuid="eaa3fc38-3851-4dfd-8583-98ffba389309"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement x="0" y="129" width="591" height="54" uuid="ddeb1ca0-f6d6-4551-a522-af9cb919d8c9"/>
+						<staticText>
+							<reportElement x="0" y="1" width="250" height="53" uuid="3d844cfb-ec83-4980-8f21-6c7bc13bdb21"/>
+							<textElement>
+								<font fontName="Bodoni MT" size="12" isBold="true"/>
+							</textElement>
+							<text><![CDATA[Documento que sustenta el traslado de bienes]]></text>
+						</staticText>
+						<textField>
+							<reportElement x="259" y="10" width="321" height="31" uuid="08687dc7-366e-4a9a-98da-a482a4552f1c"/>
+							<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+						</textField>
+					</frame>
+					<staticText>
+						<reportElement x="0" y="189" width="241" height="21" uuid="6e243f1a-972f-4454-8603-002e52789e6e"/>
+						<textElement>
+							<font fontName="Bodoni MT" size="14" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Dato del bien transportado]]></text>
+					</staticText>
+				</frame>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="129" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="53" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="119" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-21" y="37" width="231" height="81" uuid="380d6abf-b03c-4559-8e84-7f5c49fe3dda"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="210" y="37" width="141" height="81" uuid="9572b34a-8eab-463d-8be6-898bf7901cad"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="351" y="37" width="101" height="81" uuid="cc840d25-fcd7-4b77-9015-0148fee53cec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="450" y="37" width="111" height="81" uuid="383e16a2-b309-4412-9a39-3f1865406f7e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-20" y="40" width="171" height="21" uuid="7ee5b6ed-2b54-4988-ae7d-cbd156003176"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="37" width="111" height="21" uuid="2a648116-3b80-4662-a0ad-36dab7b35340"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="40" width="101" height="21" uuid="d4fbfae7-7525-4322-9c9c-8272ca1a8183"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad de Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="37" width="95" height="21" uuid="e9f0fd82-95e8-400f-bd63-4ae689c4ff80"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-20" y="59" width="230" height="60" uuid="e842a3c8-962a-4971-a1da-8dd229afb095"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="59" width="140" height="60" uuid="84d830a4-6abb-4d81-87df-d73c11a76d82"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="59" width="98" height="60" uuid="dff41614-d7d2-4ea6-8328-cdbbc2ad3465"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="59" width="110" height="60" uuid="a7cd1c12-a8c5-4e90-8c76-e6d5dd4793af"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="123" splitType="Stretch">
+			<frame>
+				<reportElement x="-20" y="2" width="591" height="121" uuid="ab99a21a-ae04-4ce9-ad40-1f8d64fcc7e3"/>
+				<staticText>
+					<reportElement x="-1" y="9" width="351" height="31" uuid="86a87210-4c5d-4c91-83eb-90565fdb192f"/>
+					<textElement>
+						<font fontName="Bodoni MT" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Datos del Remitente]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="-1" y="49" width="181" height="71" uuid="0b278922-630b-4108-adbe-219b2f8f981e"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="179" y="49" width="191" height="71" uuid="00308889-c3f5-4356-a67c-ebed3e297e80"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="-1" y="50" width="180" height="20" uuid="0dd7bae5-5405-4c04-9c0e-2c16b25b2760"/>
+					<textElement>
+						<font fontName="Bodoni MT" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RUC o DNI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="179" y="48" width="190" height="20" uuid="22701b47-07e5-46d0-af26-dcb9d8fe83ae"/>
+					<textElement>
+						<font fontName="Bodoni MT" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Denominacion,.Apellidos y Nombres]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="-1" y="67" width="180" height="50" uuid="8ea1c473-fcdc-45c9-80d4-5541d5d13b1e"/>
+					<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="179" y="69" width="190" height="50" uuid="504d1e61-30e7-468e-8b96-5e77dfdef54a"/>
+					<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="-1" width="421" height="21" uuid="94c073c3-7f47-4820-bb97-626a80c37b5c"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos de la Unidad de Transporte y Conductor]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="25" width="221" height="51" uuid="a5795acf-9015-4ef9-85d7-2e3156433f83"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="202" y="26" width="211" height="51" uuid="fcf8fd3c-e1d2-4011-b6f6-136c5d9bf249"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-20" y="28" width="161" height="21" uuid="62604de9-a246-4465-aece-167015ab5226"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca y Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="28" width="181" height="31" uuid="8138cec8-da0f-4806-8994-e4067d5f4d78"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Licencia para Conducir]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-17" y="52" width="190" height="20" uuid="43b687d7-d792-435b-93d9-3f8acf37279e"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="56" width="180" height="20" uuid="a511560f-0ded-43ca-b253-ed7f4f449e36"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="380" y="9" width="191" height="31" uuid="d6260acd-618d-4693-a42e-3e353c6cfb96"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remitente]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

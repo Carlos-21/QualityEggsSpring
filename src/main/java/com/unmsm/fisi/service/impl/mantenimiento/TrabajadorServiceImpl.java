@@ -137,8 +137,23 @@ public class TrabajadorServiceImpl implements TrabajadorService {
 
 			}
 		}
+		
+		if(oTrabajador.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0
+				&& oTrabajador.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0) {
+			eliminarTrabajador(oTrabajador.getsTipoDocumentoAntiguo(), oTrabajador.getsNumeroDocumentoAntiguo());
+		}
 
-		eliminarTrabajador(oTrabajador.getsTipoDocumentoAntiguo(), oTrabajador.getsNumeroDocumentoAntiguo());
+		if(oTrabajador.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) == 0
+				&& oTrabajador.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) != 0) {
+			eliminarTrabajador(oTrabajador.getsTipoDocumentoAntiguo(), oTrabajador.getsNumeroDocumentoAntiguo());
+		}
+		
+		if(oTrabajador.getsTipoDocumento().compareTo(oTrabajador.getsTipoDocumentoAntiguo()) != 0
+				&& oTrabajador.getsNumeroDocumento().compareTo(oTrabajador.getsNumeroDocumentoAntiguo()) == 0) {
+			eliminarTrabajador(oTrabajador.getsTipoDocumentoAntiguo(), oTrabajador.getsNumeroDocumentoAntiguo());
+		}
+		
+		
 
 		return oMTrabajadorId;
 	}
