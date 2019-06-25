@@ -30,7 +30,7 @@ public class ReporteRestController {
 		
 		modelMap.put("datasource", new JRBeanCollectionDataSource(lGuiaRemision));
 		modelMap.put("format", "pdf");
-		modelAndView = new ModelAndView("rpt_Asignacion", modelMap);
+		modelAndView = new ModelAndView("rpt_GuiaRemision", modelMap);
 			
 		return modelAndView;
 	}
