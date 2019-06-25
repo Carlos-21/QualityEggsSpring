@@ -17,6 +17,7 @@ public class PedidoCliente {
 	private String sApellidoMaterno;
 	private String sEmpresa;
 	private String sRubro;
+	private String sDireccion;
 	private double nMonto;
 	
 	public PedidoCliente() {
@@ -25,7 +26,7 @@ public class PedidoCliente {
 
 	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Date dFecha, Time tHora,
 			Integer nidPedido, String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
-			String sApellidoMaterno, String sEmpresa, String sRubro, double nMonto) {
+			String sApellidoMaterno, String sEmpresa, String sRubro, String sDireccion, double nMonto) {
 		super();
 		this.idPersona = idPersona;
 		this.nCantidad = nCantidad;
@@ -40,6 +41,7 @@ public class PedidoCliente {
 		this.sApellidoMaterno = sApellidoMaterno;
 		this.sEmpresa = sEmpresa;
 		this.sRubro = sRubro;
+		this.sDireccion = sDireccion;
 		this.nMonto = nMonto;
 	}
 
@@ -145,6 +147,14 @@ public class PedidoCliente {
 
 	public void setsRubro(String sRubro) {
 		this.sRubro = sRubro;
+	}
+
+	public String getsDireccion() {
+		return sDireccion;
+	}
+
+	public void setsDireccion(String sDireccion) {
+		this.sDireccion = sDireccion;
 	}
 
 	public double getnMonto() {

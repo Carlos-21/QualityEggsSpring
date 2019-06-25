@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="095dd2db-a57b-4013-8953-f15ad041f83e">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
+	<field name="sRUCEmpresa" class="java.lang.String"/>
+	<field name="sNumeroGuia" class="java.lang.String"/>
+	<field name="sFechaTraslado" class="java.lang.String"/>
+	<field name="sDireccionPartida" class="java.lang.String"/>
+	<field name="sDestinatario" class="java.lang.String"/>
+	<field name="sDireccionLlegada" class="java.lang.String"/>
+	<field name="sRUCCliente" class="java.lang.String"/>
+	<field name="sNumeroDocumento" class="java.lang.String"/>
+	<field name="sDocumento" class="java.lang.String"/>
+	<field name="sDescripcionProducto" class="java.lang.String"/>
+	<field name="nCantidadProducto" class="java.lang.Integer"/>
+	<field name="sRUCRemitente" class="java.lang.String"/>
+	<field name="sDenominacionRemitente" class="java.lang.String"/>
+	<field name="sMarcaPlaca" class="java.lang.String"/>
+	<field name="sLicenciaConducir" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -38,7 +49,6 @@
 				</staticText>
 				<textField>
 					<reportElement x="419" y="-1" width="171" height="31" uuid="64c1f8d3-6a47-404a-b4b0-dac77a695d7e"/>
-					<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="350" y="60" width="41" height="31" uuid="dc0ff672-a0d2-427a-973b-e2a4812bb369"/>

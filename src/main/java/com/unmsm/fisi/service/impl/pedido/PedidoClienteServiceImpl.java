@@ -47,6 +47,7 @@ public class PedidoClienteServiceImpl implements PedidoClienteService {
 			oPedidoCliente.setnMonto(
 					(double) Math.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d)
 							/ 100d);
+			oPedidoCliente.setsDireccion(oCliente.getsDomicilio());
 		}
 		return lMPedidoCliente;
 	}
@@ -68,6 +69,7 @@ public class PedidoClienteServiceImpl implements PedidoClienteService {
 		oPedidoCliente.setsRubro(oCliente.getsRubro());
 		oPedidoCliente.setnMonto(
 				(double) Math.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d) / 100d);
+		oPedidoCliente.setsDireccion(oCliente.getsDomicilio());
 		return oPedidoCliente;
 	}
 
