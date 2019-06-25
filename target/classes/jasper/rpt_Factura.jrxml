@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_Factura" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd581ed6-098e-469a-9655-f237e49f02ad">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_Factura2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="838030c0-d195-4071-9afd-a1d4032e58f5">
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="sRUCEmpresa" class="java.lang.String"/>
+	<field name="sNumeroFactura" class="java.lang.String"/>
+	<field name="sFechaFactura" class="java.lang.String"/>
+	<field name="sEmpresaCliente" class="java.lang.String"/>
+	<field name="sRUCEmpresaCliente" class="java.lang.String"/>
+	<field name="sDireccionCliente" class="java.lang.String"/>
+	<field name="sDescripcionProducto" class="java.lang.String"/>
+	<field name="nCantidadProducto" class="java.lang.Integer"/>
+	<field name="sPrecioUnitario" class="java.lang.String"/>
+	<field name="sValorVenta" class="java.lang.String"/>
+	<field name="sSubTotal" class="java.lang.String"/>
+	<field name="sIGV" class="java.lang.String"/>
+	<field name="sMontoTotal" class="java.lang.String"/>
 	<background>
 		<band height="5" splitType="Stretch"/>
 	</background>
@@ -33,7 +46,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sRUCEmpresa}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="430" y="50" width="373" height="30" uuid="a0dc6b04-ee12-4c56-aa73-823feec5a507"/>
@@ -47,14 +60,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sNumeroFactura}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="140" width="430" height="30" uuid="f26b4165-666e-4b51-9bf4-30eb2a7acaae"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Lima, "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Lima, " + $F{sFechaFactura}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="180" width="90" height="30" uuid="665722b0-8765-475d-9435-5d42d2f74a0c"/>
@@ -74,6 +87,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sEmpresaCliente}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="490" y="180" width="55" height="30" uuid="13718a24-3f0f-4e47-b70a-39d33faa6683"/>
@@ -91,6 +105,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sRUCEmpresaCliente}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="220" width="90" height="30" uuid="b8fcd5ba-5ffa-48b9-8600-e853e00c1a78"/>
@@ -108,6 +123,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sDireccionCliente}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="280" width="130" height="30" uuid="6880fdb4-73cf-4c81-93a8-539b554aadb4"/>
@@ -170,9 +186,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{nCantidadProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="130" y="310" width="330" height="30" uuid="6bc7e89a-ce0b-4a34-8e06-1dc7d707e640"/>
@@ -183,9 +200,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sDescripcionProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="310" width="170" height="30" uuid="b5ba850f-9bc1-46f0-aa4e-d2721126499b"/>
@@ -196,9 +214,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.0)"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sPrecioUnitario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="630" y="310" width="173" height="30" uuid="d486428a-a507-4039-ade2-0f480cdcde45"/>
@@ -209,9 +228,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sValorVenta}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="340" width="130" height="30" uuid="c25e0150-d0b3-4843-abf1-5b5d8783d7d0"/>
@@ -347,9 +367,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sSubTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="630" y="430" width="173" height="30" uuid="1759088c-7d5b-43e2-8233-f16f2125e041"/>
@@ -360,9 +381,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sIGV}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="630" y="460" width="173" height="30" uuid="e0bd7c95-70f9-4794-a916-0e318244cebf"/>
@@ -373,9 +395,10 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.98039216)"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{sMontoTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="573" y="525" width="230" height="30" uuid="b90f07a8-ef0b-40c8-9d16-52acb5455414"/>
@@ -385,10 +408,13 @@
 				<text><![CDATA[ADQUIRIENTE O USUARIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="480" width="180" height="30" uuid="abea9344-2b74-4701-96d0-0717d741710a"/>
+				<reportElement mode="Transparent" x="220" y="480" width="180" height="30" uuid="abea9344-2b74-4701-96d0-0717d741710a"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.0" lineColor="rgba(0, 0, 0, 0.0)"/>
+					<bottomPen lineWidth="1.0" lineColor="rgba(0, 0, 0, 0.0)"/>
+					<rightPen lineWidth="1.0" lineColor="rgba(0, 0, 0, 0.0)"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18"/>

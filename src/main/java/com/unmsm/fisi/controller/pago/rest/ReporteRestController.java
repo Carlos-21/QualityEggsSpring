@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.unmsm.fisi.model.Factura;
 import com.unmsm.fisi.model.GuiaRemision;
 import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
 import com.unmsm.fisi.service.impl.reporte.ReporteServiceImpl;
@@ -34,4 +35,16 @@ public class ReporteRestController {
 			
 		return modelAndView;
 	}
+	
+	@GetMapping("/factura")
+	public ModelAndView devolverFactura(ModelMap modelMap, ModelAndView modelAndView) {
+		List<Factura> lFactura = reporteService.listarFactura();
+		
+		modelMap.put("datasource", new JRBeanCollectionDataSource(lFactura));
+		modelMap.put("format", "pdf");
+		modelAndView = new ModelAndView("rpt_Factura", modelMap);
+			
+		return modelAndView;
+	}
+	
 }

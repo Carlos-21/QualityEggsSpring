@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.unmsm.fisi.model.Factura;
 import com.unmsm.fisi.model.GuiaRemision;
 import com.unmsm.fisi.model.PedidoCliente;
+import com.unmsm.fisi.model.Producto;
 import com.unmsm.fisi.service.ReporteService;
+import com.unmsm.fisi.service.impl.mantenimiento.ProductoServiceImpl;
 import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
 
 @Service("reporteServicio")
@@ -21,6 +24,9 @@ public class ReporteServiceImpl implements ReporteService{
 	@Autowired
 	@Qualifier("pedidoClienteServicio")
 	private PedidoClienteServiceImpl pedidoClienteService;
+	@Autowired
+	@Qualifier("productoServicio")
+	private ProductoServiceImpl productoService;
 	
 	@Override
 	public List<GuiaRemision> listarGuiaRemision() {
@@ -59,6 +65,50 @@ public class ReporteServiceImpl implements ReporteService{
 		}
 		
 		return lGuiaRemision;
+	}
+
+	@Override
+	public List<Factura> listarFactura() {
+		Date date = Calendar.getInstance().getTime();
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd MMMM yyyy");
+		
+		List<Factura> lFactura = new ArrayList<>();
+		
+		List<PedidoCliente> lPedidoCliente = pedidoClienteService.listarPedidosClientes();
+		
+		Producto oProducto = productoService.buscarProducto(1);
+	
+		int i = 0;
+		
+		for(PedidoCliente oPedidoCliente : lPedidoCliente) {
+			i++;
+			
+			Factura oFactura = new Factura();
+			
+			oFactura.setsRUCEmpresa("12345678912");
+			oFactura.setsNumeroFactura("N° 001 - 0000000" + String.valueOf(i));
+			oFactura.setsFechaFactura(formatoFecha.format(date).replace(" ", " de "));
+			oFactura.setsEmpresaCliente(oPedidoCliente.getsEmpresa());
+			oFactura.setsRUCEmpresaCliente(oPedidoCliente.getsNumeroDocumento());
+			oFactura.setsDireccionCliente(oPedidoCliente.getsDireccion());
+			oFactura.setsDescripcionProducto(oProducto.getsDescripcion());
+			oFactura.setnCantidadProducto(oPedidoCliente.getnCantidad());
+			oFactura.setsPrecioUnitario(String.valueOf(oProducto.getnPrecioUnitario()));
+			oFactura.setsValorVenta(String.valueOf((double) Math.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d)
+							/ 100d));
+			oFactura.setsSubTotal(oFactura.getsValorVenta());
+			
+			double nIGV = (double) Math.round((Double.valueOf(oFactura.getsSubTotal())*0.18) * 100d) / 100d;
+			
+			oFactura.setsIGV(String.valueOf(nIGV));
+			
+			double nMontoTotal = (double) Math.round((Double.valueOf(oFactura.getsSubTotal())+Double.valueOf(oFactura.getsIGV())) * 100d) / 100d;
+			
+			oFactura.setsMontoTotal(String.valueOf(nMontoTotal));
+			
+			lFactura.add(oFactura);
+		}
+		return lFactura;
 	}
 
 }
