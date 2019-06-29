@@ -211,7 +211,7 @@ public class ReporteServiceImpl implements ReporteService {
 
 			double nMontoTotal = (double) Math.round((valorVenta + IGV) * 100d) / 100d;
 
-			oReporteVenta.setsMontoTotal(String.valueOf(nMontoTotal) + "soles");
+			oReporteVenta.setsMontoTotal(String.valueOf(nMontoTotal) + " soles");
 			
 			lReporteVenta.add(oReporteVenta);
 		}

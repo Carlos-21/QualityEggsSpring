@@ -42,9 +42,21 @@ public @Controller class PagoController {
     }
 	
 	@GetMapping("{reporte:guiaRemision}")
-    public String irPaginaReportePagos(ModelMap model)
+    public String irPaginaGuiaRemision(ModelMap model)
     {
         return "seguras/reporte/guiaRemision";
+    }
+	
+	@GetMapping("{reporte:factura}")
+    public String irPaginaFactura(ModelMap model)
+    {
+        return "seguras/reporte/factura";
+    }
+	
+	@GetMapping("{reporte:reporteVenta}")
+    public String irPaginaReporteVenta(ModelMap model)
+    {
+        return "seguras/reporte/reporteVenta";
     }
 	
 }

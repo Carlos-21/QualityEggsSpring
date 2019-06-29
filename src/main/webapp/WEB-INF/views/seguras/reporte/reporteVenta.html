@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" layout:decorator="layout">
+<head>
+<title>Guias de remision</title>
+</head>
+<th:block layout:fragment="style">
+	<link th:href="@{/resources/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/responsive.bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/popupwindow.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/jquery-confirm.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/select2.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/select2-bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/daterangepicker.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/propio.css}" rel="stylesheet" />
+</th:block>
+<body>
+	<th:block layout:fragment="content">
+		
+		
+			<div class="tab-content clearfix">
+				<div id="modalidadRep" class="tab-pane fade in active">
+					<div class="page-content-wrap">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<fieldset class="well">
+											<legend class="well-legend">Búsqueda</legend>
+											<form id="formGuiaRemision" class="form-horizontal">
+												<div class="form-group">
+													<div class="group">
+														<label class="col-lg-2 control-label">Número de documento</label>
+														<div class="col-lg-3">
+															<input class="form-control filtro" name="sNumeroDocumento">
+														</div>
+													</div>
+													<div class="group">
+														<label class="col-lg-2 control-label">Estado</label>
+														<div class="col-lg-3">
+															<select id="estados" class="form-control select2 filtro" name="vEstado">
+																<option value="" selected="selected">Seleccione estado</option>
+																<option value=true selected="selected">Urgente</option>
+																<option value=false selected="selected">Normal</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="group">
+														<label class="col-lg-2 control-label">Fecha inicio</label>
+														<div class="col-lg-3">
+															<div class="input-group">
+																<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+																<input id="fechaInicio" type="text" class="form-control"
+																	name="dFechaInicio" />
+															</div>
+														</div>
+													</div>
+													<div class="group">
+														<label class="col-lg-2 control-label">Fecha fin</label>
+														<div class="col-lg-3">
+															<div class="input-group">
+																<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+																<input id="fechaFin" type="text" class="form-control"
+																	name="dFechaFin" />
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-12 text-center">
+														<button id="buscar" type="button" class="btn btn-primary">
+															<i class="fa fa-search"></i> Buscar
+														</button>
+														<button id="exportar" type="button" class="btn btn-success" 
+																title="Exportar en .XLSX" data-tooltip="tooltip">
+															<i class="fa fa-download"></i> Exportar
+														</button>
+													</div>
+												</div>
+											</form>
+										</fieldset>
+										<div id="resultadoGuiaRemision" class="col-xs-12 tabs">
+
+											<div class="tab-content">
+												<div id="detalle" class="tab-pane fade in active">
+													<table id="tablaGuiaRemision" width="100%"
+														class="table table-bordered table-condensed nowrap display table-hover">
+													</table>
+												</div> 
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>	
+		
+	</th:block>
+
+	<th:block layout:fragment="script">
+		<script th:src="@{/resources/js/datatables/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/resources/js/datatables/dataTables.bootstrap.min.js}"></script>
+		<script th:src="@{/resources/js/datatables/dataTables.responsive.min.js}"></script>
+		<script th:src="@{/resources/js/datatables/dataTables.show.rows.js}"></script>
+		<script th:src="@{/resources/js/bootstrap/bootstrap-notify.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/popupwindow.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/jquery.serializejson.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/jquery.validate.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/additional-methods.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/jquery-confirm.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/jquery.animate.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/select2.full.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/moment.min.js}"></script>
+		<script th:src="@{/resources/js/jquery/daterangepicker.js}"></script>
+		<script th:src="@{/resources/js/util/formularioUtil.js}"></script>
+		<script th:src="@{/resources/js/pagina/reporte/reporteVenta.js}"></script>
+	</th:block>
+</body>
+</html>

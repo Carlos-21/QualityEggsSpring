@@ -33,8 +33,8 @@ $(document).ready(function() {
 		}],
 		"columns" : [ 
 			{
-			"data" : "guiaRemision.js",
-			"title" : "N°Guia"
+			"data" : "sNumeroFactura",
+			"title" : "N°Factura"
 		}, {
 			"data" : "sRUCEmpresaCliente",
 			"title" : "RUC"
@@ -116,7 +116,7 @@ $(document).ready(function() {
 		
 		var paramReporte = $.param(parametro);
 		
-		window.location.href = $variableUtil.root + "/pago/reporte?accion=guia&" + paramReporte;
+		window.location.href = $variableUtil.root + "pago/reporte?accion=guia&" + paramReporte;
 	});
 
 });

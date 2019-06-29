@@ -108,9 +108,15 @@
 						</a>
 					</li>
 					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL')">
-						<a th:href="@{/registro/reportePago}">
+						<a th:href="@{/pago/factura}">
 							<span class="fa fa-usd"></span>
-							<span> Pagos</span>
+							<span> Factura</span>
+						</a>
+					</li>
+					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL')">
+						<a th:href="@{/pago/reporteVenta}">
+							<span class="fa fa-usd"></span>
+							<span> Reporte de ventas</span>
 						</a>
 					</li>
 				</ul>

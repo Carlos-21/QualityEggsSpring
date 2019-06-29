@@ -27,23 +27,26 @@ $(document).ready(function() {
 		},
 		"ordering" : false,
 		"columnDefs" : [ {
-			"targets" : [ 0, 1, 2, 3],
+			"targets" : [ 0, 1, 2, 3, 4],
 			"className" : "all filtrable",
 			"defaultContent" : "-"
 		}],
 		"columns" : [ 
 			{
-			"data" : "sNumeroGuia",
-			"title" : "N°Guia"
+			"data" : "dFechaPedido",
+			"title" : "Fecha de pedido"
 		}, {
-			"data" : "sRUCCliente",
-			"title" : "RUC"
-		}, {
-			"data" : "nCantidadProducto",
-			"title" : "Cantidad de pedido"
+			"data" : "sEmpresaCliente",
+			"title" : "Cliente"
 		}, {
 			"data" : "sDescripcionProducto",
-			"title" : "Descripción de pedido"
+			"title" : "Descripción de producto"
+		}, {
+			"data" : "nCantidadProducto",
+			"title" : "Cantidad de producto"
+		}, {
+			"data" : "sMontoTotal",
+			"title" : "Monto total"
 		}]
 	});
 	
@@ -74,7 +77,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type : "GET",
-			url : $variableUtil.root + "pago/reporte?accion=buscarGuiaRemision",
+			url : $variableUtil.root + "pago/reporte?accion=buscarReporteVenta",
 			data : parametro,
 			beforeSend : function() {
 				$local.tablaGuiaRemision.clear().draw();
@@ -113,7 +116,7 @@ $(document).ready(function() {
 		
 		var paramReporte = $.param(parametro);
 		
-		window.location.href = $variableUtil.root + "pago/reporte?accion=guia&" + paramReporte;
+		window.location.href = $variableUtil.root + "pago/reporte?accion=reporteVenta&" + paramReporte;
 	});
 
 });
