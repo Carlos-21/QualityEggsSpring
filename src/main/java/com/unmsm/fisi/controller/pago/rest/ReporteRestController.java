@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unmsm.fisi.model.BusquedaParametro;
 import com.unmsm.fisi.model.Factura;
 import com.unmsm.fisi.model.GuiaRemision;
+import com.unmsm.fisi.model.ReporteVentas;
 import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
 import com.unmsm.fisi.service.impl.reporte.ReporteServiceImpl;
 
@@ -52,6 +53,23 @@ public class ReporteRestController {
 		List<Factura> lFactura = reporteService.listarFactura(oBusquedaParametro);
 		
 		modelMap.put("datasource", new JRBeanCollectionDataSource(lFactura));
+		modelMap.put("format", "pdf");
+		modelAndView = new ModelAndView("rpt_Factura", modelMap);
+			
+		return modelAndView;
+	}
+	
+	@GetMapping(params = "accion=buscarReporteVenta")
+	public List<ReporteVentas> buscarReporteVenta(BusquedaParametro oBusquedaParametro){
+		return reporteService.listarReporteVenta(oBusquedaParametro);
+	}
+	
+	@GetMapping(params = "accion=reporteVenta")
+	public ModelAndView devolverReporteVenta(ModelMap modelMap, ModelAndView modelAndView, BusquedaParametro oBusquedaParametro) {
+		//fasf
+		List<ReporteVentas> lReporteVenta = reporteService.listarReporteVenta(oBusquedaParametro);
+		
+		modelMap.put("datasource", new JRBeanCollectionDataSource(lReporteVenta));
 		modelMap.put("format", "pdf");
 		modelAndView = new ModelAndView("rpt_Factura", modelMap);
 			

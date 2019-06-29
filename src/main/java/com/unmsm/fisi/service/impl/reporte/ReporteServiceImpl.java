@@ -16,6 +16,7 @@ import com.unmsm.fisi.model.Factura;
 import com.unmsm.fisi.model.GuiaRemision;
 import com.unmsm.fisi.model.PedidoCliente;
 import com.unmsm.fisi.model.Producto;
+import com.unmsm.fisi.model.ReporteVentas;
 import com.unmsm.fisi.service.ReporteService;
 import com.unmsm.fisi.service.impl.mantenimiento.ProductoServiceImpl;
 import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
@@ -67,37 +68,39 @@ public class ReporteServiceImpl implements ReporteService {
 
 		}
 
-		/*if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
-				&& oBusquedaParametro.getvEstado() == false
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
-			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
-					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0));
-		}
-
-		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
-				&& oBusquedaParametro.getvEstado() == true
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
-			lGuiaRemision.removeIf(s -> s.getvEstado() != oBusquedaParametro.getvEstado());
-		}
-		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
-				&& oBusquedaParametro.getvEstado() == false
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
-			lGuiaRemision.removeIf(s -> s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0);
-		}
-		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
-				&& oBusquedaParametro.getvEstado() == true
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
-			lGuiaRemision.removeIf(s -> (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
-					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
-		}
-		if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
-				&& oBusquedaParametro.getvEstado() == true
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
-			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
-					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0)
-					&& (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
-					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
-		}*/
+		/*
+		 * if (oBusquedaParametro.getdFechaInicio() != null &&
+		 * oBusquedaParametro.getdFechaFin() != null && oBusquedaParametro.getvEstado()
+		 * == false && oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0) &&
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0)); }
+		 * 
+		 * if (oBusquedaParametro.getdFechaInicio() == null &&
+		 * oBusquedaParametro.getdFechaFin() == null && oBusquedaParametro.getvEstado()
+		 * == true && oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+		 * lGuiaRemision.removeIf(s -> s.getvEstado() !=
+		 * oBusquedaParametro.getvEstado()); } if (oBusquedaParametro.getdFechaInicio()
+		 * == null && oBusquedaParametro.getdFechaFin() == null &&
+		 * oBusquedaParametro.getvEstado() == false &&
+		 * oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0);
+		 * } if (oBusquedaParametro.getdFechaInicio() == null &&
+		 * oBusquedaParametro.getdFechaFin() == null && oBusquedaParametro.getvEstado()
+		 * == true && oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+		 * && (s.getvEstado() != oBusquedaParametro.getvEstado())); } if
+		 * (oBusquedaParametro.getdFechaInicio() != null &&
+		 * oBusquedaParametro.getdFechaFin() != null && oBusquedaParametro.getvEstado()
+		 * == true && oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0) &&
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0) &&
+		 * (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+		 * && (s.getvEstado() != oBusquedaParametro.getvEstado())); }
+		 */
 
 		return lGuiaRemision;
 	}
@@ -145,43 +148,75 @@ public class ReporteServiceImpl implements ReporteService {
 			oFactura.setsMontoTotal(String.valueOf(nMontoTotal));
 			oFactura.setdFechaPedido(oPedidoCliente.getdFecha());
 			oFactura.setvEstado(oPedidoCliente.getvEstado());
-			
+
 			lFactura.add(oFactura);
 		}
-		
-		/*if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
-				&& oBusquedaParametro.getvEstado() == false
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
-			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
-					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0));
+
+		/*
+		 * if (oBusquedaParametro.getdFechaInicio() != null &&
+		 * oBusquedaParametro.getdFechaFin() != null && oBusquedaParametro.getvEstado()
+		 * == false && oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0) &&
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0)); }
+		 * 
+		 * if (oBusquedaParametro.getdFechaInicio() == null &&
+		 * oBusquedaParametro.getdFechaFin() == null && oBusquedaParametro.getvEstado()
+		 * == true && oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+		 * lGuiaRemision.removeIf(s -> s.getvEstado() !=
+		 * oBusquedaParametro.getvEstado()); } if (oBusquedaParametro.getdFechaInicio()
+		 * == null && oBusquedaParametro.getdFechaFin() == null &&
+		 * oBusquedaParametro.getvEstado() == false &&
+		 * oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0);
+		 * } if (oBusquedaParametro.getdFechaInicio() == null &&
+		 * oBusquedaParametro.getdFechaFin() == null && oBusquedaParametro.getvEstado()
+		 * == true && oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+		 * && (s.getvEstado() != oBusquedaParametro.getvEstado())); } if
+		 * (oBusquedaParametro.getdFechaInicio() != null &&
+		 * oBusquedaParametro.getdFechaFin() != null && oBusquedaParametro.getvEstado()
+		 * == true && oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+		 * lGuiaRemision.removeIf(s ->
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0) &&
+		 * (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0) &&
+		 * (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+		 * && (s.getvEstado() != oBusquedaParametro.getvEstado())); }
+		 */
+
+		return lFactura;
+	}
+
+	@Override
+	public List<ReporteVentas> listarReporteVenta(BusquedaParametro oBusquedaParametro) {
+		List<ReporteVentas> lReporteVenta = new ArrayList<>();
+
+		List<PedidoCliente> lPedidoCliente = pedidoClienteService.listarPedidosClientes();
+
+		Producto oProducto = productoService.buscarProducto(1);
+
+		for (PedidoCliente oPedidoCliente : lPedidoCliente) {
+
+			ReporteVentas oReporteVenta = new ReporteVentas();
+			oReporteVenta.setdFechaPedido(oPedidoCliente.getdFecha());
+			oReporteVenta.setsEmpresaCliente(oPedidoCliente.getsNumeroDocumento() + " - " + oPedidoCliente.getsEmpresa());
+			oReporteVenta.setnCantidadProducto(oPedidoCliente.getnCantidad());
+			oReporteVenta.setsDescripcionProducto(oProducto.getsDescripcion());
+
+			double valorVenta = (double) Math
+					.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d) / 100d;
+			double IGV = (double) Math.round((valorVenta * 0.18) * 100d) / 100d;
+
+			double nMontoTotal = (double) Math.round((valorVenta + IGV) * 100d) / 100d;
+
+			oReporteVenta.setsMontoTotal(String.valueOf(nMontoTotal) + "soles");
+			
+			lReporteVenta.add(oReporteVenta);
 		}
 
-		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
-				&& oBusquedaParametro.getvEstado() == true
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
-			lGuiaRemision.removeIf(s -> s.getvEstado() != oBusquedaParametro.getvEstado());
-		}
-		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
-				&& oBusquedaParametro.getvEstado() == false
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
-			lGuiaRemision.removeIf(s -> s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0);
-		}
-		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
-				&& oBusquedaParametro.getvEstado() == true
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
-			lGuiaRemision.removeIf(s -> (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
-					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
-		}
-		if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
-				&& oBusquedaParametro.getvEstado() == true
-				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
-			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
-					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0)
-					&& (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
-					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
-		}*/
-		
-		return lFactura;
+		return lReporteVenta;
 	}
 
 }

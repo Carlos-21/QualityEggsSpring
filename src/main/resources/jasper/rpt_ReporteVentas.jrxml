@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_ReporteVentas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd71ded0-4181-45ad-b421-02a779239f72">
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_ReporteVentas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd71ded0-4181-45ad-b421-02a779239f72">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -32,6 +41,11 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
+		<field name="dFechaPedido" class="java.util.Date"/>
+		<field name="sEmpresaCliente" class="java.lang.String"/>
+		<field name="sDescripcionProducto" class="java.lang.String"/>
+		<field name="nCantidadProducto" class="java.lang.Integer"/>
+		<field name="sMontoTotal" class="java.lang.String"/>
 	</subDataset>
 	<queryString>
 		<![CDATA[]]>
@@ -40,7 +54,46 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="134" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="800" height="40" uuid="8782358d-3d48-4756-b60a-3f2cbc00f7b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bodoni MT" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Agropecuaria Janic SAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="800" height="30" uuid="3a8a81df-7f84-4ee1-9834-50f0c67c8c9e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bodoni MT" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Ventas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="220" height="21" uuid="2acc4580-642b-4aaf-9671-762528c30fbd"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Elaboracion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="220" height="21" uuid="718a189f-c895-4c51-924c-c57030c5f5a5"/>
+				<textElement>
+					<font fontName="Bodoni MT" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Persona que elaboro el reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="220" y="80" width="260" height="21" uuid="8c2e457f-f5ea-4ef6-ad75-c5329f6481c6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="100" width="260" height="21" uuid="b844d279-8fc6-4590-8390-69c5927585cd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
@@ -49,9 +102,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="290" splitType="Stretch">
+		<band height="120" splitType="Stretch">
 			<componentElement>
-				<reportElement x="0" y="30" width="200" height="200" uuid="f3d78b3c-499e-463c-bf06-9b8507fa5d68">
+				<reportElement x="0" y="30" width="800" height="60" uuid="f3d78b3c-499e-463c-bf06-9b8507fa5d68">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -61,10 +114,10 @@
 					<datasetRun subDataset="Dataset1" uuid="346f8ef2-378a-4e5a-9f90-8df3e1ad3118">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="80" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
+					<jr:column width="140" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
+								<reportElement x="0" y="0" width="140" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
 								<box>
 									<pen lineColor="#009933"/>
 									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
@@ -80,7 +133,7 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="80" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
+								<reportElement x="0" y="0" width="140" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
 								<box>
 									<pen lineColor="#009933"/>
 									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
@@ -91,14 +144,14 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{dFechaPedido}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
+					<jr:column width="210" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
+								<reportElement x="0" y="0" width="210" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
 								<box>
 									<pen lineColor="#009933"/>
 									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
@@ -109,12 +162,12 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="14"/>
 								</textElement>
-								<text><![CDATA[Fecha]]></text>
+								<text><![CDATA[Cliente]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="80" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
+								<reportElement x="0" y="0" width="210" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
 								<box>
 									<pen lineColor="#009933"/>
 									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
@@ -125,7 +178,109 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{sEmpresaCliente}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="210" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="210" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
+								<box>
+									<pen lineColor="#009933"/>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="14"/>
+								</textElement>
+								<text><![CDATA[Producto]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="210" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
+								<box>
+									<pen lineColor="#009933"/>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{sDescripcionProducto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
+								<box>
+									<pen lineColor="#009933"/>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="14"/>
+								</textElement>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
+								<box>
+									<pen lineColor="#009933"/>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nCantidadProducto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="ba749c59-e8ba-46e3-8711-23d1e7d4c3a3">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="30" uuid="f99738e5-6ddc-4b31-ba48-fca3df7e7de3"/>
+								<box>
+									<pen lineColor="#009933"/>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="14"/>
+								</textElement>
+								<text><![CDATA[Total de venta]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="30" uuid="117ead64-a494-4715-86a3-e29645b8a1b7"/>
+								<box>
+									<pen lineColor="#009933"/>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#009933"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{sMontoTotal}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -134,7 +289,20 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="112" splitType="Stretch"/>
+		<band height="121" splitType="Stretch">
+			<staticText>
+				<reportElement x="620" y="0" width="80" height="30" uuid="0bee9299-1eb1-4268-b528-b0e31964171e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bodoni MT" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SubTotal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="0" width="100" height="30" uuid="01fcd853-8af9-40d9-934e-142aa2611b0d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="96" splitType="Stretch"/>
