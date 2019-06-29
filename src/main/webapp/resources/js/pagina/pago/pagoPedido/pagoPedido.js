@@ -91,7 +91,7 @@ $(document).ready(function() {
 		title : "Gestión de Pago de pedido de cliente",
 		autoOpen : false,
 		modal : false,
-		height : 520,
+		height : 380,
 		width : 600
 	});
 
