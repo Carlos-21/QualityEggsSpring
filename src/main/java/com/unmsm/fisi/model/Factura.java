@@ -1,5 +1,7 @@
 package com.unmsm.fisi.model;
 
+import java.util.Date;
+
 public class Factura {
 	private String sRUCEmpresa;
 	private String sNumeroFactura;
@@ -14,6 +16,8 @@ public class Factura {
 	private String sSubTotal;
 	private String sIGV;
 	private String sMontoTotal;
+	private Date dFechaPedido; 
+	private Boolean vEstado;
 
 	public String getsRUCEmpresa() {
 		return sRUCEmpresa;
@@ -117,6 +121,22 @@ public class Factura {
 
 	public void setsMontoTotal(String sMontoTotal) {
 		this.sMontoTotal = sMontoTotal;
+	}
+
+	public Date getdFechaPedido() {
+		return dFechaPedido;
+	}
+
+	public void setdFechaPedido(Date dFechaPedido) {
+		this.dFechaPedido = dFechaPedido;
+	}
+
+	public Boolean getvEstado() {
+		return vEstado;
+	}
+
+	public void setvEstado(Boolean vEstado) {
+		this.vEstado = vEstado;
 	}
 
 }

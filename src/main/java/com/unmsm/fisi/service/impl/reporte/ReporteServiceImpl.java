@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.unmsm.fisi.model.BusquedaParametro;
 import com.unmsm.fisi.model.Factura;
 import com.unmsm.fisi.model.GuiaRemision;
 import com.unmsm.fisi.model.PedidoCliente;
@@ -20,29 +21,29 @@ import com.unmsm.fisi.service.impl.mantenimiento.ProductoServiceImpl;
 import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
 
 @Service("reporteServicio")
-public class ReporteServiceImpl implements ReporteService{
+public class ReporteServiceImpl implements ReporteService {
 	@Autowired
 	@Qualifier("pedidoClienteServicio")
 	private PedidoClienteServiceImpl pedidoClienteService;
 	@Autowired
 	@Qualifier("productoServicio")
 	private ProductoServiceImpl productoService;
-	
+
 	@Override
-	public List<GuiaRemision> listarGuiaRemision() {
+	public List<GuiaRemision> listarGuiaRemision(BusquedaParametro oBusquedaParametro) {
 		Date date = Calendar.getInstance().getTime();
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
-		
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+
 		List<GuiaRemision> lGuiaRemision = new ArrayList<>();
-		
+
 		List<PedidoCliente> lPedidoCliente = pedidoClienteService.listarPedidosClientes();
-		
+
 		int i = 0;
-		
-		for(PedidoCliente oPedidoCliente : lPedidoCliente) {
+
+		for (PedidoCliente oPedidoCliente : lPedidoCliente) {
 			i++;
-			
+
 			GuiaRemision oGuiaRemision = new GuiaRemision();
 			oGuiaRemision.setsRUCEmpresa("12345678912");
 			oGuiaRemision.setsNumeroGuia("N° 001 - 0000000" + String.valueOf(i));
@@ -59,32 +60,66 @@ public class ReporteServiceImpl implements ReporteService{
 			oGuiaRemision.setsDenominacionRemitente(oPedidoCliente.getsEmpresa());
 			oGuiaRemision.setsMarcaPlaca("Volvo XX-0101");
 			oGuiaRemision.setsLicenciaConducir("TA-1234567");
-			
+			oGuiaRemision.setdFechaPedido(oPedidoCliente.getdFecha());
+			oGuiaRemision.setvEstado(oPedidoCliente.getvEstado());
+
 			lGuiaRemision.add(oGuiaRemision);
-			
+
 		}
-		
+
+		/*if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
+				&& oBusquedaParametro.getvEstado() == false
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
+					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0));
+		}
+
+		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
+				&& oBusquedaParametro.getvEstado() == true
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+			lGuiaRemision.removeIf(s -> s.getvEstado() != oBusquedaParametro.getvEstado());
+		}
+		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
+				&& oBusquedaParametro.getvEstado() == false
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+			lGuiaRemision.removeIf(s -> s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0);
+		}
+		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
+				&& oBusquedaParametro.getvEstado() == true
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+			lGuiaRemision.removeIf(s -> (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
+		}
+		if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
+				&& oBusquedaParametro.getvEstado() == true
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
+					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0)
+					&& (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
+		}*/
+
 		return lGuiaRemision;
 	}
 
 	@Override
-	public List<Factura> listarFactura() {
+	public List<Factura> listarFactura(BusquedaParametro oBusquedaParametro) {
 		Date date = Calendar.getInstance().getTime();
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd MMMM yyyy");
-		
+
 		List<Factura> lFactura = new ArrayList<>();
-		
+
 		List<PedidoCliente> lPedidoCliente = pedidoClienteService.listarPedidosClientes();
-		
+
 		Producto oProducto = productoService.buscarProducto(1);
-	
+
 		int i = 0;
-		
-		for(PedidoCliente oPedidoCliente : lPedidoCliente) {
+
+		for (PedidoCliente oPedidoCliente : lPedidoCliente) {
 			i++;
-			
+
 			Factura oFactura = new Factura();
-			
+
 			oFactura.setsRUCEmpresa("12345678912");
 			oFactura.setsNumeroFactura("N° 001 - 0000000" + String.valueOf(i));
 			oFactura.setsFechaFactura(formatoFecha.format(date).replace(" ", " de "));
@@ -94,20 +129,58 @@ public class ReporteServiceImpl implements ReporteService{
 			oFactura.setsDescripcionProducto(oProducto.getsDescripcion());
 			oFactura.setnCantidadProducto(oPedidoCliente.getnCantidad());
 			oFactura.setsPrecioUnitario(String.valueOf(oProducto.getnPrecioUnitario()));
-			oFactura.setsValorVenta(String.valueOf((double) Math.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d)
+			oFactura.setsValorVenta(String.valueOf(
+					(double) Math.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d)
 							/ 100d));
 			oFactura.setsSubTotal(oFactura.getsValorVenta());
-			
-			double nIGV = (double) Math.round((Double.valueOf(oFactura.getsSubTotal())*0.18) * 100d) / 100d;
-			
+
+			double nIGV = (double) Math.round((Double.valueOf(oFactura.getsSubTotal()) * 0.18) * 100d) / 100d;
+
 			oFactura.setsIGV(String.valueOf(nIGV));
-			
-			double nMontoTotal = (double) Math.round((Double.valueOf(oFactura.getsSubTotal())+Double.valueOf(oFactura.getsIGV())) * 100d) / 100d;
-			
+
+			double nMontoTotal = (double) Math
+					.round((Double.valueOf(oFactura.getsSubTotal()) + Double.valueOf(oFactura.getsIGV())) * 100d)
+					/ 100d;
+
 			oFactura.setsMontoTotal(String.valueOf(nMontoTotal));
+			oFactura.setdFechaPedido(oPedidoCliente.getdFecha());
+			oFactura.setvEstado(oPedidoCliente.getvEstado());
 			
 			lFactura.add(oFactura);
 		}
+		
+		/*if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
+				&& oBusquedaParametro.getvEstado() == false
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
+					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0));
+		}
+
+		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
+				&& oBusquedaParametro.getvEstado() == true
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") == 0) {
+			lGuiaRemision.removeIf(s -> s.getvEstado() != oBusquedaParametro.getvEstado());
+		}
+		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
+				&& oBusquedaParametro.getvEstado() == false
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+			lGuiaRemision.removeIf(s -> s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0);
+		}
+		if (oBusquedaParametro.getdFechaInicio() == null && oBusquedaParametro.getdFechaFin() == null
+				&& oBusquedaParametro.getvEstado() == true
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+			lGuiaRemision.removeIf(s -> (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
+		}
+		if (oBusquedaParametro.getdFechaInicio() != null && oBusquedaParametro.getdFechaFin() != null
+				&& oBusquedaParametro.getvEstado() == true
+				&& oBusquedaParametro.getsNumeroDocumento().compareTo("") != 0) {
+			lGuiaRemision.removeIf(s -> (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaInicio()) <= 0)
+					&& (s.getdFechaPedido().compareTo(oBusquedaParametro.getdFechaFin()) >= 0)
+					&& (s.getsRUCCliente().compareTo(oBusquedaParametro.getsNumeroDocumento()) != 0)
+					&& (s.getvEstado() != oBusquedaParametro.getvEstado()));
+		}*/
+		
 		return lFactura;
 	}
 

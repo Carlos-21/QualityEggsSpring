@@ -1,10 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-encoding//src/main/resources/jasper/ReporteVentas.jrxml=UTF-8
 encoding//src/main/resources/jasper/rpt_Factura.jrxml=UTF-8
 encoding//src/main/resources/jasper/rpt_GuiaRemision.jrxml=UTF-8
-encoding//src/main/resources/jasper/rpt_ReporteVentas.jrxml=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8

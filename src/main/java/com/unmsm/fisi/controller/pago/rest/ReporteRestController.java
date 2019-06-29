@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.unmsm.fisi.model.BusquedaParametro;
 import com.unmsm.fisi.model.Factura;
 import com.unmsm.fisi.model.GuiaRemision;
 import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
@@ -24,10 +25,14 @@ public class ReporteRestController {
 	@Qualifier("reporteServicio")
 	private ReporteServiceImpl reporteService;
 	
-	
-	@GetMapping("/guia")
-	public ModelAndView devolverGuiaRemision(ModelMap modelMap, ModelAndView modelAndView) {
-		List<GuiaRemision> lGuiaRemision = reporteService.listarGuiaRemision();
+	@GetMapping(params = "accion=buscarGuiaRemision")
+	public List<GuiaRemision> buscarGuiaRemision(BusquedaParametro oBusquedaParametro){
+		return reporteService.listarGuiaRemision(oBusquedaParametro);
+	}
+			
+	@GetMapping(params = "accion=guia")
+	public ModelAndView devolverGuiaRemision(ModelMap modelMap, ModelAndView modelAndView, BusquedaParametro oBusquedaParametro) {
+		List<GuiaRemision> lGuiaRemision = reporteService.listarGuiaRemision(oBusquedaParametro);
 		
 		modelMap.put("datasource", new JRBeanCollectionDataSource(lGuiaRemision));
 		modelMap.put("format", "pdf");
@@ -36,9 +41,15 @@ public class ReporteRestController {
 		return modelAndView;
 	}
 	
-	@GetMapping("/factura")
-	public ModelAndView devolverFactura(ModelMap modelMap, ModelAndView modelAndView) {
-		List<Factura> lFactura = reporteService.listarFactura();
+	@GetMapping(params = "accion=buscarFactura")
+	public List<Factura> buscarFactura(BusquedaParametro oBusquedaParametro){
+		return reporteService.listarFactura(oBusquedaParametro);
+	}
+	
+	@GetMapping(params = "accion=factura")
+	public ModelAndView devolverFactura(ModelMap modelMap, ModelAndView modelAndView, BusquedaParametro oBusquedaParametro) {
+		//fasf
+		List<Factura> lFactura = reporteService.listarFactura(oBusquedaParametro);
 		
 		modelMap.put("datasource", new JRBeanCollectionDataSource(lFactura));
 		modelMap.put("format", "pdf");

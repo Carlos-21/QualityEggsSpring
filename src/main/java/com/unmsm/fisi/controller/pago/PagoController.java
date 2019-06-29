@@ -41,4 +41,10 @@ public @Controller class PagoController {
         return "seguras/pago/mantenimiento";
     }
 	
+	@GetMapping("{reporte:guiaRemision}")
+    public String irPaginaReportePagos(ModelMap model)
+    {
+        return "seguras/reporte/guiaRemision";
+    }
+	
 }

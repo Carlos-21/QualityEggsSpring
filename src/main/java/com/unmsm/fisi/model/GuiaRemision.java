@@ -1,5 +1,7 @@
 package com.unmsm.fisi.model;
 
+import java.util.Date;
+
 public class GuiaRemision {
 	private String sRUCEmpresa;
 	private String sNumeroGuia;
@@ -16,6 +18,8 @@ public class GuiaRemision {
 	private String sDenominacionRemitente;
 	private String sMarcaPlaca;
 	private String sLicenciaConducir;
+	private Date dFechaPedido; 
+	private Boolean vEstado;
 	
 	public String getsRUCEmpresa() {
 		return sRUCEmpresa;
@@ -107,5 +111,18 @@ public class GuiaRemision {
 	public void setsLicenciaConducir(String sLicenciaConducir) {
 		this.sLicenciaConducir = sLicenciaConducir;
 	}
+	public Date getdFechaPedido() {
+		return dFechaPedido;
+	}
+	public void setdFechaPedido(Date dFechaPedido) {
+		this.dFechaPedido = dFechaPedido;
+	}
+	public Boolean getvEstado() {
+		return vEstado;
+	}
+	public void setvEstado(Boolean vEstado) {
+		this.vEstado = vEstado;
+	}
+	
 	
 }

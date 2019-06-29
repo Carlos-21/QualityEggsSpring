@@ -94,6 +94,27 @@
 					</li>
 				</ul>
 			</li>
+			<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL') or hasPermission('3','ALL')"
+				class="xn-openable">
+				<a title='Reportes' data-tooltip='tooltip'>
+					<span class="fa fa-bar-chart"></span> 
+					<span class="xn-text">Documentos</span>
+				</a>
+				<ul>
+					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL') or hasPermission('3','ALL')">
+						<a th:href="@{/pago/guiaRemision}">
+							<span class="fa fa-line-chart"></span>
+							<span> Guia de remisión</span>
+						</a>
+					</li>
+					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL')">
+						<a th:href="@{/registro/reportePago}">
+							<span class="fa fa-usd"></span>
+							<span> Pagos</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
 				<a title='Seguridad' data-tooltip='tooltip'>
 					<span class="fa fa-unlock-alt"></span> 
