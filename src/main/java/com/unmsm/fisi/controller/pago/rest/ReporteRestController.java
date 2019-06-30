@@ -85,31 +85,6 @@ public class ReporteRestController {
 			String []lAuxiliar = oReporteVenta.getsMontoTotal().split(" ");
 			nMontoTotal += Double.parseDouble(lAuxiliar[0]);
 		}
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
-		lReporteVenta.add(new ReporteVentas());
 		nMontoTotal = (double) Math.round(nMontoTotal * 100d) / 100d;
 		
 		Authentication auth = SecurityContextHolder

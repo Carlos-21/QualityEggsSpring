@@ -11,11 +11,13 @@ public class HiloCorreo extends Thread{
 	private PedidoTrabajador oPedidoTrabajador;
 	private Oferta oOferta;
 	private List<Cliente> lCliente;
+	private boolean vBandera;
 	
-	public HiloCorreo(PedidoTrabajador oPedidoTrabajador, Oferta oOferta, List<Cliente> lCliente) {
+	public HiloCorreo(PedidoTrabajador oPedidoTrabajador, Oferta oOferta, List<Cliente> lCliente, boolean vBandera) {
 		this.oPedidoTrabajador = oPedidoTrabajador;
 		this.oOferta = oOferta;
 		this.lCliente = lCliente;
+		this.vBandera = vBandera;
 	}
 	
 	public void run(){
@@ -24,7 +26,7 @@ public class HiloCorreo extends Thread{
 		}
 		else {
 			for(Cliente oCliente : lCliente) {
-				enviar.mensajeOferta(oOferta, oCliente);
+				enviar.mensajeOferta(oOferta, oCliente,vBandera);
 			}
 		}
 	}

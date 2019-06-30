@@ -91,8 +91,8 @@ $(document).ready(function() {
 		title : "Gestión de Pago de pedido de cliente",
 		autoOpen : false,
 		modal : false,
-		height : 380,
-		width : 600
+		height : 540,
+		width : 610
 	});
 
 	$local.$aniadirMantenimento.on("click", function() {

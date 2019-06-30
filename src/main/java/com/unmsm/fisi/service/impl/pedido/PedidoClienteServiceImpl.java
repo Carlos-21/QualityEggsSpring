@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.unmsm.fisi.model.Cliente;
+import com.unmsm.fisi.model.Oferta;
 import com.unmsm.fisi.model.PedidoCliente;
 import com.unmsm.fisi.model.Producto;
 import com.unmsm.fisi.repository.PedidoClienteRepository;
 import com.unmsm.fisi.service.PedidoClienteService;
 import com.unmsm.fisi.service.impl.mantenimiento.ClienteServiceImpl;
+import com.unmsm.fisi.service.impl.mantenimiento.OfertaServiceImpl;
 import com.unmsm.fisi.service.impl.mantenimiento.ProductoServiceImpl;
 import com.unmsm.fisi.service.transform.PedidoClienteTransform;
 
@@ -29,6 +31,9 @@ public class PedidoClienteServiceImpl implements PedidoClienteService {
 	@Autowired
 	@Qualifier("productoServicio")
 	private ProductoServiceImpl productoService;
+	@Autowired
+	@Qualifier("ofertaServicio")
+	private OfertaServiceImpl ofertaService;
 
 	@Override
 	public List<PedidoCliente> listarPedidosClientes() {
@@ -67,8 +72,24 @@ public class PedidoClienteServiceImpl implements PedidoClienteService {
 		oPedidoCliente.setsApellidoPaterno(oCliente.getsApellidoPaterno());
 		oPedidoCliente.setsEmpresa(oCliente.getsEmpresa());
 		oPedidoCliente.setsRubro(oCliente.getsRubro());
-		oPedidoCliente.setnMonto(
-				(double) Math.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d) / 100d);
+
+		double dValorVenta = (double) Math
+				.round((oPedidoCliente.getnCantidad() * oProducto.getnPrecioUnitario()) * 100d) / 100d;
+		double nIGV = (double) Math.round((dValorVenta * 0.18) * 100d) / 100d;
+		double nMontoTotal = (double) Math.round((dValorVenta + nIGV) * 100d) / 100d;
+		
+		List<Oferta> lOferta = ofertaService.listarOfertas();
+		if(lOferta != null) {
+			Oferta oOferta = lOferta.get(lOferta.size()-1);
+			
+			if(oPedidoCliente.getdFecha().compareTo(oOferta.getdFechaInicio())>=0 && oPedidoCliente.getdFecha().compareTo(oOferta.getdFechaFin())<=0) {
+				double dDescuento = (double) Math.round((oOferta.getnDescuento()/100d) * 100d) / 100d;
+				
+				nMontoTotal = (double) Math.round((nMontoTotal - (nMontoTotal*dDescuento)) * 100d) / 100d;
+			}
+		}
+		
+		oPedidoCliente.setnMonto(nMontoTotal);
 		oPedidoCliente.setsDireccion(oCliente.getsDomicilio());
 		return oPedidoCliente;
 	}

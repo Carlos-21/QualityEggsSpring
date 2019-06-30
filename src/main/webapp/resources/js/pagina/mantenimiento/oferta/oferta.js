@@ -57,10 +57,10 @@ $(document).ready(function() {
 			},
 			"title" : "Descuento"
 		}, {
-			"data" : "sTipo",
+			"data" : "dFechaInicio",
 			"title" : "Fecha de inicio"
 		}, {
-			"data" : "nStock",
+			"data" : "dFechaFin",
 			"title" : "Fecha de fin"
 		}, {
 			"data" : null,
@@ -114,6 +114,8 @@ $(document).ready(function() {
 			return;
 		}
 		var oferta = $formMantenimiento.serializeJSON();
+		oferta.dFechaInicio = $local.$fechaInicio.data("daterangepicker").startDate.format("YYYY-MM-DD");
+		oferta.dFechaFin = $local.$fechaFin.data("daterangepicker").startDate.format("YYYY-MM-DD");
 		$.ajax({
 			type : "POST",
 			url : $variableUtil.root + "mantenimiento/oferta",
@@ -161,6 +163,8 @@ $(document).ready(function() {
 		}
 		var oferta = $formMantenimiento.serializeJSON();
 		oferta.nIdOferta = $local.idOferta;
+		oferta.dFechaInicio = $local.$fechaInicio.data("daterangepicker").startDate.format("YYYY-MM-DD");
+		oferta.dFechaFin = $local.$fechaFin.data("daterangepicker").startDate.format("YYYY-MM-DD");
 		$.ajax({
 			type : "PUT",
 			url : $variableUtil.root + "mantenimiento/oferta",

@@ -59,7 +59,7 @@ public class ManOferta implements java.io.Serializable {
 		this.vdescripcion = vdescripcion;
 	}
 
-	@Column(name = "vDescripcion")
+	@Column(name = "nDescuento")
 	public Integer getNdescuento() {
 		return ndescuento;
 	}

@@ -42,7 +42,7 @@ public class OfertaRestController {
     public ResponseEntity<?> registrarOferta(@RequestBody Oferta oOferta){
 		Integer nIdOferta = ofertaService.registrarOferta(oOferta);
 		
-		HiloCorreo oHiloCorreo = new HiloCorreo(null, oOferta, clienteService.listarClientes());
+		HiloCorreo oHiloCorreo = new HiloCorreo(null, oOferta, clienteService.listarClientes(), true);
 		oHiloCorreo.start();
 		
 		return ResponseEntity.ok(ofertaService.buscarOferta(nIdOferta));
@@ -52,7 +52,7 @@ public class OfertaRestController {
     public ResponseEntity<?> actualizarOferta(@RequestBody Oferta oOferta){
 		Integer nIdOferta = ofertaService.actualizarOferta(oOferta);
 		
-		HiloCorreo oHiloCorreo = new HiloCorreo(null, oOferta, clienteService.listarClientes());
+		HiloCorreo oHiloCorreo = new HiloCorreo(null, oOferta, clienteService.listarClientes(), false);
 		oHiloCorreo.start();
 		
 		return ResponseEntity.ok(ofertaService.buscarOferta(nIdOferta));

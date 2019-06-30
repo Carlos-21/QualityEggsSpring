@@ -1,5 +1,6 @@
 package com.unmsm.fisi.utilitario;
 
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -16,6 +17,7 @@ import com.unmsm.fisi.model.PedidoTrabajador;
 public class EnviarCorreoUtil {
 	private final String correo = "fisi.ia.1234@gmail.com";
 	private final String clave = "fisi135642";
+	private final SimpleDateFormat oFormatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 	private String estructuraMensaje;
 	static Properties properties = new Properties();
 
@@ -58,15 +60,15 @@ public class EnviarCorreoUtil {
 		return 0;
 	}
 
-	public int mensajeOferta(Oferta oOferta, Cliente oCliente) {
+	public int mensajeOferta(Oferta oOferta, Cliente oCliente, boolean vBandera) {
 		estructuraMensaje = "Empresa : Agropecuaria Janic SAC" 
 				+"\nEstimado cliente " + oCliente.getsEmpresa()
 				+"\nTenemos una oferta con las siguientes características:"
 				+"\nDescripción: " + oOferta.getsDescripcion()
 				+"\nDescuento: " + oOferta.getnDescuento() + "%"
-				+"\nFecha de Inicio: " + oOferta.getdFechaInicio().toString()
-				+"\nFecha de Fin: " + oOferta.getdFechaFin().toString()
-				+"Lo consideramos un cliente valioso, por eso aproveche nuestra oferta de tiempo limitado.";
+				+"\nFecha de Inicio: " + oFormatoFecha.format(oOferta.getdFechaInicio())
+				+"\nFecha de Fin: " + oFormatoFecha.format(oOferta.getdFechaFin())
+				+"\nLo consideramos un cliente valioso, por eso aproveche nuestra oferta de tiempo limitado.";
 
 		try {
 			Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
@@ -78,7 +80,13 @@ public class EnviarCorreoUtil {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(correo));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(oCliente.getsCorreo()));
-			message.setSubject("Oferta de producto - QualityEggs");
+			if(vBandera) {
+				message.setSubject("Oferta de producto - QualityEggs");
+			}
+			else {
+				message.setSubject("Oferta de producto - actualización - QualityEggs");
+			}
+			
 			message.setText(estructuraMensaje);
 			Transport.send(message);
 		} catch (Exception e) {
