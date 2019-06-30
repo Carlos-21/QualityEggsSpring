@@ -56,7 +56,7 @@ public class PedidoTrabajadorRestController {
 		
 		Integer nidPedido = pedidoTrabajadorService.registrarPedidoTrabajador(oPedidoTrabajador);
 		
-		HiloCorreo oHiloCorreo = new HiloCorreo(oPedidoTrabajador);
+		HiloCorreo oHiloCorreo = new HiloCorreo(oPedidoTrabajador, null, null);
 		oHiloCorreo.start();
 		
 		return ResponseEntity.ok(pedidoTrabajadorService.buscarPedidoTrabajador(nidPedido));

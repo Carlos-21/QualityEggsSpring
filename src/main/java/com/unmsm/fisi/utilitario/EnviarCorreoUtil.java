@@ -9,6 +9,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.unmsm.fisi.model.Cliente;
+import com.unmsm.fisi.model.Oferta;
 import com.unmsm.fisi.model.PedidoTrabajador;
 
 public class EnviarCorreoUtil {
@@ -56,4 +58,36 @@ public class EnviarCorreoUtil {
 		return 0;
 	}
 
+	public int mensajeOferta(Oferta oOferta, Cliente oCliente) {
+		estructuraMensaje = "Empresa : Agropecuaria Janic SAC" 
+				+"\nEstimado cliente " + oCliente.getsEmpresa()
+				+"\nTenemos una oferta con las siguientes características:"
+				+"\nDescripción: " + oOferta.getsDescripcion()
+				+"\nDescuento: " + oOferta.getnDescuento() + "%"
+				+"\nFecha de Inicio: " + oOferta.getdFechaInicio().toString()
+				+"\nFecha de Fin: " + oOferta.getdFechaFin().toString()
+				+"Lo consideramos un cliente valioso, por eso aproveche nuestra oferta de tiempo limitado.";
+
+		try {
+			Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+				public PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(correo, clave);
+				}
+			});
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(correo));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(oCliente.getsCorreo()));
+			message.setSubject("Oferta de producto - QualityEggs");
+			message.setText(estructuraMensaje);
+			Transport.send(message);
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+			return 1;
+		}
+
+		System.out.println("Mensaje de registro de Pago Enviado");
+		return 0;
+	}
+	
 }
