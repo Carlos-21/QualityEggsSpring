@@ -71,6 +71,46 @@
 
 	</th:block>
 
+	<th:block th:fragment="oferta">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Descripcion</label>
+			<div class="col-lg-10">
+				<input class="form-control lettersOnly" name="sDescripcion">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Descuento</label>
+			<div class="col-lg-10">
+				<input class="form-control numbersOnly" name="nDescuento">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Fecha de inicio</label>
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="fechaInicio" type="text" class="form-control"
+							name="dFechaInicio" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Fecha de fin</label>
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="fechaFin" type="text" class="form-control"
+							name="dFechaFin" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</th:block>
+	
 	<th:block th:fragment="persona">
 
 		<div class="form-group">

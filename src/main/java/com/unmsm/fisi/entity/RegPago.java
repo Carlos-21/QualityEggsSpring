@@ -1,12 +1,14 @@
 package com.unmsm.fisi.entity;
 // Generated 19/05/2019 11:40:02 PM by Hibernate Tools 5.0.6.Final
 
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,20 +24,27 @@ public class RegPago implements java.io.Serializable {
 	private int regPedidoClienteNIdPedido;
 	private Double npagoTotal;
 	private Date dfecha;
-	private Date thora;
-
+	private Time thora;
+	private String nTipoPago;
+	private byte[] bVoucher;
+	
 	public RegPago() {
 	}
 
 	public RegPago(int regPedidoClienteNIdPedido) {
 		this.regPedidoClienteNIdPedido = regPedidoClienteNIdPedido;
-	}
+	}	
 
-	public RegPago(int regPedidoClienteNIdPedido, Double npagoTotal, Date dfecha, Date thora) {
+	public RegPago(Integer nidPago, int regPedidoClienteNIdPedido, Double npagoTotal, Date dfecha, Time thora,
+			String nTipoPago, byte[] bVoucher) {
+		super();
+		this.nidPago = nidPago;
 		this.regPedidoClienteNIdPedido = regPedidoClienteNIdPedido;
 		this.npagoTotal = npagoTotal;
 		this.dfecha = dfecha;
 		this.thora = thora;
+		this.nTipoPago = nTipoPago;
+		this.bVoucher = bVoucher;
 	}
 
 	@Id
@@ -78,14 +87,31 @@ public class RegPago implements java.io.Serializable {
 		this.dfecha = dfecha;
 	}
 
-	@Temporal(TemporalType.TIME)
 	@Column(name = "tHora", length = 8)
-	public Date getThora() {
+	public Time getThora() {
 		return this.thora;
 	}
 
-	public void setThora(Date thora) {
+	public void setThora(Time thora) {
 		this.thora = thora;
+	}
+
+	@Column(name = "vTipoPago", length = 50)
+	public String getnTipoPago() {
+		return nTipoPago;
+	}
+
+	public void setnTipoPago(String nTipoPago) {
+		this.nTipoPago = nTipoPago;
+	}
+
+    @Column(name = "bVoucher", columnDefinition="LONGBLOB")
+	public byte[] getbVoucher() {
+		return bVoucher;
+	}
+
+	public void setbVoucher(byte[] bVoucher) {
+		this.bVoucher = bVoucher;
 	}
 
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div id="modalMantenimiento" class="row"
+		th:fragment="modalMantenimiento" th:with="tipo=${tipo}">
+		<fieldset class="well">
+			<legend class="well-legend">Formulario</legend>
+			<form id="formMantenimiento" class="form-horizontal" role="form">
+				<th:block
+					th:replace="~{template/fragments/pago/modalMantenimiento :: ${tipo}}?:~{}">
+				</th:block>
+				<div id="botonesForm" class="form-group">
+					<div class="col-lg-12 text-center">
+						<button id="registrarMantenimiento" type="button"
+							class="btn btn-success">
+							<i class="fa fa-floppy-o"></i> Registrar
+						</button>
+						<button id="actualizarMantenimiento" type="button"
+							class="btn btn-primary hidden">
+							<i class="fa fa-pencil-square"></i> Actualizar
+						</button>
+					</div>
+				</div>
+			</form>
+		</fieldset>
+	</div>
+
+	<th:block th:fragment="pagoPedido">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Cliente</label>
+			<div class="col-lg-10">
+				<select id="clientes" class="form-control select2" name="nIdPedido">
+					<option value="" selected="selected">Seleccione
+						un Cliente</option>
+					<option th:each="cliente : ${clientes}"
+						th:value="|${cliente.nidPedido}|"
+						th:text="|${cliente.sNumeroDocumento} - ${cliente.sApellidoPaterno} ${cliente.sApellidoMaterno}, ${cliente.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Pedido</label>
+			<div class="col-lg-10">
+				<input id="pedidoCli" class="form-control elemento-desactivable">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Monto total</label>
+			<div class="col-lg-10">
+				<input id="montoPago" class="form-control elemento-desactivable" name="nMonto">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Fecha</label>
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="fechaPago" type="text" class="form-control"
+							name="dFecha" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Hora</label>
+			<div class="col-lg-10">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+					<input id="horaPago" type="text" class="form-control" name="tHora" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Tipo</label>
+			<div class="col-lg-10">
+				<select id="tiposPago" class="form-control select2 "
+					name="sTipoPago">
+					<option value="" disabled="disabled" selected="selected">Seleccione
+						un Tipo de Pago</option>
+					<option th:each="tipoPago : ${tiposPago}"
+						th:value="${tipoPago.sDescripcionCorta}"
+						th:text="|${tipoPago.sIdItem} - ${tipoPago.sDescripcionCorta}|">
+						</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Adjuntar voucher</label>
+			<div class="col-lg-10">
+				<input id="uploadfile" name="bVoucher" type="file" class="file form-control" data-show-preview="false" accept="application/pdf">
+			</div>
+		</div>
+		
+	</th:block>
+
+</body>
+</html>

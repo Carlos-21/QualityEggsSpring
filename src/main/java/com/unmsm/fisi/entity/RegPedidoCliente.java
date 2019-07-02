@@ -1,6 +1,7 @@
 package com.unmsm.fisi.entity;
 // Generated 19/05/2019 11:40:02 PM by Hibernate Tools 5.0.6.Final
 
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class RegPedidoCliente implements java.io.Serializable {
 	private Integer ncantidad;
 	private Boolean vestado;
 	private Date dfecha;
-	private Date thora;
+	private Time thora;
 
 	public RegPedidoCliente() {
 	}
@@ -35,7 +36,7 @@ public class RegPedidoCliente implements java.io.Serializable {
 	}
 
 	public RegPedidoCliente(String manClienteManPersonaVTipoDocumento, String manClienteManPersonaVNumeroDocumento,
-			Integer ncantidad, Boolean vestado, Date dfecha, Date thora) {
+			Integer ncantidad, Boolean vestado, Date dfecha, Time thora) {
 		this.manClienteManPersonaVTipoDocumento = manClienteManPersonaVTipoDocumento;
 		this.manClienteManPersonaVNumeroDocumento = manClienteManPersonaVNumeroDocumento;
 		this.ncantidad = ncantidad;
@@ -102,13 +103,13 @@ public class RegPedidoCliente implements java.io.Serializable {
 		this.dfecha = dfecha;
 	}
 
-	@Temporal(TemporalType.TIME)
+	
 	@Column(name = "tHora", length = 8)
-	public Date getThora() {
+	public Time getThora() {
 		return this.thora;
 	}
 
-	public void setThora(Date thora) {
+	public void setThora(Time thora) {
 		this.thora = thora;
 	}
 

@@ -1,11 +1,17 @@
 package com.unmsm.fisi.model;
 
+import java.sql.Time;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PedidoCliente {
 	private String idPersona;
 	private Integer nCantidad;
 	private Boolean vEstado;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
+	private Date dFecha;
+	private Time tHora;
 	private Integer nidPedido;
 	private String sTipoDocumento;
 	private String sNumeroDocumento;
@@ -14,20 +20,22 @@ public class PedidoCliente {
 	private String sApellidoMaterno;
 	private String sEmpresa;
 	private String sRubro;
-	private Date dFecha;
-	private Date tHora;
+	private String sDireccion;
+	private double nMonto;
 	
 	public PedidoCliente() {
 		
 	}
 
-	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Integer nidPedido, String sTipoDocumento,
-			String sNumeroDocumento, String sNombre, String sApellidoPaterno, String sApellidoMaterno, String sEmpresa,
-			String sRubro, Date dFecha, Date tHora) {
+	public PedidoCliente(String idPersona, Integer nCantidad, Boolean vEstado, Date dFecha, Time tHora,
+			Integer nidPedido, String sTipoDocumento, String sNumeroDocumento, String sNombre, String sApellidoPaterno,
+			String sApellidoMaterno, String sEmpresa, String sRubro, String sDireccion, double nMonto) {
 		super();
 		this.idPersona = idPersona;
 		this.nCantidad = nCantidad;
 		this.vEstado = vEstado;
+		this.dFecha = dFecha;
+		this.tHora = tHora;
 		this.nidPedido = nidPedido;
 		this.sTipoDocumento = sTipoDocumento;
 		this.sNumeroDocumento = sNumeroDocumento;
@@ -36,8 +44,8 @@ public class PedidoCliente {
 		this.sApellidoMaterno = sApellidoMaterno;
 		this.sEmpresa = sEmpresa;
 		this.sRubro = sRubro;
-		this.dFecha = dFecha;
-		this.tHora = tHora;
+		this.sDireccion = sDireccion;
+		this.nMonto = nMonto;
 	}
 
 	public String getIdPersona() {
@@ -62,6 +70,22 @@ public class PedidoCliente {
 
 	public void setvEstado(Boolean vEstado) {
 		this.vEstado = vEstado;
+	}
+
+	public Date getdFecha() {
+		return dFecha;
+	}
+
+	public void setdFecha(Date dFecha) {
+		this.dFecha = dFecha;
+	}
+
+	public Time gettHora() {
+		return tHora;
+	}
+
+	public void settHora(Time tHora) {
+		this.tHora = tHora;
 	}
 
 	public Integer getNidPedido() {
@@ -128,20 +152,20 @@ public class PedidoCliente {
 		this.sRubro = sRubro;
 	}
 
-	public Date getdFecha() {
-		return dFecha;
+	public String getsDireccion() {
+		return sDireccion;
 	}
 
-	public void setdFecha(Date dFecha) {
-		this.dFecha = dFecha;
+	public void setsDireccion(String sDireccion) {
+		this.sDireccion = sDireccion;
 	}
 
-	public Date gettHora() {
-		return tHora;
+	public double getnMonto() {
+		return nMonto;
 	}
 
-	public void settHora(Date tHora) {
-		this.tHora = tHora;
+	public void setnMonto(double nMonto) {
+		this.nMonto = nMonto;
 	}
 
 }

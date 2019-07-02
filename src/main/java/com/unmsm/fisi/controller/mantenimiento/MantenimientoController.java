@@ -83,4 +83,11 @@ public @Controller class MantenimientoController
         return "seguras/mantenimiento/mantenimiento";
     }
     
+    @GetMapping("/{mantenimiento:oferta}")
+    public String irPaginaMantenimientoOferta(@PathVariable String mantenimiento, ModelMap model)
+    {
+        model.addAttribute("mantenimiento", mantenimiento);
+        return "seguras/mantenimiento/mantenimiento";
+    }
+    
 }

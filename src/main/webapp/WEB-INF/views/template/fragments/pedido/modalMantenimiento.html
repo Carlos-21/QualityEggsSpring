@@ -59,9 +59,91 @@
 				</div>
 			</div>
 		</div>
-		
-
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Fecha</label>
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="fechaPedido" type="text" class="form-control" name="dFecha"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Hora</label>
+			<div class="col-lg-10">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+					<input id="horaPedido" type="text" class="form-control" name="tHora"/>
+				</div>
+			</div>
+		</div>
 	</th:block>
 
+	<th:block th:fragment="pedidoTrabajador">
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Trabajador</label>
+			<div class="col-lg-10">
+				<select id="trabajadores" class="form-control select2" name="idPersona">
+					<option value="" disabled="disabled" selected="selected">Seleccione un trabajador</option>
+					<option th:each="trabajador : ${trabajadores}"
+						th:value="|${trabajador.sTipoDocumento}/${trabajador.sNumeroDocumento}|"
+						th:text="|${trabajador.sNumeroDocumento} - ${trabajador.sApellidoPaterno} ${trabajador.sApellidoMaterno}, ${trabajador.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Proveedores</label>
+			<div class="col-lg-10">
+				<select id="proveedores" class="form-control select2" name="sCorreo">
+					<option value="" disabled="disabled" selected="selected">Seleccione un proveedor</option>
+					<option th:each="proveedor : ${proveedores}"
+						th:value="|${proveedor.sCorreo}|"
+						th:text="|${proveedor.sNumeroDocumento} - ${proveedor.sApellidoPaterno} ${proveedor.sApellidoMaterno}, ${proveedor.sNombre}|"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Cantidad</label>
+				<div class="col-lg-4">
+					<input class="form-control numbersOnly" name="nCantidad">
+				</div>
+			</div>
+			<div class="group">
+				<label class="col-lg-2 control-label">Estado</label>
+				<div class="col-lg-4">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="true" data-unchecked-value="false" name="vEstado" />
+							Urgente
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="group">
+				<label class="col-lg-2 control-label">Fecha</label>
+				<div class="col-lg-10">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input id="fechaPedido" type="text" class="form-control" name="dFecha"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">Hora</label>
+			<div class="col-lg-10">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+					<input id="horaPedido" type="text" class="form-control" name="tHora"/>
+				</div>
+			</div>
+		</div>
+
+	</th:block>
 </body>
 </html>

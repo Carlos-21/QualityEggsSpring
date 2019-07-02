@@ -47,6 +47,11 @@
 						</a>
 					</li>
 					<li>
+						<a th:href="@{/mantenimiento/oferta}">
+							<span class="fa fa-product-hunt"></span> Oferta
+						</a>
+					</li>
+					<li>
 						<a th:href="@{/mantenimiento/trabajador}">
 							<span class="fa fa-male"></span></span> Trabajador
 						</a>
@@ -68,6 +73,55 @@
 						<a th:href="@{/pedido/pedidoCliente}">
 							<span class="fa fa-users"></span>
 							<span> Pedido cliente</span>
+						</a>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a th:href="@{/pedido/pedidoTrabajador}">
+							<span class="fa fa-users"></span>
+							<span> Pedido a proveedor</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li sec:authorize="hasPermission('1','ALL')" class="xn-openable">
+				<a title='Seguridad' data-tooltip='tooltip'>
+					<span class="fa fa-file-text"></span> 
+					<span class="xn-text">Pago</span>
+				</a>
+				<ul>
+					<li>
+						<a th:href="@{/pago/pagoPedido}">
+							<span class="fa fa-usd"></span>
+							<span> Pago de pedido de cliente</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL') or hasPermission('3','ALL')"
+				class="xn-openable">
+				<a title='Reportes' data-tooltip='tooltip'>
+					<span class="fa fa-bar-chart"></span> 
+					<span class="xn-text">Documentos</span>
+				</a>
+				<ul>
+					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL') or hasPermission('3','ALL')">
+						<a th:href="@{/pago/guiaRemision}">
+							<span class="fa fa-line-chart"></span>
+							<span> Guia de remisión</span>
+						</a>
+					</li>
+					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL')">
+						<a th:href="@{/pago/factura}">
+							<span class="fa fa-usd"></span>
+							<span> Factura</span>
+						</a>
+					</li>
+					<li sec:authorize="hasPermission('1','ALL') or hasPermission('2','ALL')">
+						<a th:href="@{/pago/reporteVenta}">
+							<span class="fa fa-usd"></span>
+							<span> Reporte de ventas</span>
 						</a>
 					</li>
 				</ul>
