@@ -14,7 +14,7 @@ import com.unmsm.fisi.aspecto.enumeracion.Comentario;
 import com.unmsm.fisi.controller.excepcion.anotacion.Vista;
 import com.unmsm.fisi.service.impl.mantenimiento.ClienteServiceImpl;
 import com.unmsm.fisi.service.impl.mantenimiento.TabDetServiceImpl;
-import com.unmsm.fisi.service.impl.pedido.PedidoClienteServiceImpl;
+import com.unmsm.fisi.service.impl.pago.PagoPedidoServiceImpl;
 import com.unmsm.fisi.utilitario.MultiTablaUtil;
 
 @Vista
@@ -25,8 +25,8 @@ public @Controller class PagoController {
 	@Qualifier("clienteServicio")
 	private ClienteServiceImpl clienteServicio;
 	@Autowired
-	@Qualifier("pedidoClienteServicio")
-	private PedidoClienteServiceImpl pedidoClienteServicio;
+	@Qualifier("pagoPedidoServicio")
+	private PagoPedidoServiceImpl pedidoPagoClienteServicio;
 	@Autowired
 	@Qualifier("tabDetServicio")
 	private TabDetServiceImpl tabDetServicio;
@@ -35,7 +35,7 @@ public @Controller class PagoController {
     public String irPaginaMantenimientoPagoPedido(@PathVariable String mantenimiento, ModelMap model)
     {
         model.addAttribute("mantenimiento", mantenimiento);
-        model.addAttribute("clientes", pedidoClienteServicio.listarPedidosClientes());
+        model.addAttribute("clientes", pedidoPagoClienteServicio.listarPedidoPagoCliente());
         model.addAttribute("tiposPago",
         		tabDetServicio.buscarIdTabla(MultiTablaUtil.TABLA_TIPO_PAGO));
         return "seguras/pago/mantenimiento";

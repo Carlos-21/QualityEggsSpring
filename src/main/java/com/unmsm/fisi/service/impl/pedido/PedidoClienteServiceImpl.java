@@ -80,13 +80,16 @@ public class PedidoClienteServiceImpl implements PedidoClienteService {
 		
 		List<Oferta> lOferta = ofertaService.listarOfertas();
 		if(lOferta != null) {
-			Oferta oOferta = lOferta.get(lOferta.size()-1);
-			
-			if(oPedidoCliente.getdFecha().compareTo(oOferta.getdFechaInicio())>=0 && oPedidoCliente.getdFecha().compareTo(oOferta.getdFechaFin())<=0) {
-				double dDescuento = (double) Math.round((oOferta.getnDescuento()/100d) * 100d) / 100d;
+			if(!lOferta.isEmpty()) {
+				Oferta oOferta = lOferta.get(lOferta.size()-1);
 				
-				nMontoTotal = (double) Math.round((nMontoTotal - (nMontoTotal*dDescuento)) * 100d) / 100d;
+				if(oPedidoCliente.getdFecha().compareTo(oOferta.getdFechaInicio())>=0 && oPedidoCliente.getdFecha().compareTo(oOferta.getdFechaFin())<=0) {
+					double dDescuento = (double) Math.round((oOferta.getnDescuento()/100d) * 100d) / 100d;
+					
+					nMontoTotal = (double) Math.round((nMontoTotal - (nMontoTotal*dDescuento)) * 100d) / 100d;
+				}
 			}
+			
 		}
 		
 		oPedidoCliente.setnMonto(nMontoTotal);

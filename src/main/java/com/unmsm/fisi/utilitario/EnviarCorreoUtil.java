@@ -12,6 +12,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.unmsm.fisi.model.Cliente;
 import com.unmsm.fisi.model.Oferta;
+import com.unmsm.fisi.model.PagoPedido;
 import com.unmsm.fisi.model.PedidoTrabajador;
 
 public class EnviarCorreoUtil {
@@ -85,6 +86,40 @@ public class EnviarCorreoUtil {
 			}
 			else {
 				message.setSubject("Oferta de producto - actualización - QualityEggs");
+			}
+			
+			message.setText(estructuraMensaje);
+			Transport.send(message);
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+			return 1;
+		}
+
+		System.out.println("Mensaje de registro de Pago Enviado");
+		return 0;
+	}
+	
+	public int mensajePago(PagoPedido oPagoPedido, String sDestinario, boolean bBandera) {
+		estructuraMensaje = "Estimado cliente " + oPagoPedido.getsEmpresa()
+				+"\nHacemos conocimiento que en la fecha " + oFormatoFecha.format(oPagoPedido.getdFecha())
+				+"\nse ha registrado el pago con el monto de " + oPagoPedido.getsMonto()
+				+"\nque ha realizado mediante la modalidad (" + oPagoPedido.getsTipoPago()+").";
+
+		try {
+			Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+				public PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(correo, clave);
+				}
+			});
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(correo));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(sDestinario));
+			if(bBandera) {
+				message.setSubject("Registro de pago - QualityEggs");
+			}
+			else {
+				message.setSubject("Actualización de pago - actualización - QualityEggs");
 			}
 			
 			message.setText(estructuraMensaje);

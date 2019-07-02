@@ -41,6 +41,22 @@ public class PagoPedidoServiceImpl implements PagoPedidoService {
 	}
 
 	@Override
+	public List<PedidoCliente> listarPedidoPagoCliente() {
+		List<PedidoCliente> lPedidoCliente = pedidoClienteServicio.listarPedidosClientes();
+		List<PagoPedido> lPedigoPagoCliente = listarPagoPedido();
+		
+		if(lPedigoPagoCliente!=null) {
+			if(!lPedigoPagoCliente.isEmpty()) {
+				for(PagoPedido oPagoPedido : lPedigoPagoCliente) {
+					lPedidoCliente.removeIf(s -> s.getNidPedido()==oPagoPedido.getnIdPedido());
+				}
+			}
+		}
+		
+		return lPedidoCliente;
+	}
+	
+	@Override
 	public PagoPedido buscarPagoPedido(Integer nIdPago) {
 		PagoPedido oMPagoPedido = pagoPedidoTransform.transformEM(pagoPedidoRepository.findOne(nIdPago));
 

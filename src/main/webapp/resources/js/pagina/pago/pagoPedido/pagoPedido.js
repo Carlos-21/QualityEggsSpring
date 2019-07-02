@@ -291,6 +291,7 @@ $(document).ready(function() {
 		$local.$filaSeleccionada = $(this).parents("tr");
 		
 		var pago = $local.tablaMantenimiento.row($local.$filaSeleccionada).data();
+		console.log(pago);
 		$.ajax({
 			type : "GET",
 			url : $variableUtil.root + "pago/pedidoPedido/voucher/" + pago.nIdPago,
@@ -301,7 +302,7 @@ $(document).ready(function() {
 			},
 			success : function(matricula) {
 				var contentType = "application/pdf";
-				var file = b64toBlob (pago.bVoucher,contentType);
+				var file = b64toBlob (matricula.bVoucher,contentType);
 				download(file, "voucher");
 			}
 		});

@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.unmsm.fisi.model.Cliente;
 import com.unmsm.fisi.model.PagoPedido;
+import com.unmsm.fisi.service.impl.mantenimiento.ClienteServiceImpl;
 import com.unmsm.fisi.service.impl.pago.PagoPedidoServiceImpl;
+import com.unmsm.fisi.utilitario.HiloCorreo;
 
 @RestController
 @RequestMapping("/pago/pedidoPedido")
@@ -30,6 +33,9 @@ public class PagoPedidoRestController {
 	@Autowired
 	@Qualifier("pagoPedidoServicio")
 	private PagoPedidoServiceImpl pagoPedidoService;
+	@Autowired
+	@Qualifier("clienteServicio")
+	private ClienteServiceImpl clienteServicio;
 	
 	@GetMapping(params = "accion=buscarTodos")
 	public List<PagoPedido> listarTodos(){
@@ -42,13 +48,17 @@ public class PagoPedidoRestController {
 	}
 	
 	@PostMapping
-    public ResponseEntity<?> registrarPagoPedido(@RequestBody PagoPedido oPagoPedido){
-		
-		System.out.println("Fecha Controller: " + oPagoPedido.getdFecha().toString());
-		
+    public ResponseEntity<?> registrarPagoPedido(@RequestBody PagoPedido oPagoPedido){	
 		Integer nidPago = pagoPedidoService.registrarPagoPedido(oPagoPedido);
 		
-		return ResponseEntity.ok(pagoPedidoService.buscarPagoPedido(nidPago));
+		PagoPedido oPago = pagoPedidoService.buscarPagoPedido(nidPago);
+		
+		Cliente oCliente = clienteServicio.buscarCliente("RUC", oPago.getsNumeroDocumento());
+		
+		HiloCorreo oHiloCorreo = new HiloCorreo(oPago, oCliente.getsCorreo(),true);
+		oHiloCorreo.start();
+		
+		return ResponseEntity.ok(oPago);
 	}
 	
 	@PostMapping(value = "/bVoucher/", params = "accion=cargar")
