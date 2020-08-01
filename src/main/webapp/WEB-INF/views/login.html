@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <title>Agropecuaria Janic SAC</title>
 <meta charset="utf-8"></meta>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<meta name="root" th:content="@{/}"/>
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/css/login/style.min.css}" />
 <link rel="icon" th:href="@{/resources/image/logo.png}" type="image/x-icon" />
-<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}"/>
-<link rel="stylesheet" th:href="@{/resources/css/font-awesome.min.css}"/>
-<link rel="stylesheet" th:href="@{/resources/css/login/style.min.css}"/>
 <style type="text/css">
 .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active,
 	.btn-primary.active, .open>.dropdown-toggle.btn-primary {
@@ -22,29 +24,33 @@
 <body>
 	<section class="container login-form">
 		<section>
-			<form th:action="@{/login}" method="post" action="" role="login" autocomplete="off">
-				<img th:src="@{/resources/image/loginLogo.png}" style="margin: auto;"
-					class="img-responsive" />
+			<form th:action="@{/login}" method="post" action="" role="login"
+				autocomplete="off">
+				<img th:src="@{/resources/image/loginLogo.png}"
+					style="margin: auto;" class="img-responsive" />
 				<div class="text-center">
 					<h3>
 						<strong>Sistema de ventas de jabas de huevos</strong>
 					</h3>
 				</div>
 				<div class="input-group">
-					<input type="text" name="login" required="required" class="form-control"
-						placeholder="Ingrese nombre de usuario" autofocus="autofocus" autocomplete="off" maxlength="20" />
-					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<input type="text" name="login" required="required"
+						class="form-control" placeholder="Ingrese nombre de usuario"
+						autofocus="autofocus" autocomplete="off" maxlength="20" /> <span
+						class="input-group-addon"><i class="fa fa-user"></i></span>
 				</div>
 				<div class="input-group">
-					<input type="password" name="clave" required="required" class="form-control"
-						placeholder="Ingrese contraseña" autocomplete="off" />
-					<span class="input-group-addon"><i class="fa fa-key"></i></span>
+					<input type="password" name="clave" required="required"
+						class="form-control" placeholder="Ingrese contraseña"
+						autocomplete="off" /> <span class="input-group-addon"><i
+						class="fa fa-key"></i></span>
 				</div>
-				<div th:if="${mensajeExcepcion != null and mensajeExcepcion != ''}" class="alert alert-danger"
-					role="alert">
+				<div th:if="${mensajeExcepcion != null and mensajeExcepcion != ''}"
+					class="alert alert-danger" role="alert">
 					<span th:text="${mensajeExcepcion}"></span>
 				</div>
-				<button type="submit" name="go" class="btn btn-primary btn-block">Iniciar sesión</button>
+				<button type="submit" name="go" class="btn btn-primary btn-block">Iniciar
+					sesión</button>
 			</form>
 		</section>
 	</section>

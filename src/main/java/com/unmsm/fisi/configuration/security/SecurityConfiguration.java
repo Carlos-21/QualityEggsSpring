@@ -42,8 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     {
         http.authorizeRequests()
               .antMatchers("/", "/login").permitAll()
-              .antMatchers("/css/**", "/fonts/**", "/image/**",
-                        "/js/**").permitAll()
+              .antMatchers("/resources/css/**", "/resources/fonts/**", "/resources/image/**",
+                      "/resources/js/**").permitAll()
               .antMatchers("/**").authenticated().and()
               .formLogin().loginPage("/login")
               .defaultSuccessUrl("/irPaginaInicio", true)
