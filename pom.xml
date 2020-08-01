@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.unmsm</groupId>
@@ -7,7 +8,7 @@
 	<name>QualityEggsSpring</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
-	
+
 	<properties>
 		<thymeleaf.version>2.0.15</thymeleaf.version>
 		<springsecurity.version>4.0.1.RELEASE</springsecurity.version>
@@ -99,7 +100,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
 		</dependency>
-	
+
 		<!-- SPRING DATA -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -119,7 +120,7 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 		</dependency>
-		
+
 		<!-- SERVIDOR APACHE -->
 		<dependency>
 			<groupId> org.apache.logging.log4j</groupId>
@@ -171,11 +172,11 @@
 			<version>2.2.1</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<dependency>
-    		<groupId>org.thymeleaf.extras</groupId>
-    		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-    		<version>3.0.0.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
-		</dependency>	
-		
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<version>3.0.0.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
 		<!-- PARA FILES -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -222,7 +223,7 @@
 			<artifactId>jasperreports-fonts</artifactId>
 			<version>5.6.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
@@ -235,7 +236,7 @@
 			<artifactId>yarg</artifactId>
 			<version>2.0.4</version>
 		</dependency>
-		
+
 		<!-- TESTING -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -312,10 +313,21 @@
 		</repository>
 
 	</repositories>
-		
+
 	<!-- WORK WITH JAVA 1.8 -->
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.0.RELEASE</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -324,6 +336,11 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.16</version>
 			</plugin>
 		</plugins>
 	</build>
